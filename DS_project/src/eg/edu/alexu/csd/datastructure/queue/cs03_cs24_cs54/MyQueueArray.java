@@ -8,9 +8,17 @@ import eg.edu.alexu.csd.datastructure.queue.IQueue;
  *
  */
 public class MyQueueArray implements IQueue, IArrayBased {
+	/**
+     * @serialField
+     */
     Object[] x;
+    /**
+     * @serialField
+     */
     int size, count, r = 0, f = 0;
-
+    /**
+     * @param max size
+     */
     MyQueueArray(final int max) {
         size = max;
         x = new Object[size];
