@@ -8,29 +8,52 @@ import eg.edu.alexu.csd.datastructure.queue.IQueue;
  *
  */
 public class MyQueueArray implements IQueue, IArrayBased {
+    Object[] x;
+    int size, count, r = 0, f = 0;
+
+    MyQueueArray(final int max) {
+        size = max;
+        x = new Object[size];
+
+    }
 
     @Override
     public void enqueue(final Object item) {
-        // TODO Auto-generated method stub
+        if (size == count) {
+            throw new RuntimeException();
 
+        } else {
+            x[r] = item;
+            r = ((r + 1) % size);
+            count++;
+        }
     }
 
     @Override
     public Object dequeue() {
-        // TODO Auto-generated method stub
-        return null;
+        Object temp;
+        if (isEmpty()) {
+            throw new RuntimeException();
+        } else {
+            temp = x[f];
+            x[f] = null;
+            f = (f + 1) % size;
+            count--;
+
+        }
+        return temp;
     }
 
     @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        return false;
+        return count == 0;
+
     }
 
     @Override
     public int size() {
-        // TODO Auto-generated method stub
-        return 0;
+
+        return count;
     }
 
 }
