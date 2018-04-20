@@ -7,6 +7,7 @@ public class Tes {
     public static PriorityQ q = new PriorityQ();
 
     public static void main(final String[] args) {
+       
 
     }
 

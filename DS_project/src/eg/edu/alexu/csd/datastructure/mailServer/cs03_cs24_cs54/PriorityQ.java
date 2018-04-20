@@ -2,7 +2,6 @@ package eg.edu.alexu.csd.datastructure.mailServer.cs03_cs24_cs54;
 
 import eg.edu.alexu.csd.datastructure.mailServer.IPriorityQueue;
 import eg.edu.alexu.csd.datastructure.linkedList.cs03_cs10.DLinkedList;
-import eg.edu.alexu.csd.datastructure.mailServer.cs03_cs24_cs54.Node;
 
 /**
  * @author ahmed molahez
@@ -17,10 +16,10 @@ public class PriorityQ implements IPriorityQueue {
     /**
      * @serialField
      */
-    int count, j;
+    int j;
 
     @Override
-    public void insert(Object item, int key) {
+    public void insert(final Object item, final int key) {
         if (key < 1) {
             throw new IndexOutOfBoundsException();
         }
@@ -28,7 +27,7 @@ public class PriorityQ implements IPriorityQueue {
         Node temp = new Node();
         if (pqueue.size() == 0) {
             pqueue.add(0, newNode);
-            count++;
+
         } else {
             for (j = (pqueue.size() - 1); j >= 0; j--) {
                 if (key > ((Node) pqueue.get(j)).key) {
