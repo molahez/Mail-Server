@@ -30,13 +30,13 @@ public class PriorityQ implements IPriorityQueue {
 
         } else {
             for (j = (pqueue.size() - 1); j >= 0; j--) {
-                if (key > ((Node) pqueue.get(j)).key) {
+                if (key >= ((Node) pqueue.get(j)).key) {
                     break;
                 } else {
                     temp = new Node(((Node) pqueue.get(j)).data,
                             ((Node) pqueue.get(j)).key);
-                    pqueue.remove(j);
                     pqueue.add(j + 1, temp);
+                    pqueue.remove(j);
 
                 }
             }
