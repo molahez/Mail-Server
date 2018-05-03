@@ -34,7 +34,7 @@ public class Appp  implements IApp{
 
         try {
 
-            Object obj = parser.parse(new FileReader("F:\\test.json"));
+            Object obj = parser.parse(new FileReader("recources/test.json"));
 
             JSONObject jsonObject = (JSONObject) obj;
             
