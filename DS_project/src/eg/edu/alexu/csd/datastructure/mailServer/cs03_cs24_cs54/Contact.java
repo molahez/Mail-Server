@@ -14,12 +14,28 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class Contact implements IContact{
+public abstract class Contact implements IContact{
 
+	public String emal;
+	public String password;
+	public String contact_name;
+	public Contact() {
+		emal = null;
+		password = null;
+		contact_name = null;
 
+    }
+	
+	public Contact (String emai, String passwor, String contact_nam) {
+		emal = emai;
+		password = passwor;
+		contact_name = contact_nam;
+	}
+	
 
 	@Override
 	public boolean check(String email) {
+		email = emal;
 		DLinkedList emails = new DLinkedList();
 		boolean flag = false;
 		JSONParser parser = new JSONParser();
@@ -64,7 +80,10 @@ public class Contact implements IContact{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void write_contact(String email, String pass, String contact_name) {
+	public void write_contact(String email, String pass, String contact_nam) {
+		email = emal;
+		pass = password;
+		contact_nam = contact_name;
 		DLinkedList emails = new DLinkedList();
 		DLinkedList passwords = new DLinkedList();
 		DLinkedList names = new DLinkedList();
@@ -116,7 +135,7 @@ public class Contact implements IContact{
 		JSONArray k3 = new JSONArray ();
 		k1.add(email);
 		k2.add(pass);
-		k3.add(contact_name);
+		k3.add(contact_nam);
 		obj1.put("emails", k1);
 		obj1.put("pass", k2);
 		obj1.put("name", k3);

@@ -89,13 +89,17 @@ public class Appp  implements IApp{
 		return false;
 	}
 
-	@Override
-	public boolean signup(final IContact contact, final String email, final String cont) {
+	public boolean signup(final IContact contact) {
 		// TODO Auto-generated method stub
 		String path = "Users";
 		File dir = new File(path);
 		int counter = 0;
 		String temp, folders;
+		String email, password, cont;
+		Object tem = null;
+		email = ((Contact)tem).emal;
+		password = contact.password();
+		cont = contact.contact_name();
 
 		ArrayList<String> list = new ArrayList<String>() {
 			{
@@ -117,7 +121,7 @@ public class Appp  implements IApp{
 				dir = new File(path);
 				dir.mkdirs();
 
-				// saving in file of users is missed 
+				contact.write_contact(email, password, cont); 
 
 				while (counter != list.size()) {
 					folders = temp + "/" + list.get(counter);

@@ -5,4 +5,5 @@ public interface IContact {
 	//here we write contacts in json file
 	public void write_contact(String email, String pass,String contact_name );
 	
+	
 }
