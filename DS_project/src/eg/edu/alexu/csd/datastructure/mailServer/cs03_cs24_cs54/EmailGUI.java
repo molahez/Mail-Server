@@ -79,11 +79,19 @@ public class EmailGUI {
 		frame.getContentPane().add(lblPassword);
 		
 		textField = new JTextField();
+		textField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		textField.setBounds(360, 163, 177, 20);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
+		textField_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		textField_1.setColumns(10);
 		textField_1.setBounds(360, 195, 177, 20);
 		frame.getContentPane().add(textField_1);

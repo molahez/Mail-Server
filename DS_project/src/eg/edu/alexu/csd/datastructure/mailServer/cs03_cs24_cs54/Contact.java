@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Objects;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -14,32 +15,59 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class Contact implements IContact{
-	/**
-     * @serialField
-     */
-    static DLinkedList emails = new DLinkedList();
-    /**
-     * @serialField
-     */
-    static DLinkedList passwords = new DLinkedList();
-    /**
-     * @serialField
-     */
-    static DLinkedList names = new DLinkedList();
+
 
 
 	@Override
 	public boolean check(String email) {
-		// TODO Auto-generated method stub
-		String path = "D:\\Users\\mails.txt";
-		 
-		
-		return false;
+		DLinkedList emails = new DLinkedList();
+		boolean flag = false;
+		JSONParser parser = new JSONParser();
+
+        try {
+
+            Object obj = parser.parse(new FileReader("Users/contact.json"));
+
+            JSONObject jsonObject = (JSONObject) obj;
+            
+
+            
+
+            // loop array
+            //here we load content of json file
+            JSONArray col1 = (JSONArray) jsonObject.get("emails");
+            Iterator<String> iterator1 = col1.iterator();
+           
+            while (iterator1.hasNext()) {
+            	emails.add(iterator1.next());
+                
+            }
+           
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        for(int i=0;i<emails.size();i++) {
+        	if(Objects.equals(email,emails.get(i))) {
+        		flag = true;
+        	}
+        }
+		return flag;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public void write_contact(String email, String pass, String contact_name) {
+		DLinkedList emails = new DLinkedList();
+		DLinkedList passwords = new DLinkedList();
+		DLinkedList names = new DLinkedList();
 		JSONParser parser = new JSONParser();
 
         try {
