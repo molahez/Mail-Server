@@ -26,12 +26,13 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Objects;
 
 import javax.swing.JTextField;
 
 public class Sign_in extends JFrame {
 	static DLinkedList fol = new DLinkedList();
-	 
+	String temp;
 	
 	
 	int count = 5;
@@ -122,6 +123,8 @@ public class Sign_in extends JFrame {
 					DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getSelectionPath()
 							.getLastPathComponent();
 					textField.setText(selectedNode.getUserObject().toString());
+					temp = textField.getText();
+					
 				}
 
 			}
@@ -145,6 +148,7 @@ public class Sign_in extends JFrame {
 				DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
 				model.reload();
 				fol.add(textField.getText());
+				Appp.write(fol);
 				
 			}
 		});
@@ -156,11 +160,25 @@ public class Sign_in extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getSelectionPath()
 						.getLastPathComponent();
-
+                
+                
 				selectedNode.setUserObject(textField.getText());
 				// reload tree model
 				DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
 				model.reload();
+				
+				
+				for(int i =0;i<fol.size();i++) {
+					
+					
+					if(Objects.equals(temp,fol.get(i))) {
+						
+						
+						fol.set(i, textField.getText());
+					}
+				}
+				Appp.write(fol);
+				
 
 			}
 		});
@@ -180,6 +198,16 @@ public class Sign_in extends JFrame {
 
 					model.reload();
 				}
+				for(int i =0;i<fol.size();i++) {
+					
+					
+					if(Objects.equals(temp,fol.get(i))) {
+						
+						
+						fol.remove(i);
+					}
+				}
+				Appp.write(fol);
 
 			}
 		});

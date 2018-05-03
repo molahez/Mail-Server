@@ -3,6 +3,7 @@ package eg.edu.alexu.csd.datastructure.mailServer.cs03_cs24_cs54;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -25,7 +26,7 @@ public class Appp  implements IApp{
      * @serialField
      */
     static DLinkedList fol = new DLinkedList();
-
+    //Function used to read the data of jtree in gui which displays the content of folders
 	static DLinkedList read() throws IOException {
 		JSONParser parser = new JSONParser();
 
@@ -57,6 +58,26 @@ public class Appp  implements IApp{
             e.printStackTrace();
         }
         return fol;
+	}
+	@SuppressWarnings("unchecked")
+	 static void write(DLinkedList x)  {
+		JSONObject obj = new JSONObject();
+		
+		JSONArray k = new JSONArray ();
+		for(int i = 0;i<x.size();i++) {
+			k.add(x.get(i));
+		}
+		
+		obj.put("Folders", k);
+		 try (FileWriter file = new FileWriter("F:\\test.json")) {
+
+	            file.write(obj.toString());
+	            file.flush();
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+		 
 	}
 
 
