@@ -1,6 +1,18 @@
 package eg.edu.alexu.csd.datastructure.mailServer.cs03_cs24_cs54;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Iterator;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import eg.edu.alexu.csd.datastructure.linkedList.ILinkedList;
+import eg.edu.alexu.csd.datastructure.linkedList.cs03_cs10.DLinkedList;
 import eg.edu.alexu.csd.datastructure.mailServer.IApp;
 import eg.edu.alexu.csd.datastructure.mailServer.IContact;
 import eg.edu.alexu.csd.datastructure.mailServer.IFilter;
@@ -9,6 +21,44 @@ import eg.edu.alexu.csd.datastructure.mailServer.IMail;
 import eg.edu.alexu.csd.datastructure.mailServer.ISort;
 
 public class Appp  implements IApp{
+	/**
+     * @serialField
+     */
+    static DLinkedList fol = new DLinkedList();
+
+	static DLinkedList read() throws IOException {
+		JSONParser parser = new JSONParser();
+
+        try {
+
+            Object obj = parser.parse(new FileReader("F:\\test.json"));
+
+            JSONObject jsonObject = (JSONObject) obj;
+            
+
+            
+
+            // loop array
+            JSONArray msg = (JSONArray) jsonObject.get("Folders");
+            Iterator<String> iterator = msg.iterator();
+            while (iterator.hasNext()) {
+            	fol.add(iterator.next());
+               
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return fol;
+	}
+
 
 	@Override
 	public boolean signin(String email, String password) {

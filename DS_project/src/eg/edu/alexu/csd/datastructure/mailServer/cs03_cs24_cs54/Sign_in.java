@@ -44,17 +44,12 @@ public class Sign_in extends JFrame {
 	 */
 	public static void main(String[] args) {
 		try {
-			fol=App.read();
+			fol=Appp.read();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		try {
-			App.write(fol);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		
 	   
 
 		EventQueue.invokeLater(new Runnable() {
