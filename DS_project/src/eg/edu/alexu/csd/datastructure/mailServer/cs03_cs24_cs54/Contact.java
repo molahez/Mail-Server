@@ -37,6 +37,7 @@ public class Contact implements IContact{
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void write_contact(String email, String pass, String contact_name) {
 		JSONParser parser = new JSONParser();
