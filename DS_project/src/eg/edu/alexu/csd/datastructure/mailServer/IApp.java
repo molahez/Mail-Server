@@ -15,7 +15,7 @@ public boolean signin(String email, String password);
 * @param contact
 * @return false if the email name already exist
 */
-public boolean signup(IContact contact);
+public boolean signup(IContact contact, String email, String cont);
 /**
 * This function should be called before reading from the index file
 * and apply the sort and search parameters

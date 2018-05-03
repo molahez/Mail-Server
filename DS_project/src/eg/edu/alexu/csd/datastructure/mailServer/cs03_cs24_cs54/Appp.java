@@ -1,10 +1,12 @@
 package eg.edu.alexu.csd.datastructure.mailServer.cs03_cs24_cs54;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.json.simple.JSONArray;
@@ -88,9 +90,61 @@ public class Appp  implements IApp{
 	}
 
 	@Override
-	public boolean signup(IContact contact) {
+	public boolean signup(final IContact contact, final String email, final String cont) {
 		// TODO Auto-generated method stub
-		return false;
+		String path = "Users";
+		File dir = new File(path);
+		int counter = 0;
+		String temp, folders;
+
+		ArrayList<String> list = new ArrayList<String>() {
+			{
+				add("Inbox");
+				add("Sent");
+				add("Received");
+				add("Filterd mails");
+				add("Junk");
+			}
+		};
+
+		if (dir.exists()) {
+			if (contact.check(email)) {
+				// mail is existed
+			    return false;
+			} else {
+				path = path + "/" + cont;
+				temp = path;
+				dir = new File(path);
+				dir.mkdirs();
+
+				// saving in file of users is missed 
+
+				while (counter != list.size()) {
+					folders = temp + "/" + list.get(counter);
+					dir = new File(folders);
+					dir.mkdirs();
+					counter++;
+				}
+				return true;
+			}
+		} else {
+			dir.mkdirs();
+	
+			path = path + "/" + cont;
+			temp = path;
+			dir = new File(path);
+			dir.mkdirs();
+
+	
+
+			while (counter != list.size()) {
+				folders = temp + "/" + list.get(counter);
+				dir = new File(folders);
+				dir.mkdirs();
+				counter++;
+			}
+            return true;
+		}
 	}
 
 	@Override
