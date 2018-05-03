@@ -5,6 +5,7 @@ import eg.edu.alexu.csd.datastructure.mailServer.IContact;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Objects;
@@ -14,19 +15,19 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public abstract class Contact implements IContact{
+public  class Contact implements IContact{
 
-	public String emal;
-	public String password;
-	public String contact_name;
-	public Contact() {
+	public static String emal;
+	public static String password;
+	public static String contact_name;
+	public  Contact() {
 		emal = null;
 		password = null;
 		contact_name = null;
 
     }
-	
-	public Contact (String emai, String passwor, String contact_nam) {
+	@Override
+	public void var (String emai, String passwor, String contact_nam) {
 		emal = emai;
 		password = passwor;
 		contact_name = contact_nam;
@@ -139,6 +140,14 @@ public abstract class Contact implements IContact{
 		obj1.put("emails", k1);
 		obj1.put("pass", k2);
 		obj1.put("name", k3);
+		try (FileWriter file = new FileWriter("Users/contact.json")) {
+
+            file.write(obj1.toString());
+            file.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 	}
 	
 	

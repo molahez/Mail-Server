@@ -64,6 +64,13 @@ public class EmailGUI {
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnSignUp = new JButton("Sign up");
+		btnSignUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				Signup kk = new Signup();
+				kk.setVisible(true);
+			}
+		});
 		btnSignUp.setFont(new Font("Century Gothic", Font.PLAIN, 20));
 		btnSignUp.setBounds(214, 251, 127, 35);
 		frame.getContentPane().add(btnSignUp);

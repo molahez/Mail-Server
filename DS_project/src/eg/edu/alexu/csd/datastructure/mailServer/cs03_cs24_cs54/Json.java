@@ -18,6 +18,7 @@ public class Json {
 		k.add("java");
 		k.add("JSP");
 		obj.put("courses", k);
+		obj.put("cour", k);
 		 try (FileWriter file = new FileWriter("F:\\test.json")) {
 
 	            file.write(obj.toString());

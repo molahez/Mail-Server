@@ -98,8 +98,8 @@ public class Appp  implements IApp{
 		String email, password, cont;
 		Object tem = null;
 		email = ((Contact)tem).emal;
-		password = contact.password();
-		cont = contact.contact_name();
+		password = ((Contact)tem).password;
+		cont = ((Contact)tem).contact_name;
 
 		ArrayList<String> list = new ArrayList<String>() {
 			{
