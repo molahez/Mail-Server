@@ -20,9 +20,9 @@ import eg.edu.alexu.csd.datastructure.linkedList.cs03_cs10.DLinkedList;
 import eg.edu.alexu.csd.datastructure.mailServer.IMail;
 
 public class Mail implements IMail {
-	
-	public static String from, to, subject, email_body,time;
-	
+
+	public static String from, to, subject, email_body, time;
+
 	public Mail() {
 		from = null;
 		to = null;
@@ -30,9 +30,9 @@ public class Mail implements IMail {
 		email_body = null;
 		time = null;
 	}
-	
+
 	@Override
-	public void var2(String fro, String t, String sub, String email_body,String tt) {
+	public void var2(String fro, String t, String sub, String email_body, String tt) {
 		from = fro;
 		to = t;
 		subject = sub;
@@ -42,7 +42,8 @@ public class Mail implements IMail {
 
 	@SuppressWarnings({ "unchecked", "unused" })
 	@Override
-	public void save_email(String to, String from, String subject, String body, String path,String tt) {
+
+	public void save_email(String to, String from, String subject, String body, String path, String tt) {
 		DLinkedList send = new DLinkedList();
 		DLinkedList recieve = new DLinkedList();
 		DLinkedList subjects = new DLinkedList();
@@ -97,7 +98,6 @@ public class Mail implements IMail {
 
 			}
 
-
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -119,10 +119,9 @@ public class Mail implements IMail {
 		subjects.add(subject);
 		bodies.add(body);
 		times.add(tt);
-		if(orders.size()==0) {
-			orders.add("1");
-		}
-		else {
+		if (orders.size() == 0) {
+			orders.add(1);
+		} else {
 			orders.add(orders.size() + 1);
 		}
 		for (int i = 0; i < recieve.size(); i++) {
@@ -149,101 +148,142 @@ public class Mail implements IMail {
 			e.printStackTrace();
 		}
 	}
+
 	public void save_attachement(File x, File y) {
 		if (!x.exists()) {
-	        return;
-	    }
-	    if (!y.exists()) {
-	        try {
+			return;
+		}
+		if (!y.exists()) {
+			try {
 				y.createNewFile();
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-	    }
-	    FileChannel source = null;
-	    FileChannel destination = null;
-	    try {
+		}
+		FileChannel source = null;
+		FileChannel destination = null;
+		try {
 			source = new FileInputStream(x).getChannel();
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-	    try {
+		try {
 			destination = new FileOutputStream(y).getChannel();
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-	    if (destination != null && source != null) {
-	        try {
+		if (destination != null && source != null) {
+			try {
 				destination.transferFrom(source, 0, source.size());
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-	    }
-	    if (source != null) {
-	        try {
+		}
+		if (source != null) {
+			try {
 				source.close();
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-	    }
-	    if (destination != null) {
-	        try {
+		}
+		if (destination != null) {
+			try {
 				destination.close();
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-	    }
-	}
-	
-	public String return_contact(String email) {
-			DLinkedList emails = new DLinkedList();
-			DLinkedList names = new DLinkedList();
-			String flag = null;
-			JSONParser parser = new JSONParser();
-	
-			try {
-	
-				Object obj = parser.parse(new FileReader("Users/contact.json"));
-	
-				JSONObject jsonObject = (JSONObject) obj;
-	
-				// loop array
-				// here we load content of json file
-				JSONArray col1 = (JSONArray) jsonObject.get("emails");
-				JSONArray col3 = (JSONArray) jsonObject.get("name");
-				Iterator<String> iterator1 = col1.iterator();
-				Iterator<String> iterator3 = col3.iterator();
-	
-				while (iterator1.hasNext()) {
-					emails.add(iterator1.next());
-	
-				}
-				while (iterator3.hasNext()) {
-					names.add(iterator3.next());
-
-				}
-	
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (ParseException e) {
-				e.printStackTrace();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			for (int i = 0; i < emails.size(); i++) {
-				if (Objects.equals(email, emails.get(i))) {
-					flag = (String) names.get(i);
-				}
-			}
-			return flag;
 		}
+	}
+
+	public String return_contact(String email) {
+		DLinkedList emails = new DLinkedList();
+		DLinkedList names = new DLinkedList();
+		String flag = null;
+		JSONParser parser = new JSONParser();
+
+		try {
+
+			Object obj = parser.parse(new FileReader("Users/contact.json"));
+
+			JSONObject jsonObject = (JSONObject) obj;
+
+			// loop array
+			// here we load content of json file
+			JSONArray col1 = (JSONArray) jsonObject.get("emails");
+			JSONArray col3 = (JSONArray) jsonObject.get("name");
+			Iterator<String> iterator1 = col1.iterator();
+			Iterator<String> iterator3 = col3.iterator();
+
+			while (iterator1.hasNext()) {
+				emails.add(iterator1.next());
+
+			}
+			while (iterator3.hasNext()) {
+				names.add(iterator3.next());
+
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		for (int i = 0; i < emails.size(); i++) {
+			if (Objects.equals(email, emails.get(i))) {
+				flag = (String) names.get(i);
+			}
+		}
+		return flag;
+	}
+
+	@Override
+	public int order(String cont, String path) {
+		DLinkedList orders = new DLinkedList();
+		JSONParser parser = new JSONParser();
+
+		try {
+
+			Object obj = parser.parse(new FileReader(path));
+
+			JSONObject jsonObject = (JSONObject) obj;
+
+			// loop array
+			// here we load content of json file
+			JSONArray col1 = (JSONArray) jsonObject.get("tos");
+
+			Iterator<String> iterator1 = col1.iterator();
+
+			while (iterator1.hasNext()) {
+
+				orders.add(iterator1.next());
+
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (orders.size() == 0) {
+			return 1;
+		} else {
+			return (int) orders.get((orders.size() - 1)) + 1;
+		}
+
+	}
 
 }

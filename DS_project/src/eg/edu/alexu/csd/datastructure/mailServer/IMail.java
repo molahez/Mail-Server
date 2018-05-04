@@ -8,5 +8,6 @@ public interface IMail {
 	public void save_email(String to, String from,String subject, String body, String path,String tt);
 	public String return_contact(String email);
 	public void save_attachement(File x, File y);
+	public int order(String cont , String Path);
 	
 }
