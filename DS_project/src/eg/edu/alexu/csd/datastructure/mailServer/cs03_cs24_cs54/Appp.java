@@ -204,8 +204,22 @@ public class Appp implements IApp {
 
 	@Override
 	public boolean compose(IMail email) {
-		// TODO Auto-generated method stub
-		return false;
+		String from, to, subject, email_body;
+		Contact x = new Contact();
+		Object v = null;
+		
+		from = ((Mail) v).from;
+		to = ((Mail) v).to;
+		subject = ((Mail) v).subject;
+		email_body = ((Mail) v).email_body;
+		
+		if (x.check(to)) {
+			
+			
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }
