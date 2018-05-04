@@ -223,10 +223,10 @@ public class Appp implements IApp {
 			z = ((Mail) email).return_contact(to);
 			y = ((Mail) email).return_contact(from);
 			
-			path = "Users/" + z + "/Sent/Index file.json"; //save for receiver
+			path = "Users/" + z + "/Inbox/Index file.json"; //save for receiver
 			email.save_email(to, from, subject, email_body, path);
 			
-			path = "Users/" + y + "/Inbox/Index file.json"; //save for sender
+			path = "Users/" + y + "/Sent/Index file.json"; //save for sender
 			email.save_email(to, from, subject, email_body, path);
 			
 			return true;
