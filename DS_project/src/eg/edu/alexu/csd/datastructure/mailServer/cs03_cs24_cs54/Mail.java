@@ -1,9 +1,13 @@
 package eg.edu.alexu.csd.datastructure.mailServer.cs03_cs24_cs54;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.util.Iterator;
 import java.util.Objects;
 
@@ -131,6 +135,57 @@ public class Mail implements IMail {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	public void save_attachement(File x, File y) {
+		if (!x.exists()) {
+	        return;
+	    }
+	    if (!y.exists()) {
+	        try {
+				y.createNewFile();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	    }
+	    FileChannel source = null;
+	    FileChannel destination = null;
+	    try {
+			source = new FileInputStream(x).getChannel();
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	    try {
+			destination = new FileOutputStream(y).getChannel();
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	    if (destination != null && source != null) {
+	        try {
+				destination.transferFrom(source, 0, source.size());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	    }
+	    if (source != null) {
+	        try {
+				source.close();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	    }
+	    if (destination != null) {
+	        try {
+				destination.close();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	    }
 	}
 	
 	public String return_contact(String email) {

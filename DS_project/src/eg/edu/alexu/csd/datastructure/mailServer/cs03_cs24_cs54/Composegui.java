@@ -1,31 +1,23 @@
 package eg.edu.alexu.csd.datastructure.mailServer.cs03_cs24_cs54;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-
-import java.awt.Font;
-import javax.swing.JTextField;
 import java.awt.Color;
-import javax.swing.JTextArea;
-import javax.swing.JTextPane;
-
-import org.apache.commons.io.FileUtils;
-
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.awt.event.ActionEvent;
-import java.awt.SystemColor;
+
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class Composegui {
 
@@ -132,19 +124,16 @@ public class Composegui {
 
 		JButton btnNewButton = new JButton("Insert");
 		btnNewButton.addActionListener(new ActionListener() {
+			@SuppressWarnings("resource")
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fs = new JFileChooser(new File("F:\\"));
-				fs.setDialogTitle("save");
-				fs.setFileFilter(new Filetypefilter(".txt", "Text File"));
+				fs.setDialogTitle("upload");
+				
 				int result = fs.showSaveDialog(null);
 				File fi = fs.getSelectedFile();
-				File Dir = new File("Users/temp");
-				try {
-				    FileUtils.copyFileToDirectory(fi, Dir);
-				} catch (IOException ee) {
-				    ee.printStackTrace();
-				}
-					
+				File Dir = new File("Users/temp"+"/"+fi.getName());	
+				Mail x = new Mail();
+				x.save_attachement(fi, Dir);
 				textArea_1.append(fi.getName()+"\n");
 			}
 		});
