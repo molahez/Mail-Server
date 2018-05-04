@@ -95,34 +95,36 @@ public class Sign_up {
 					passwordField.setText("");
 					passwordField_1.setText("");
 					textField_2.setText("");
-					
-				} else if (y.signup(x)) {
-					if (passwordField.getPassword().length < 8) {
-						JOptionPane.showMessageDialog(null, " Password is less than 8 characters please try again");
-						textField.setText("");
-						passwordField.setText("");
-						passwordField_1.setText("");
-						textField_2.setText("");
 
-					} else if ((Objects.equals(passwordField.getPassword(), passwordField_1.getPassword()))) {
-						JOptionPane.showMessageDialog(null, " Password doesn't match please try again");
-						textField.setText("");
-						passwordField.setText("");
-						passwordField_1.setText("");
-						textField_2.setText("");
-					} else {
-						frame.dispose();
-						MainWindow kk = new MainWindow();
-						kk.main(new String[5]);
-					}
-
-				} else {
-					JOptionPane.showMessageDialog(null, " Invalid email address please try again");
-
+				} else if (passwordField.getPassword().length < 8) {
+					JOptionPane.showMessageDialog(null, " Password is less than 8 characters please try again");
 					textField.setText("");
 					passwordField.setText("");
 					passwordField_1.setText("");
 					textField_2.setText("");
+
+				} else if ((Objects.equals(passwordField.getPassword(), passwordField_1.getPassword()))) {
+					JOptionPane.showMessageDialog(null, " Password doesn't match please try again");
+					textField.setText("");
+					passwordField.setText("");
+					passwordField_1.setText("");
+					textField_2.setText("");
+
+				} else {
+					if (y.signup(x)) {
+
+						frame.dispose();
+						MainWindow kk = new MainWindow();
+						kk.main(new String[5]);
+					} else {
+						JOptionPane.showMessageDialog(null, " Invalid email address please try again");
+
+						textField.setText("");
+						passwordField.setText("");
+						passwordField_1.setText("");
+						textField_2.setText("");
+					}
+
 				}
 			}
 		});
