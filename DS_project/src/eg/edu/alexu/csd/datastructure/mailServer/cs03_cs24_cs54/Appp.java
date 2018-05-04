@@ -1,6 +1,5 @@
 package eg.edu.alexu.csd.datastructure.mailServer.cs03_cs24_cs54;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -23,83 +22,113 @@ import eg.edu.alexu.csd.datastructure.mailServer.IFolder;
 import eg.edu.alexu.csd.datastructure.mailServer.IMail;
 import eg.edu.alexu.csd.datastructure.mailServer.ISort;
 
-public class Appp  implements IApp{
+public class Appp implements IApp {
 	/**
-     * @serialField
-     */
-    static DLinkedList fol = new DLinkedList();
-    //Function used to read the data of jtree in gui which displays the content of folders
+	 * @serialField
+	 */
+	static DLinkedList fol = new DLinkedList();
+
+	// Function used to read the data of jtree in gui which displays the content of
+	// folders
 	static DLinkedList read() throws IOException {
 		JSONParser parser = new JSONParser();
 
-        try {
+		try {
 
-            Object obj = parser.parse(new FileReader("recources/test.json"));
+			Object obj = parser.parse(new FileReader("recources/test.json"));
+			Object obj1 = parser.parse(new FileReader("recources/t.json"));
 
-            JSONObject jsonObject = (JSONObject) obj;
-            
+			JSONObject jsonObject = (JSONObject) obj;
+			JSONObject jsonObject1 = (JSONObject) obj1;
+			String name = (String) jsonObject1.get("state");
 
-            
+			// loop array
+			JSONArray msg = (JSONArray) jsonObject.get("Folders");
+			@SuppressWarnings("unchecked")
+			Iterator<String> iterator = msg.iterator();
+			if (!Boolean.parseBoolean(name)) {
+				while (iterator.hasNext()) {
 
-            // loop array
-            JSONArray msg = (JSONArray) jsonObject.get("Folders");
-            Iterator<String> iterator = msg.iterator();
-            while (iterator.hasNext()) {
-            	fol.add(iterator.next());
-               
-            }
+					fol.add(iterator.next());
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return fol;
+				}
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return fol;
 	}
+
+	// function used to write data of jtree which displays folders
 	@SuppressWarnings("unchecked")
-	 static void write(DLinkedList x)  {
+	static void write(DLinkedList x) {
 		JSONObject obj = new JSONObject();
-		
-		JSONArray k = new JSONArray ();
-		for(int i = 0;i<x.size();i++) {
+
+		JSONArray k = new JSONArray();
+		for (int i = 0; i < x.size(); i++) {
 			k.add(x.get(i));
 		}
-		
+
 		obj.put("Folders", k);
-		 try (FileWriter file = new FileWriter("F:\\test.json")) {
+		try (FileWriter file = new FileWriter("recources/test.json")) {
 
-	            file.write(obj.toString());
-	            file.flush();
+			file.write(obj.toString());
+			file.flush();
 
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-		 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
+	// function used to write data of jtree which displays folders
+	@SuppressWarnings("unchecked")
+	static void writee(boolean state) {
+
+		JSONObject obj = new JSONObject();
+		obj.put("state", String.valueOf(state));
+
+		try (FileWriter file = new FileWriter("recources/t.json")) {
+
+			file.write(obj.toString());
+			file.flush();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 
 	@Override
 	public boolean signin(String email, String password) {
-		// TODO Auto-generated method stub
+		Contact x = new Contact();
+		x.var1(email, password);
+		if (x.check(email, password)) {
+			return true;
+
+		}
 		return false;
+		
 	}
 
+	@SuppressWarnings("serial")
 	public boolean signup(final IContact contact) {
-		// TODO Auto-generated method stub
+
 		String path = "Users";
 		File dir = new File(path);
 		int counter = 0;
 		String temp, folders;
 		String email, password, cont;
-		Object tem = null;
-		email = ((Contact)tem).emal;
-		password = ((Contact)tem).password;
-		cont = ((Contact)tem).contact_name;
+		email = Contact.emal;
+		password = Contact.password;
+		cont = Contact.contact_name;
 
 		ArrayList<String> list = new ArrayList<String>() {
 			{
@@ -114,14 +143,14 @@ public class Appp  implements IApp{
 		if (dir.exists()) {
 			if (contact.check(email)) {
 				// mail is existed
-			    return false;
+				return false;
 			} else {
 				path = path + "/" + cont;
 				temp = path;
 				dir = new File(path);
 				dir.mkdirs();
 
-				contact.write_contact(email, password, cont); 
+				contact.write_contact(email, password, cont);
 
 				while (counter != list.size()) {
 					folders = temp + "/" + list.get(counter);
@@ -133,13 +162,11 @@ public class Appp  implements IApp{
 			}
 		} else {
 			dir.mkdirs();
-	
+
 			path = path + "/" + cont;
 			temp = path;
 			dir = new File(path);
 			dir.mkdirs();
-
-	
 
 			while (counter != list.size()) {
 				folders = temp + "/" + list.get(counter);
@@ -147,14 +174,14 @@ public class Appp  implements IApp{
 				dir.mkdirs();
 				counter++;
 			}
-            return true;
+			return true;
 		}
 	}
 
 	@Override
 	public void setViewingOptions(IFolder folder, IFilter filter, ISort sort) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -166,13 +193,13 @@ public class Appp  implements IApp{
 	@Override
 	public void deleteEmails(ILinkedList mails) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void moveEmails(ILinkedList mails, IFolder des) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
