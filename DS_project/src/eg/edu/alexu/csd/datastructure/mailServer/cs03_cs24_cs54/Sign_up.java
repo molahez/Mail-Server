@@ -16,6 +16,7 @@ import java.awt.Color;
 import java.awt.SystemColor;
 
 public class Sign_up {
+	
 
 	private JFrame frame;
 	private JTextField textField;

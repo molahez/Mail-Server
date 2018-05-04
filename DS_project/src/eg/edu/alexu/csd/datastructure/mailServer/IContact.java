@@ -13,6 +13,7 @@ public interface IContact {
 	public void var (String emai, String passwor, String contact_nam); 
 	//
 	public void var1 (String emai, String passwor);
+	public void var2(String emai);
 	public void create_file(String path);
 
 }

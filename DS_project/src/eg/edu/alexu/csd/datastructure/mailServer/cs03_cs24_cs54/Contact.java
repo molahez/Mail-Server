@@ -29,14 +29,33 @@ public class Contact implements IContact {
 		contact_name = null;
 
 	}
-	
+
 	public void create_file(String path) {
 		try {
-		File x = new File (path + "/Index file.json");
-		x.createNewFile();
+			File x = new File(path + "/Index file.json");
+			x.createNewFile();
 		} catch (IOException e) {
-			
+
 		}
+		JSONObject obj = new JSONObject();
+		JSONArray k1 = new JSONArray ();
+		JSONArray k2 = new JSONArray ();
+		JSONArray k3 = new JSONArray ();
+		JSONArray k4 = new JSONArray ();
+		JSONArray k5 = new JSONArray ();
+		obj.put("order", k1);
+		obj.put("tos", k1);
+		obj.put("froms", k1);
+		obj.put("subjects", k1);
+		obj.put("bodies", k1);
+		 try (FileWriter file = new FileWriter(path + "/Index file.json")) {
+
+	            file.write(obj.toString());
+	            file.flush();
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
 	}
 
 	@Override
@@ -49,6 +68,11 @@ public class Contact implements IContact {
 	public void var1(String emai, String passwor) {
 		emal = emai;
 		password = passwor;
+
+	}
+
+	public void var2(String emai) {
+		emal = emai;
 
 	}
 
@@ -166,8 +190,6 @@ public class Contact implements IContact {
 			e.printStackTrace();
 		}
 	}
-	
-
 
 	@SuppressWarnings({ "unchecked", "unused" })
 	@Override

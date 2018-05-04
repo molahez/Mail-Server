@@ -210,14 +210,16 @@ public class Appp implements IApp {
 
 	@Override
 	public boolean compose(IMail email) {
-		String from, to, subject, email_body;
+		String from, to =  null, subject, email_body;
 		String z, y, path;
 		Contact x = new Contact();
+		
 		
 		from = Mail.from;
 		to = Mail.to;
 		subject = Mail.subject;
 		email_body = Mail.email_body;
+		x.var2(to);
 		
 		if (x.check(to)) {
 			z = ((Mail) email).return_contact(to);
@@ -231,6 +233,7 @@ public class Appp implements IApp {
 			
 			return true;
 		} else {
+			System.out.println("f");
 			return false;
 		}
 	}

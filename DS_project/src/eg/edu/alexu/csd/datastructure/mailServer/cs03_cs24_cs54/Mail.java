@@ -115,7 +115,7 @@ public class Mail implements IMail {
 			k2.add(send.get(i));
 			k3.add(subjects.get(i));
 			k4.add(bodies.get(i));
-			k4.add(orders.get(i));
+			k5.add(orders.get(i));
 		}
 
 		obj1.put("tos", k1);
@@ -177,11 +177,5 @@ public class Mail implements IMail {
 			}
 			return flag;
 		}
-		
-		
-		
-		
-		
-	
 
 }

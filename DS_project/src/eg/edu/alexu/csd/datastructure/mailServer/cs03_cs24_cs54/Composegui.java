@@ -12,6 +12,9 @@ import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
+
+import org.apache.commons.io.FileUtils;
+
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
@@ -20,7 +23,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
+import java.awt.SystemColor;
 
 public class Composegui {
 
@@ -28,6 +33,7 @@ public class Composegui {
 	private JFrame frame;
 	private JTextField textField;
 	private JTextField textField_1;
+	String temp,email, password, cont;
 
 	/**
 	 * Launch the application.
@@ -65,6 +71,9 @@ public class Composegui {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		email = Contact.emal;
+		password = Contact.password;
+		cont = Contact.contact_name;
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(255, 255, 255));
 		frame.setBounds(100, 100, 1000, 600);
@@ -86,7 +95,7 @@ public class Composegui {
 		lblSubject.setBounds(68, 149, 76, 45);
 		frame.getContentPane().add(lblSubject);
 
-		JLabel lblE = new JLabel("e");
+		JLabel lblE = new JLabel(email);
 		lblE.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		lblE.setBounds(167, 41, 76, 45);
 		frame.getContentPane().add(lblE);
@@ -110,7 +119,16 @@ public class Composegui {
 		frame.getContentPane().add(x);
 
 		JTextArea textArea = new JTextArea();
+		textArea.setBackground(new Color(255, 255, 255));
 		x.setViewportView(textArea);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(154, 418, 309, 57);
+		frame.getContentPane().add(scrollPane);
+		
+		JTextArea textArea_1 = new JTextArea();
+		scrollPane.setViewportView(textArea_1);
+		textArea_1.setBackground(SystemColor.control);
 
 		JButton btnNewButton = new JButton("Insert");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -120,11 +138,14 @@ public class Composegui {
 				fs.setFileFilter(new Filetypefilter(".txt", "Text File"));
 				int result = fs.showSaveDialog(null);
 				File fi = fs.getSelectedFile();
-				File Dir = new File("recources");
-				boolean success = fi.renameTo(new File(Dir, fi.getName()));
-				if (!success) {
-				    // File was not successfully moved
+				File Dir = new File("Users/temp");
+				try {
+				    FileUtils.copyFileToDirectory(fi, Dir);
+				} catch (IOException ee) {
+				    ee.printStackTrace();
 				}
+					
+				textArea_1.append(fi.getName()+"\n");
 			}
 		});
 		btnNewButton.setFont(new Font("Century Gothic", Font.PLAIN, 16));
@@ -151,8 +172,41 @@ public class Composegui {
 		
 		JLabel lblAttachments = new JLabel("Attachments:-");
 		lblAttachments.setFont(new Font("Century Gothic", Font.PLAIN, 15));
-		lblAttachments.setBounds(68, 404, 102, 45);
+		lblAttachments.setBounds(42, 404, 102, 45);
 		frame.getContentPane().add(lblAttachments);
+		
+		JButton btnSend = new JButton("Send");
+		btnSend.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Mail x = new Mail();
+				
+				//Contact xx = new Contact();
+				//xx.var(email,password,cont);
+				x.var2(email, textField.getText(), textField_1.getText(),textArea.getText());
+				Appp y = new Appp();
+			  if(textField.getText()==""||textField_1.getText()==""||textArea.getText()=="") {
+				  JOptionPane.showMessageDialog(null, " Please fill all fields");
+			  }
+			  else if(y.compose(x)) {
+				  frame.dispose();
+					MainWindow kk = new MainWindow();
+					Appp.writee(true);
+					kk.main(new String[5]);
+				  
+			  }
+			  else {
+				  JOptionPane.showMessageDialog(null, " The Reciever is not in our server ");
+				  textField.setText("");
+			  }
+				
+				
+			}
+		});
+		btnSend.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		btnSend.setBounds(471, 486, 131, 45);
+		frame.getContentPane().add(btnSend);
+		
+		
 
 	}
 }
