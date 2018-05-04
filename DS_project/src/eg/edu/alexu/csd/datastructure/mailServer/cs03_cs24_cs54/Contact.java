@@ -3,6 +3,7 @@ package eg.edu.alexu.csd.datastructure.mailServer.cs03_cs24_cs54;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
@@ -27,6 +28,15 @@ public class Contact implements IContact {
 		password = null;
 		contact_name = null;
 
+	}
+	
+	public void create_file(String path) {
+		try {
+		File x = new File (path + "/Index file.json");
+		x.createNewFile();
+		} catch (IOException e) {
+			
+		}
 	}
 
 	@Override

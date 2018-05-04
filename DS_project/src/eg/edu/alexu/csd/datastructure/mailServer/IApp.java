@@ -1,5 +1,7 @@
 package eg.edu.alexu.csd.datastructure.mailServer;
 
+import java.io.IOException;
+
 import eg.edu.alexu.csd.datastructure.linkedList.ILinkedList;
 
 public interface IApp {
@@ -14,6 +16,7 @@ public boolean signin(String email, String password);
 * Create new account
 * @param contact
 * @return false if the email name already exist
+ * @throws IOException 
 */
 public boolean signup(IContact contact);
 /**
