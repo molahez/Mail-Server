@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Objects;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -35,7 +36,7 @@ public class Mail implements IMail {
 
 	@SuppressWarnings({ "unchecked", "unused" })
 	@Override
-	public void save_email(String to, String from, String subject, String body) {
+	public void save_email(String to, String from, String subject, String body, String path) {
 		DLinkedList send = new DLinkedList();
 		DLinkedList recieve = new DLinkedList();
 		DLinkedList subjects = new DLinkedList();
@@ -45,7 +46,7 @@ public class Mail implements IMail {
 
 		try {
 
-			Object obj = parser.parse(new FileReader("recources/index.json"));
+			Object obj = parser.parse(new FileReader(path));
 
 			JSONObject jsonObject = (JSONObject) obj;
 
@@ -122,7 +123,7 @@ public class Mail implements IMail {
 		obj1.put("subjects", k3);
 		obj1.put("bodies", k4);
 		obj1.put("order", k5);
-		try (FileWriter file = new FileWriter("Users/contact.json")) {
+		try (FileWriter file = new FileWriter(path)) {
 
 			file.write(obj1.toString());
 			file.flush();
@@ -131,6 +132,51 @@ public class Mail implements IMail {
 			e.printStackTrace();
 		}
 	}
+	
+	public String return_contact(String email) {
+			DLinkedList emails = new DLinkedList();
+			DLinkedList names = new DLinkedList();
+			String flag = null;
+			JSONParser parser = new JSONParser();
+	
+			try {
+	
+				Object obj = parser.parse(new FileReader("Users/contact.json"));
+	
+				JSONObject jsonObject = (JSONObject) obj;
+	
+				// loop array
+				// here we load content of json file
+				JSONArray col1 = (JSONArray) jsonObject.get("emails");
+				JSONArray col3 = (JSONArray) jsonObject.get("name");
+				Iterator<String> iterator1 = col1.iterator();
+				Iterator<String> iterator3 = col3.iterator();
+	
+				while (iterator1.hasNext()) {
+					emails.add(iterator1.next());
+	
+				}
+				while (iterator3.hasNext()) {
+					names.add(iterator3.next());
+
+				}
+	
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ParseException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			for (int i = 0; i < emails.size(); i++) {
+				if (Objects.equals(email, emails.get(i))) {
+					flag = (String) names.get(i);
+				}
+			}
+			return flag;
+		}
 		
 		
 		

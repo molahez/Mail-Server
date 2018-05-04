@@ -211,6 +211,7 @@ public class Appp implements IApp {
 	@Override
 	public boolean compose(IMail email) {
 		String from, to, subject, email_body;
+		String z, y, path;
 		Contact x = new Contact();
 		
 		from = Mail.from;
@@ -219,7 +220,14 @@ public class Appp implements IApp {
 		email_body = Mail.email_body;
 		
 		if (x.check(to)) {
+			z = ((Mail) email).return_contact(to);
+			y = ((Mail) email).return_contact(from);
 			
+			path = "Users/" + z + "/Sent/Index file.json"; //save for receiver
+			email.save_email(to, from, subject, email_body, path);
+			
+			path = "Users/" + y + "/Inbox/Index file.json"; //save for sender
+			email.save_email(to, from, subject, email_body, path);
 			
 			return true;
 		} else {
