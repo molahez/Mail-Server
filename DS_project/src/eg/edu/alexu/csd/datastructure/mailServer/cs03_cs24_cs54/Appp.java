@@ -213,12 +213,11 @@ public class Appp implements IApp {
 	public boolean compose(IMail email) {
 		String from, to, subject, email_body;
 		Contact x = new Contact();
-		Object v = null;
 		
-		from = ((Mail) v).from;
-		to = ((Mail) v).to;
-		subject = ((Mail) v).subject;
-		email_body = ((Mail) v).email_body;
+		from = Mail.from;
+		to = Mail.to;
+		subject = Mail.subject;
+		email_body = Mail.email_body;
 		
 		if (x.check(to)) {
 			
