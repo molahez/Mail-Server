@@ -162,7 +162,6 @@ public class Appp implements IApp {
 			}
 		} else {
 			dir.mkdirs();
-
 			path = path + "/" + cont;
 			temp = path;
 			dir = new File(path);
