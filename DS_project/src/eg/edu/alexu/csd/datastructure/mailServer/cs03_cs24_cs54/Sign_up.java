@@ -1,19 +1,18 @@
 package eg.edu.alexu.csd.datastructure.mailServer.cs03_cs24_cs54;
 
+import java.awt.Color;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.util.Objects;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Arrays;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
-import java.awt.Font;
-import java.awt.Color;
-import java.awt.SystemColor;
+import javax.swing.JTextField;
 
 public class Sign_up {
 	
@@ -104,7 +103,8 @@ public class Sign_up {
 					passwordField_1.setText("");
 					textField_2.setText("");
 
-				} else if ((Objects.equals(passwordField.getPassword(), passwordField_1.getPassword()))) {
+				} else if (!(Arrays.equals(passwordField.getPassword(),passwordField_1.getPassword()))) {
+					
 					JOptionPane.showMessageDialog(null, " Password doesn't match please try again");
 					textField.setText("");
 					passwordField.setText("");

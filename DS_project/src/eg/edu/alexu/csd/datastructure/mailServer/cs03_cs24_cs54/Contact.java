@@ -30,6 +30,7 @@ public class Contact implements IContact {
 
 	}
 
+	@SuppressWarnings({ "unchecked", "unused" })
 	public void create_file(String path) {
 		try {
 			File x = new File(path + "/Index file.json");
@@ -43,11 +44,13 @@ public class Contact implements IContact {
 		JSONArray k3 = new JSONArray ();
 		JSONArray k4 = new JSONArray ();
 		JSONArray k5 = new JSONArray ();
+		JSONArray k6 = new JSONArray ();
 		obj.put("order", k1);
-		obj.put("tos", k1);
-		obj.put("froms", k1);
-		obj.put("subjects", k1);
-		obj.put("bodies", k1);
+		obj.put("tos", k2);
+		obj.put("froms", k3);
+		obj.put("subjects", k4);
+		obj.put("bodies", k5);
+		obj.put("time", k6);
 		 try (FileWriter file = new FileWriter(path + "/Index file.json")) {
 
 	            file.write(obj.toString());

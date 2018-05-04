@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -167,11 +169,13 @@ public class Composegui {
 		JButton btnSend = new JButton("Send");
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Calendar cal = Calendar.getInstance();
+				 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 				Mail x = new Mail();
-				
+				x.var2(email, textField.getText(), textField_1.getText(),textArea.getText(),sdf.format(cal.getTime()));
 				//Contact xx = new Contact();
 				//xx.var(email,password,cont);
-				x.var2(email, textField.getText(), textField_1.getText(),textArea.getText());
+				
 				Appp y = new Appp();
 			  if(textField.getText()==""||textField_1.getText()==""||textArea.getText()=="") {
 				  JOptionPane.showMessageDialog(null, " Please fill all fields");

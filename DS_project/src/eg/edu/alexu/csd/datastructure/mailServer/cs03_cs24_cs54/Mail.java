@@ -21,31 +21,34 @@ import eg.edu.alexu.csd.datastructure.mailServer.IMail;
 
 public class Mail implements IMail {
 	
-	public static String from, to, subject, email_body;
+	public static String from, to, subject, email_body,time;
 	
 	public Mail() {
 		from = null;
 		to = null;
 		subject = null;
 		email_body = null;
+		time = null;
 	}
 	
 	@Override
-	public void var2(String fro, String t, String sub, String email_body) {
+	public void var2(String fro, String t, String sub, String email_body,String tt) {
 		from = fro;
 		to = t;
 		subject = sub;
 		Mail.email_body = email_body;
+		time = tt;
 	}
 
 	@SuppressWarnings({ "unchecked", "unused" })
 	@Override
-	public void save_email(String to, String from, String subject, String body, String path) {
+	public void save_email(String to, String from, String subject, String body, String path,String tt) {
 		DLinkedList send = new DLinkedList();
 		DLinkedList recieve = new DLinkedList();
 		DLinkedList subjects = new DLinkedList();
 		DLinkedList bodies = new DLinkedList();
 		DLinkedList orders = new DLinkedList();
+		DLinkedList times = new DLinkedList();
 		JSONParser parser = new JSONParser();
 
 		try {
@@ -61,11 +64,13 @@ public class Mail implements IMail {
 			JSONArray col3 = (JSONArray) jsonObject.get("subjects");
 			JSONArray col4 = (JSONArray) jsonObject.get("bodies");
 			JSONArray col5 = (JSONArray) jsonObject.get("order");
+			JSONArray col6 = (JSONArray) jsonObject.get("time");
 			Iterator<String> iterator1 = col1.iterator();
 			Iterator<String> iterator2 = col2.iterator();
 			Iterator<String> iterator3 = col3.iterator();
 			Iterator<String> iterator4 = col4.iterator();
 			Iterator<String> iterator5 = col5.iterator();
+			Iterator<String> iterator6 = col6.iterator();
 			while (iterator1.hasNext()) {
 
 				recieve.add(iterator1.next());
@@ -83,8 +88,12 @@ public class Mail implements IMail {
 				bodies.add(iterator4.next());
 
 			}
-			while (iterator4.hasNext()) {
+			while (iterator5.hasNext()) {
 				orders.add(iterator5.next());
+
+			}
+			while (iterator6.hasNext()) {
+				times.add(iterator6.next());
 
 			}
 
@@ -104,15 +113,17 @@ public class Mail implements IMail {
 		JSONArray k3 = new JSONArray();
 		JSONArray k4 = new JSONArray();
 		JSONArray k5 = new JSONArray();
+		JSONArray k6 = new JSONArray();
 		recieve.add(to);
 		send.add(from);
 		subjects.add(subject);
 		bodies.add(body);
+		times.add(tt);
 		if(orders.size()==0) {
 			orders.add("1");
 		}
 		else {
-			orders.add("orders.size() + 1");
+			orders.add(orders.size() + 1);
 		}
 		for (int i = 0; i < recieve.size(); i++) {
 			k1.add(recieve.get(i));
@@ -120,6 +131,7 @@ public class Mail implements IMail {
 			k3.add(subjects.get(i));
 			k4.add(bodies.get(i));
 			k5.add(orders.get(i));
+			k6.add(times.get(i));
 		}
 
 		obj1.put("tos", k1);
@@ -127,6 +139,7 @@ public class Mail implements IMail {
 		obj1.put("subjects", k3);
 		obj1.put("bodies", k4);
 		obj1.put("order", k5);
+		obj1.put("time", k6);
 		try (FileWriter file = new FileWriter(path)) {
 
 			file.write(obj1.toString());
