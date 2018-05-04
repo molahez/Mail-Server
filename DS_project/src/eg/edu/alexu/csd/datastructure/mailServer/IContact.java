@@ -1,5 +1,7 @@
 package eg.edu.alexu.csd.datastructure.mailServer;
 
+import java.io.IOException;
+
 public interface IContact {
 	//here we check whether email is in our database
 	public boolean check(String email);
@@ -11,5 +13,6 @@ public interface IContact {
 	public void var (String emai, String passwor, String contact_nam); 
 	//
 	public void var1 (String emai, String passwor);
+	public void create_file(String path);
 
 }
