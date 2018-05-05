@@ -181,6 +181,7 @@ public class Composegui {
 				  JOptionPane.showMessageDialog(null, " Please fill all fields");
 			  }
 			  else if(y.compose(x)) {
+				  x.move_attachment(cont, textField.getText());
 				  frame.dispose();
 					MainWindow kk = new MainWindow();
 					Appp.writee(true);
