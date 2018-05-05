@@ -240,7 +240,7 @@ public class MainWindow {
 			public void actionPerformed(ActionEvent e) {
 
 				frame.dispose();
-				HomeGUI kk = new HomeGUI();
+				Homewindow kk = new Homewindow();
 				
 				state = true;
 				Appp.writee(true);

@@ -161,7 +161,7 @@ public class Sign_up {
 			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				HomeGUI kk = new HomeGUI();
+				Homewindow kk = new Homewindow();
 				kk.main(new String[5]);
 
 			}

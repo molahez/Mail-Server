@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import java.awt.Color;
 
-public class HomeGUI {
+public class Homewindow {
 
 	private JFrame frame;
 	private JTextField textField;
@@ -29,7 +29,7 @@ public class HomeGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					HomeGUI window = new HomeGUI();
+					Homewindow window = new Homewindow();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,7 +41,7 @@ public class HomeGUI {
 	/**
 	 * Create the application.
 	 */
-	public HomeGUI() {
+	public Homewindow() {
 		initialize();
 		frame.addWindowListener(new WindowAdapter() {
 
