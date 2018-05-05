@@ -119,6 +119,7 @@ public class MainWindow {
 
 		JButton btnCompose = new JButton("Compose");
 		btnCompose.addActionListener(new ActionListener() {
+			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
 				Composegui kk = new Composegui();

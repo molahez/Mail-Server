@@ -21,6 +21,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import java.awt.Insets;
 
 public class Composegui {
 	//to get main data in main window
@@ -30,7 +34,7 @@ public class Composegui {
 	private JFrame frame;
 	private JTextField textField;
 	private JTextField textField_1;
-	String temp,email, password, cont;
+	String temp,email, password, cont,p;
 
 	/**
 	 * Launch the application.
@@ -78,37 +82,37 @@ public class Composegui {
 		frame.getContentPane().setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("From:");
-		lblNewLabel.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		lblNewLabel.setBounds(68, 41, 76, 45);
+		lblNewLabel.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		frame.getContentPane().add(lblNewLabel);
 
 		JLabel lblTo = new JLabel("To:");
-		lblTo.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		lblTo.setBounds(68, 97, 76, 45);
+		lblTo.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		frame.getContentPane().add(lblTo);
 
 		JLabel lblSubject = new JLabel("Subject");
-		lblSubject.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		lblSubject.setBounds(68, 149, 76, 45);
+		lblSubject.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		frame.getContentPane().add(lblSubject);
 
 		JLabel lblE = new JLabel(email);
-		lblE.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		lblE.setBounds(167, 41, 76, 45);
+		lblE.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		frame.getContentPane().add(lblE);
 
 		textField = new JTextField();
+		textField.setBounds(154, 103, 469, 30);
 		textField.setBackground(new Color(255, 255, 255));
 		textField.setFont(new Font("Century Gothic", Font.PLAIN, 14));
-		textField.setBounds(154, 103, 469, 30);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 
 		textField_1 = new JTextField();
+		textField_1.setBounds(154, 159, 469, 30);
 		textField_1.setBackground(new Color(255, 255, 255));
 		textField_1.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		textField_1.setColumns(10);
-		textField_1.setBounds(154, 159, 469, 30);
 		frame.getContentPane().add(textField_1);
 
 		JScrollPane x = new JScrollPane();
@@ -128,12 +132,14 @@ public class Composegui {
 		textArea_1.setBackground(SystemColor.control);
 
 		JButton btnNewButton = new JButton("Insert");
+		btnNewButton.setBounds(252, 486, 131, 45);
 		btnNewButton.addActionListener(new ActionListener() {
 			@SuppressWarnings("resource")
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fs = new JFileChooser(new File("F:\\"));
 				fs.setDialogTitle("upload");
 				
+				@SuppressWarnings("unused")
 				int result = fs.showSaveDialog(null);
 				File fi = fs.getSelectedFile();
 				File Dir = new File("Users/temp"+"/"+fi.getName());	
@@ -143,11 +149,12 @@ public class Composegui {
 			}
 		});
 		btnNewButton.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		btnNewButton.setBounds(252, 486, 131, 45);
 		frame.getContentPane().add(btnNewButton);
 
 		JButton btnBack = new JButton("Back");
+		btnBack.setBounds(68, 486, 131, 45);
 		btnBack.addActionListener(new ActionListener() {
+			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose();
 				MainWindow kk = new MainWindow();
@@ -156,26 +163,27 @@ public class Composegui {
 			}
 		});
 		btnBack.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		btnBack.setBounds(68, 486, 131, 45);
 		frame.getContentPane().add(btnBack);
 		
 		JLabel label = new JLabel("Body");
-		label.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		label.setBounds(68, 216, 76, 45);
+		label.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		frame.getContentPane().add(label);
 		
 		JLabel lblAttachments = new JLabel("Attachments:-");
-		lblAttachments.setFont(new Font("Century Gothic", Font.PLAIN, 15));
 		lblAttachments.setBounds(42, 404, 102, 45);
+		lblAttachments.setFont(new Font("Century Gothic", Font.PLAIN, 15));
 		frame.getContentPane().add(lblAttachments);
 		
 		JButton btnSend = new JButton("Send");
+		btnSend.setBounds(471, 486, 131, 45);
 		btnSend.addActionListener(new ActionListener() {
+			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent e) {
 				Calendar cal = Calendar.getInstance();
 				 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 				Mail x = new Mail();
-				x.var2(email, textField.getText(), textField_1.getText(),textArea.getText(),sdf.format(cal.getTime()));
+				x.var2(email, textField.getText(), textField_1.getText(),textArea.getText(),sdf.format(cal.getTime()),p);
 				//Contact xx = new Contact();
 				//xx.var(email,password,cont);
 				
@@ -205,8 +213,52 @@ public class Composegui {
 			}
 		});
 		btnSend.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		btnSend.setBounds(471, 486, 131, 45);
 		frame.getContentPane().add(btnSend);
+		
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		menuBar.setMargin(new Insets(0, 0, 0, 6));
+		menuBar.setBounds(630, 60, 101, 22);
+		frame.getContentPane().add(menuBar);
+		
+		JMenu mnNewMenu = new JMenu("Priority");
+		mnNewMenu.setForeground(SystemColor.desktop);
+		mnNewMenu.setFont(new Font("Century Gothic", Font.PLAIN, 18));
+		menuBar.add(mnNewMenu);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("1");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				p ="1";
+				
+				
+			}
+		});
+		mnNewMenu.add(mntmNewMenuItem);
+		
+		JMenuItem menuItem = new JMenuItem("2");
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				p ="2";
+			}
+		});
+		mnNewMenu.add(menuItem);
+		
+		JMenuItem menuItem_1 = new JMenuItem("3");
+		menuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				p ="3";
+			}
+		});
+		mnNewMenu.add(menuItem_1);
+		
+		JMenuItem menuItem_2 = new JMenuItem("4");
+		menuItem_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				p ="4";
+			}
+		});
+		mnNewMenu.add(menuItem_2);
 		
 		
 

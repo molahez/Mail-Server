@@ -3,7 +3,6 @@ package eg.edu.alexu.csd.datastructure.mailServer.cs03_cs24_cs54;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
@@ -45,12 +44,14 @@ public class Contact implements IContact {
 		JSONArray k4 = new JSONArray ();
 		JSONArray k5 = new JSONArray ();
 		JSONArray k6 = new JSONArray ();
+		JSONArray k7 = new JSONArray ();
 		obj.put("order", k1);
 		obj.put("tos", k2);
 		obj.put("froms", k3);
 		obj.put("subjects", k4);
 		obj.put("bodies", k5);
 		obj.put("time", k6);
+		obj.put("pq", k7);
 		 try (FileWriter file = new FileWriter(path + "/Index file.json")) {
 
 	            file.write(obj.toString());

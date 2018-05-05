@@ -13,6 +13,7 @@ import org.json.simple.parser.ParseException;
 
 
 public class Jso {
+	@SuppressWarnings("unchecked")
 	public static void main(String[] args) {
 
         JSONParser parser = new JSONParser();

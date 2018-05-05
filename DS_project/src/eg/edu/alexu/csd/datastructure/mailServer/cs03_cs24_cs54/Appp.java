@@ -115,7 +115,7 @@ public class Appp implements IApp {
 
 		}
 		return false;
-		
+
 	}
 
 	@SuppressWarnings("serial")
@@ -159,7 +159,7 @@ public class Appp implements IApp {
 					if (list.get(counter) == "Inbox" || list.get(counter) == "Sent") {
 						contact.create_file(folders);
 					}
-					
+
 					counter++;
 				}
 				return true;
@@ -210,36 +210,35 @@ public class Appp implements IApp {
 
 	@Override
 	public boolean compose(IMail email) {
-		String from, to =  null, subject, email_body;
-		String z, y, path,time;
+		String from, to = null, subject, email_body;
+		String z, y, path, time, pq;
 		Contact x = new Contact();
-		
-		
+
 		from = Mail.from;
 		to = Mail.to;
 		subject = Mail.subject;
 		email_body = Mail.email_body;
 		time = Mail.time;
-		
-		
+		pq = Mail.p;
+
 		x.var2(to);
-		
+
 		if (x.check(to)) {
 			z = ((Mail) email).return_contact(to);
 			y = ((Mail) email).return_contact(from);
-			
-			path = "Users/" + z + "/Inbox/Index file.json"; //save for receiver
-			email.save_email(to, from, subject, email_body, path ,time);
-			
-			path = "Users/" + y + "/Sent/Index file.json"; //save for sender
-			email.save_email(to, from, subject, email_body, path , time);
-			x.var(from,null,y);
-			
+
+			path = "Users/" + z + "/Inbox/Index file.json"; // save for receiver
+			email.save_email(to, from, subject, email_body, path, time, pq);
+
+			path = "Users/" + y + "/Sent/Index file.json"; // save for sender
+			email.save_email(to, from, subject, email_body, path, time, pq);
+			x.var(from, null, y);
+
 			return true;
 		} else {
-						return false;
+			return false;
 		}
-		
+
 	}
 
 }

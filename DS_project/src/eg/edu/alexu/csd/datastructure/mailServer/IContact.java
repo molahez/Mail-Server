@@ -1,7 +1,5 @@
 package eg.edu.alexu.csd.datastructure.mailServer;
 
-import java.io.IOException;
-
 public interface IContact {
 	//here we check whether email is in our database
 	public boolean check(String email);

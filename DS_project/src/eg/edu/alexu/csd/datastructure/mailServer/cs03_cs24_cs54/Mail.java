@@ -8,12 +8,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.Objects;
-import static java.nio.file.StandardCopyOption.*;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -25,7 +21,7 @@ import eg.edu.alexu.csd.datastructure.mailServer.IMail;
 
 public class Mail implements IMail {
 
-	public static String from, to, subject, email_body, time;
+	public static String from, to, subject, email_body, time,p;
 
 	public Mail() {
 		from = null;
@@ -33,28 +29,31 @@ public class Mail implements IMail {
 		subject = null;
 		email_body = null;
 		time = null;
+		p = null;
 	}
 
 	@Override
-	public void var2(String fro, String t, String sub, String email_body, String tt) {
+	public void var2(String fro, String t, String sub, String email_body, String tt, String pq) {
 		from = fro;
 		to = t;
 		subject = sub;
 		Mail.email_body = email_body;
 		time = tt;
+		p = pq;
 	}
 	
 
 	@SuppressWarnings({ "unchecked", "unused" })
 	@Override
 
-	public void save_email(String to, String from, String subject, String body, String path, String tt) {
+	public void save_email(String to, String from, String subject, String body, String path, String tt, String pq) {
 		DLinkedList send = new DLinkedList();
 		DLinkedList recieve = new DLinkedList();
 		DLinkedList subjects = new DLinkedList();
 		DLinkedList bodies = new DLinkedList();
 		DLinkedList orders = new DLinkedList();
 		DLinkedList times = new DLinkedList();
+		DLinkedList pqs = new DLinkedList();
 		JSONParser parser = new JSONParser();
 
 		try {
@@ -71,12 +70,14 @@ public class Mail implements IMail {
 			JSONArray col4 = (JSONArray) jsonObject.get("bodies");
 			JSONArray col5 = (JSONArray) jsonObject.get("order");
 			JSONArray col6 = (JSONArray) jsonObject.get("time");
+			JSONArray col7 = (JSONArray) jsonObject.get("pq");
 			Iterator<String> iterator1 = col1.iterator();
 			Iterator<String> iterator2 = col2.iterator();
 			Iterator<String> iterator3 = col3.iterator();
 			Iterator<String> iterator4 = col4.iterator();
 			Iterator<String> iterator5 = col5.iterator();
 			Iterator<String> iterator6 = col6.iterator();
+			Iterator<String> iterator7 = col7.iterator();
 			while (iterator1.hasNext()) {
 
 				recieve.add(iterator1.next());
@@ -102,6 +103,10 @@ public class Mail implements IMail {
 				times.add(iterator6.next());
 
 			}
+			while (iterator7.hasNext()) {
+				times.add(iterator7.next());
+
+			}
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -119,11 +124,13 @@ public class Mail implements IMail {
 		JSONArray k4 = new JSONArray();
 		JSONArray k5 = new JSONArray();
 		JSONArray k6 = new JSONArray();
+		JSONArray k7 = new JSONArray();
 		recieve.add(to);
 		send.add(from);
 		subjects.add(subject);
 		bodies.add(body);
 		times.add(tt);
+		pqs.add(pq);
 		if (orders.size() == 0) {
 			orders.add(1);
 		} else {
@@ -136,6 +143,7 @@ public class Mail implements IMail {
 			k4.add(bodies.get(i));
 			k5.add(orders.get(i));
 			k6.add(times.get(i));
+			k7.add(pqs.get(i));
 		}
 
 		obj1.put("tos", k1);
@@ -144,6 +152,7 @@ public class Mail implements IMail {
 		obj1.put("bodies", k4);
 		obj1.put("order", k5);
 		obj1.put("time", k6);
+		obj1.put("pq", k7);
 		try (FileWriter file = new FileWriter(path)) {
 
 			file.write(obj1.toString());
@@ -154,6 +163,7 @@ public class Mail implements IMail {
 		}
 	}
 
+	@SuppressWarnings("resource")
 	public void save_attachement(File x, File y) {
 		if (!x.exists()) {
 			return;
@@ -206,6 +216,7 @@ public class Mail implements IMail {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public String return_contact(String email) {
 		DLinkedList emails = new DLinkedList();
 		DLinkedList names = new DLinkedList();
@@ -251,6 +262,7 @@ public class Mail implements IMail {
 		return flag;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public int order(String path) {
 		DLinkedList orders = new DLinkedList();
@@ -290,6 +302,7 @@ public class Mail implements IMail {
 		}
 
 	}
+	@SuppressWarnings("unchecked")
 	public int order1(String path) {
 		DLinkedList orders = new DLinkedList();
 		JSONParser parser = new JSONParser();
