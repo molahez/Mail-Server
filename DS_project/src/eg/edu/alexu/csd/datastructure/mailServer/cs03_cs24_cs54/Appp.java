@@ -233,12 +233,13 @@ public class Appp implements IApp {
 			
 			path = "Users/" + y + "/Sent/Index file.json"; //save for sender
 			email.save_email(to, from, subject, email_body, path , time);
+			x.var(from,null,y);
 			
 			return true;
 		} else {
-			System.out.println("f");
-			return false;
+						return false;
 		}
+		
 	}
 
 }

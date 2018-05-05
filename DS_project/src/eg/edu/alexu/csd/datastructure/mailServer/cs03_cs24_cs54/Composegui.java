@@ -11,6 +11,7 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Objects;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -22,6 +23,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class Composegui {
+	//to get main data in main window
+	
 
 	protected static final JLabel textContent = null;
 	private JFrame frame;
@@ -177,12 +180,17 @@ public class Composegui {
 				//xx.var(email,password,cont);
 				
 				Appp y = new Appp();
-			  if(textField.getText()==""||textField_1.getText()==""||textArea.getText()=="") {
+			   if(textField.getText()==""||textField_1.getText()==""||textArea.getText()=="") {
 				  JOptionPane.showMessageDialog(null, " Please fill all fields");
-			  }
-			  else if(y.compose(x)) {
-				  x.move_attachment(cont, textField.getText());
-				  frame.dispose();
+			   }
+			   else if(Objects.equals(email, textField.getText())) {
+				   JOptionPane.showMessageDialog(null, "You can't send email to yourself");
+					  textField.setText("");
+			   }
+			   else if(y.compose(x)) {
+				    
+				    x.move_attachment(cont, textField.getText());
+				    frame.dispose();
 					MainWindow kk = new MainWindow();
 					Appp.writee(true);
 					kk.main(new String[5]);

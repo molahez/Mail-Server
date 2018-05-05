@@ -43,6 +43,7 @@ public class Mail implements IMail {
 		Mail.email_body = email_body;
 		time = tt;
 	}
+	
 
 	@SuppressWarnings({ "unchecked", "unused" })
 	@Override

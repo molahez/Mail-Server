@@ -39,10 +39,7 @@ public class MainWindow {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		
 	
-	
-				
 		try {
 			fol = Appp.read();
 
@@ -92,10 +89,7 @@ public class MainWindow {
 	@SuppressWarnings("serial")
 	private void initialize() {
 		email = Contact.emal;
-		password = Contact.password;
-		cont = Contact.contact_name;
-		
-		
+		cont = Contact.contact_name;	
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(255, 255, 255));
 		frame.getContentPane().setFont(new Font("Century Gothic", Font.PLAIN, 20));
