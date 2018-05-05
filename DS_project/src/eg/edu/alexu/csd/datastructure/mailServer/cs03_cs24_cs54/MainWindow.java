@@ -89,6 +89,7 @@ public class MainWindow {
 	@SuppressWarnings("serial")
 	private void initialize() {
 		email = Contact.emal;
+		password = Contact.password;
 		cont = Contact.contact_name;	
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(255, 255, 255));
@@ -250,6 +251,22 @@ public class MainWindow {
 		btnSignOut.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		btnSignOut.setBounds(34, 469, 113, 61);
 		frame.getContentPane().add(btnSignOut);
+		
+		JButton btnAccountSettings = new JButton("Account Settings");
+		btnAccountSettings.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				Settings kk = new Settings();
+				
+				
+				Appp.writee(true);
+				kk.main(new String[5]);
+				
+			}
+		});
+		btnAccountSettings.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		btnAccountSettings.setBounds(741, 35, 204, 61);
+		frame.getContentPane().add(btnAccountSettings);
 		tree.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {

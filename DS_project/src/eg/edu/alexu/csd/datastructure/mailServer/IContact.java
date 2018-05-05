@@ -13,5 +13,6 @@ public interface IContact {
 	public void var1 (String emai, String passwor);
 	public void var2(String emai);
 	public void create_file(String path);
+	public void edit_contact(String email, String pass);
 
 }

@@ -38,13 +38,13 @@ public class Contact implements IContact {
 
 		}
 		JSONObject obj = new JSONObject();
-		JSONArray k1 = new JSONArray ();
-		JSONArray k2 = new JSONArray ();
-		JSONArray k3 = new JSONArray ();
-		JSONArray k4 = new JSONArray ();
-		JSONArray k5 = new JSONArray ();
-		JSONArray k6 = new JSONArray ();
-		JSONArray k7 = new JSONArray ();
+		JSONArray k1 = new JSONArray();
+		JSONArray k2 = new JSONArray();
+		JSONArray k3 = new JSONArray();
+		JSONArray k4 = new JSONArray();
+		JSONArray k5 = new JSONArray();
+		JSONArray k6 = new JSONArray();
+		JSONArray k7 = new JSONArray();
 		obj.put("order", k1);
 		obj.put("tos", k2);
 		obj.put("froms", k3);
@@ -52,14 +52,14 @@ public class Contact implements IContact {
 		obj.put("bodies", k5);
 		obj.put("time", k6);
 		obj.put("pq", k7);
-		 try (FileWriter file = new FileWriter(path + "/Index file.json")) {
+		try (FileWriter file = new FileWriter(path + "/Index file.json")) {
 
-	            file.write(obj.toString());
-	            file.flush();
+			file.write(obj.toString());
+			file.flush();
 
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -176,6 +176,85 @@ public class Contact implements IContact {
 		emails.add(email);
 		passwords.add(pass);
 		names.add(contact_nam);
+		for (int i = 0; i < emails.size(); i++) {
+			k1.add(emails.get(i));
+			k2.add(passwords.get(i));
+			k3.add(names.get(i));
+		}
+
+		obj1.put("emails", k1);
+		obj1.put("pass", k2);
+		obj1.put("name", k3);
+		try (FileWriter file = new FileWriter("Users/contact.json")) {
+
+			file.write(obj1.toString());
+			file.flush();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public void edit_contact(String email, String pass) {
+		email = emal;
+
+		DLinkedList emails = new DLinkedList();
+		DLinkedList passwords = new DLinkedList();
+		DLinkedList names = new DLinkedList();
+
+		JSONParser parser = new JSONParser();
+
+		try {
+
+			Object obj = parser.parse(new FileReader("Users/contact.json"));
+
+			JSONObject jsonObject = (JSONObject) obj;
+
+			// loop array
+			// here we load content of json file
+			JSONArray col1 = (JSONArray) jsonObject.get("emails");
+			JSONArray col2 = (JSONArray) jsonObject.get("pass");
+			JSONArray col3 = (JSONArray) jsonObject.get("name");
+
+			Iterator<String> iterator1 = col1.iterator();
+			Iterator<String> iterator2 = col2.iterator();
+			Iterator<String> iterator3 = col3.iterator();
+
+			while (iterator1.hasNext()) {
+
+				emails.add(iterator1.next());
+
+			}
+			while (iterator2.hasNext()) {
+				passwords.add(iterator2.next());
+
+			}
+			while (iterator3.hasNext()) {
+				names.add(iterator3.next());
+
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		JSONObject obj1 = new JSONObject();
+		JSONArray k1 = new JSONArray();
+		JSONArray k2 = new JSONArray();
+		JSONArray k3 = new JSONArray();
+		for (int i = 0; i < emails.size(); i++) {
+			if (Objects.equals(email, emails.get(i))) {
+				passwords.set(i, pass);
+
+			}
+		}
+
 		for (int i = 0; i < emails.size(); i++) {
 			k1.add(emails.get(i));
 			k2.add(passwords.get(i));
