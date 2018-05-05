@@ -324,7 +324,7 @@ public class Mail implements IMail {
 		if (orders.size() == 0) {
 			return 1;
 		} else {
-			return orders.size() + 1;
+			return orders.size() ;
 		}
 
 	}
