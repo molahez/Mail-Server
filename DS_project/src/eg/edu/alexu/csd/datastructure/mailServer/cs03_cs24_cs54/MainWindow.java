@@ -22,6 +22,11 @@ import javax.swing.tree.TreeSelectionModel;
 
 import eg.edu.alexu.csd.datastructure.linkedList.cs03_cs10.DLinkedList;
 import java.awt.Color;
+import javax.swing.JMenuBar;
+import java.awt.Insets;
+import javax.swing.JPopupMenu;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class MainWindow {
 
@@ -249,7 +254,7 @@ public class MainWindow {
 			}
 		});
 		btnSignOut.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		btnSignOut.setBounds(34, 469, 113, 61);
+		btnSignOut.setBounds(34, 489, 113, 61);
 		frame.getContentPane().add(btnSignOut);
 		
 		JButton btnAccountSettings = new JButton("Account Settings");
@@ -267,12 +272,54 @@ public class MainWindow {
 		btnAccountSettings.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		btnAccountSettings.setBounds(741, 35, 204, 61);
 		frame.getContentPane().add(btnAccountSettings);
+		
+		JButton btnEnterFolder = new JButton("Enter Folder");
+		btnEnterFolder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println(temp);
+				frame.dispose();
+				EmailsView kk = new EmailsView();
+				
+				
+				Appp.writee(true);
+				kk.main(new String[5]);
+				
+				
+				
+			}
+		});
+		btnEnterFolder.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		btnEnterFolder.setEnabled(false);
+		btnEnterFolder.setBounds(34, 442, 147, 36);
+		frame.getContentPane().add(btnEnterFolder);
+		
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setMargin(new Insets(0, 0, 0, 6));
+		menuBar.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		menuBar.setBounds(264, 442, 101, 35);
+		frame.getContentPane().add(menuBar);
+		
+		JMenu mnNewMenu = new JMenu("Sort_By");
+		menuBar.add(mnNewMenu);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Newest");
+		mnNewMenu.add(mntmNewMenuItem);
+		
+		JMenuItem mntmOldest = new JMenuItem("Oldest");
+		mnNewMenu.add(mntmOldest);
+		
+		JMenuItem mntmHighestpriority = new JMenuItem("Highest_Priority");
+		mnNewMenu.add(mntmHighestpriority);
+		
+		JMenuItem mntmLowestpriority = new JMenuItem("Lowest_Priority");
+		mnNewMenu.add(mntmLowestpriority);
 		tree.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				btnAddFolder.setEnabled(true);
 				btnEditFolder.setEnabled(true);
 				btnDeleteFolder.setEnabled(true);
+				btnEnterFolder.setEnabled(true);
 				TreeSelectionModel smd = tree.getSelectionModel();
 				if (smd.getSelectionCount() > 0) {
 					DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getSelectionPath()
