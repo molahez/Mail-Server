@@ -186,7 +186,7 @@ public class Appp implements IApp {
 
 	@Override
 	public void setViewingOptions(IFolder folder, IFilter filter, ISort sort) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
