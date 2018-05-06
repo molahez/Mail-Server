@@ -9,6 +9,9 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JList;
@@ -18,6 +21,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class EmailsView {
 
@@ -44,6 +49,15 @@ public class EmailsView {
 	 */
 	public EmailsView() {
 		initialize();
+		frame.addWindowListener(new WindowAdapter() {
+
+			public void windowClosing(WindowEvent e) {
+				Appp.writee(false);
+				System.exit(0);
+
+			}
+
+		});
 	}
 
 	/**
@@ -99,6 +113,15 @@ public class EmailsView {
 		frame.getContentPane().add(btnNextpage);
 
 		JButton button = new JButton("Back");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				MainWindow kk = new MainWindow();
+				Appp.writee(true);
+				kk.main(new String[5]);
+				
+			}
+		});
 		button.setFont(new Font("Century Gothic", Font.PLAIN, 20));
 		button.setBounds(750, 38, 161, 35);
 		frame.getContentPane().add(button);
