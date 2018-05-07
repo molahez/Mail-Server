@@ -104,7 +104,7 @@ public class Mail implements IMail {
 
 			}
 			while (iterator7.hasNext()) {
-				times.add(iterator7.next());
+				pqs.add(iterator7.next());
 
 			}
 
