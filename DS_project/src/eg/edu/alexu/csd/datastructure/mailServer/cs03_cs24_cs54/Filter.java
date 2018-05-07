@@ -75,12 +75,13 @@ public class Filter {
 					path = path + "/" + file.getName() + "/Index file.json";
 					y.save_email(to, from, Subject, body, path, tt, pq);
 					String path1 = "Users/" + contact + "/Inbox/Index file.json";
-					File x1 = new File(path1);
+					String path2 = "Users/" + contact + "/Inbox";
+					File x1 = new File(path2);
 					File[] files1 = x1.listFiles();
 					int n = y.order1(path1) - 1;
 					for (File file1 : files1) {
 						if (Integer.toString(n) == file1.getName()) {
-							file1.renameTo(new File("Users/" + contact + "/Sender/Filter mails/" + file.getName() + "/"
+							file1.renameTo(new File("Users/" + contact + "/Filter mails/Sender/" + file.getName() + "/"
 									+ Integer.toString(y.order1(path))));
 							break;
 						}
@@ -104,12 +105,13 @@ public class Filter {
 					path = path + "/" + file.getName() + "/Index file.json";
 					y.save_email(to, from, Subject, body, path, tt, pq);
 					String path1 = "Users/" + contact + "/Inbox/Index file.json";
-					File x1 = new File(path1);
+					String path2 = "Users/" + contact + "/Inbox";
+					File x1 = new File(path2);
 					File[] files1 = x1.listFiles();
 					int n = y.order1(path1) - 1;
 					for (File file1 : files1) {
 						if (Integer.toString(n) == file1.getName()) {
-							file1.renameTo(new File("Users/" + contact + "/Subject/Filter mails/" + file.getName() + "/"
+							file1.renameTo(new File("Users/" + contact + "/Filter mails/Subject/" + file.getName() + "/"
 									+ Integer.toString(y.order1(path))));
 							break;
 						}
@@ -133,12 +135,13 @@ public class Filter {
 					path = path + "/" + file.getName() + "/Index file.json";
 					y.save_email(to, from, Subject, body, path, tt, pq);
 					String path1 = "Users/" + contact + "/Inbox/Index file.json";
-					File x1 = new File(path1);
+					String path2 = "Users/" + contact + "/Inbox";
+					File x1 = new File(path2);
 					File[] files1 = x1.listFiles();
 					int n = y.order1(path1) - 1;
 					for (File file1 : files1) {
 						if (Integer.toString(n) == file1.getName()) {
-							file1.renameTo(new File("Users/" + contact + "/Sender & Subject/Filter mails/" + file.getName() + "/"
+							file1.renameTo(new File("Users/" + contact + "/Filter mails/Sender & Subject/" + file.getName() + "/"
 									+ Integer.toString(y.order1(path))));
 							break;
 						}
