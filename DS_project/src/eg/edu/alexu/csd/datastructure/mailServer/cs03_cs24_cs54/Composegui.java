@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;
@@ -34,7 +35,7 @@ public class Composegui {
 	private JFrame frame;
 	private JTextField textField;
 	private JTextField textField_1;
-	String temp,email, password, cont,p;
+	String temp,email, password, cont,p = "";
 
 	/**
 	 * Launch the application.
@@ -130,6 +131,7 @@ public class Composegui {
 		JTextArea textArea_1 = new JTextArea();
 		scrollPane.setViewportView(textArea_1);
 		textArea_1.setBackground(SystemColor.control);
+		textArea_1.setEditable(false);
 
 		JButton btnNewButton = new JButton("Insert");
 		btnNewButton.setBounds(252, 486, 131, 45);
@@ -142,10 +144,17 @@ public class Composegui {
 				@SuppressWarnings("unused")
 				int result = fs.showSaveDialog(null);
 				File fi = fs.getSelectedFile();
-				File Dir = new File("Users/temp"+"/"+fi.getName());	
-				Mail x = new Mail();
-				x.save_attachement(fi, Dir);
-				textArea_1.append(fi.getName()+"\n");
+				if (fi == null) {
+					JOptionPane.showMessageDialog(null, " No Attachement uploaded");
+				    
+				}
+				else {
+					File Dir = new File("Users/temp"+"/"+fi.getName());	
+					Mail x = new Mail();
+					x.save_attachement(fi, Dir);
+					textArea_1.append(fi.getName()+"\n");
+				}
+				
 			}
 		});
 		btnNewButton.setFont(new Font("Century Gothic", Font.PLAIN, 16));
@@ -181,13 +190,14 @@ public class Composegui {
 			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent e) {
 				Calendar cal = Calendar.getInstance();
-				SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+				DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				Mail x = new Mail();
+			
 				x.var2(email, textField.getText(), textField_1.getText(),textArea.getText(),sdf.format(cal.getTime()),p);
 				
 				
 				Appp y = new Appp();
-			   if(textField.getText()==""||textField_1.getText()==""||textArea.getText()=="") {
+			   if(textField.getText()==""||textField_1.getText()==""||textArea.getText()=="" || p =="") {
 				  JOptionPane.showMessageDialog(null, " Please fill all fields");
 			   }
 			   else if(Objects.equals(email, textField.getText())) {

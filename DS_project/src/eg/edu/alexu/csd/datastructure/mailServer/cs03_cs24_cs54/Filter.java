@@ -5,7 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Objects;
 
@@ -20,25 +23,27 @@ import eg.edu.alexu.csd.datastructure.stack.cs03.MyStack;
 
 @SuppressWarnings("unused")
 public class Filter implements IFilter {
+	DLinkedList state = new DLinkedList();
+	DLinkedList state1 = new DLinkedList();
+	DLinkedList state2 = new DLinkedList();
+	DLinkedList state3 = new DLinkedList();
 	public static String category;
 	public static String Searched_value;
 	public static Integer filter;
+
 	public Filter() {
 		category = null;
 		Searched_value = null;
-	    filter =  null;
-	   
+		filter = null;
 
 	}
-	
+
 	@Override
-	public void var(Integer fil,String cate,String val) {
+	public void var(Integer fil, String cate, String val) {
 		filter = fil;
 		category = cate;
 		Searched_value = val;
 	}
-	
-	
 
 	public void choose_filter(String type, String descrip, String contact) {
 		String path = "Users/" + contact + "/Filterd mails/";
@@ -192,8 +197,9 @@ public class Filter implements IFilter {
 
 	}
 
-	public void bsearch(String x, String path) {
-		
+	@SuppressWarnings("unchecked")
+	public void bsearch(String x, String path) throws java.text.ParseException {
+
 		// first we read the file
 
 		JSONParser parser = new JSONParser();
@@ -205,6 +211,8 @@ public class Filter implements IFilter {
 		DLinkedList orders = new DLinkedList();
 		DLinkedList times = new DLinkedList();
 		DLinkedList pqs = new DLinkedList();
+		DLinkedList compared = new DLinkedList();
+		boolean flag1 = false;
 
 		try {
 
@@ -270,55 +278,263 @@ public class Filter implements IFilter {
 		}
 		// Binary search starts here
 		String names[] = new String[orders.size()];
-		DLinkedList dup = new DLinkedList();;
-		for (int i = orders.size() - 1; i >= 0; i--) {
-			names[i] = (subjects.get(orders.size() - 1 - i).toString());
-		}
+		DLinkedList dup = new DLinkedList();
+		Date[] timee = new Date[orders.size()];
+		Date[] comparedd = new Date[orders.size()];
+		Date[] dupp = new Date[orders.size()];
+		if (Objects.equals(category, "subject")) {
+			for (int i = 0; i < orders.size(); i++) {
+				compared.add(subjects.get(i));
+				names[i] = (subjects.get(i).toString());
+			}
+
+		} else if (Objects.equals(category, "sender")) {
+			for (int i = 0; i < orders.size(); i++) {
+				compared.add(send.get(i));
+				names[i] = (send.get(i).toString());
+			}
+
+		} else if (Objects.equals(category, "receiver")) {
+			for (int i = 0; i < orders.size(); i++) {
+				compared.add(recieve.get(i));
+				names[i] = (recieve.get(i).toString());
+			}
+
+		} else if (Objects.equals(category, "priority")) {
+			for (int i = 0; i < orders.size(); i++) {
+				compared.add(pqs.get(i));
+				names[i] = (pqs.get(i).toString());
+			}
+
+		} else if (Objects.equals(category, "time")) {
+			flag1 = true;
+			for (int i = 0; i < orders.size(); i++) {
+				try {
+					comparedd[i] = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse((String) times.get(i));
+					timee[i] = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse((String) times.get(i));
+				} catch (java.text.ParseException e) {
+					
+					e.printStackTrace();
+				}
+				
+			}
+
+		} 
+		
 		int low = 0;
 		int high = names.length - 1;
 		int mid;
 		int it1 = 0;
 		int it2 = 0;
-		
-		while (low <= high) {
-			mid = (low + high) / 2;
+		int k = 0;
 
-			if (names[mid].compareTo(x) < 0) {
-				low = mid + 1;
-			} else if (names[mid].compareTo(x) > 0) {
-				high = mid - 1;
-			} else {
-				dup.add(names[mid]);
-				it1 = mid - 1;
-				it2 = mid + 1;
-				while (Objects.equals(x,names[it1]) && it1 != 0) {
-					if (Objects.equals(x,names[it1])) {
-						dup.add(names[it1]);
-						it1--;
-
-					}
-				}
-				while (Objects.equals(x,names[it2]) && it2 != (names.length - 1)) {
-					if (Objects.equals(x,names[it2])) {
-						dup.add(names[it2]);
-						it2++;
-
-					}
-				}
-				break;
-			}
+		DLinkedList msg_order = new DLinkedList();
+		DLinkedList tos_order = new DLinkedList();
+		DLinkedList froms_order = new DLinkedList();
+		DLinkedList subjects_order = new DLinkedList();
+		DLinkedList time_order = new DLinkedList();
+		DLinkedList orders_order = new DLinkedList();
+		DLinkedList pqs_order = new DLinkedList();
+		for (int i = 0; i < orders.size(); i++) {
+			msg_order.add(1);
+			tos_order.add(1);
+			froms_order.add(1);
+			subjects_order.add(1);
+			time_order.add(1);
+			orders_order.add(1);
+			pqs_order.add(1);
 		}
-		
-        for(int i=0; i<dup.size();i++) {
-        	System.out.println(dup.get(i));
+		System.out.println("wslt");
+
+        if(!flag1) {
+        	while (low <= high) {
+    			mid = (low + high) / 2;
+
+    			if (names[mid].compareTo(x) < 0) {
+    				low = mid + 1;
+
+    			} else if (names[mid].compareTo(x) > 0) {
+    				high = mid - 1;
+    			} else {
+
+    				dup.add(names[mid]);
+    				it1 = mid - 1;
+    				it2 = mid + 1;
+    				if (it1 >= 0) {
+
+    					while (it1 >= 0 && Objects.equals(x, names[it1])) {
+
+    						if (Objects.equals(x, names[it1])) {
+    							dup.add(names[it1]);
+    							it1--;
+
+    						}
+    					}
+    				}
+    				if (it2 <= names.length - 1) {
+
+    					while (it2 <= (names.length - 1) && Objects.equals(x, names[it2])) {
+
+    						if (Objects.equals(x, names[it2])) {
+    							dup.add(names[it2]);
+    							it2++;
+
+    						}
+    					}
+    					break;
+    				}
+    			}
+    		}
+
+    		for (int i = 0; i < dup.size(); i++) {
+    			System.out.println(dup.get(i));
+    		}
+
+
+    		
+    		for (int i = 0; i < dup.size(); i++) {
+    			for (int j = 0; j < orders.size(); j++) {
+    				if (Objects.equals(dup.get(i), compared.get(j)) && b_ser_check(i, j)) {
+    					state.add(j);
+    					state1.add(i);
+    					msg_order.set(i, bodies.get(j));
+    					tos_order.set(i, recieve.get(j));
+    					froms_order.set(i, send.get(j));
+    					subjects_order.set(i, subjects.get(j));
+    					time_order.set(i, times.get(j));
+    					orders_order.set(i, orders.get(j));
+    					pqs_order.set(i, pqs.get(j));
+    				}
+    			}
+    		}
+        }
+        else {
+        	while (low <= high) {
+    			mid = (low + high) / 2;
+
+    			
+					if (timee[mid].compareTo(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse(x)) < 0) {
+						
+						low = mid + 1;
+
+					} else if (timee[mid].compareTo(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse(x)) > 0) {
+						high = mid - 1;
+					} else {
+						
+
+						dupp[k]=timee[mid];
+						k++;
+						it1 = mid - 1;
+						it2 = mid + 1;
+						if (it1 >= 0) {
+
+							while (it1 >= 0 && timee[it1].compareTo(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse(x)) == 0) {
+
+								if (timee[it1].compareTo(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse(x)) == 0) {
+									dupp[k]=timee[it1];
+									k++;
+									it1--;
+
+								}
+							}
+						}
+						if (it2 <= names.length - 1) {
+
+							while (it2 <= (names.length - 1) && timee[it2].compareTo(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse(x)) == 0) {
+
+								if (timee[it2].compareTo(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse(x)) == 0) {
+									dupp[k]=timee[it2];
+									k++;
+									it2++;
+
+								}
+							}
+							break;
+						}
+					
+				} 
+    		}
+
+    		for (int i = 0; i < k; i++) {
+    			System.out.println(dupp[i]);
+    		}
+
+    		
+    		for (int i = 0; i < k; i++) {
+    			for (int j = 0; j < orders.size(); j++) {
+    				if (dupp[i].compareTo(comparedd[j]) == 0 && b_ser_check(i, j)) {
+    					state.add(j);
+    					state1.add(i);
+    					msg_order.set(i, bodies.get(j));
+    					tos_order.set(i, recieve.get(j));
+    					froms_order.set(i, send.get(j));
+    					subjects_order.set(i, subjects.get(j));
+    					time_order.set(i, times.get(j));
+    					orders_order.set(i, orders.get(j));
+    					pqs_order.set(i, pqs.get(j));
+    				}
+    			}
+    		}
         }
 		
+		JSONObject obj1 = new JSONObject();
+		JSONArray k1 = new JSONArray();
+		JSONArray k2 = new JSONArray();
+		JSONArray k3 = new JSONArray();
+		JSONArray k4 = new JSONArray();
+		JSONArray k5 = new JSONArray();
+		JSONArray k6 = new JSONArray();
+		JSONArray k7 = new JSONArray();
+
+		for (int i = 0; i < recieve.size(); i++) {
+			k1.add(tos_order.get(i));
+			k2.add(froms_order.get(i));
+			k3.add(subjects_order.get(i));
+			k4.add(msg_order.get(i));
+			k5.add(orders_order.get(i));
+			k6.add(time_order.get(i));
+			k7.add(pqs_order.get(i));
+
+		}
+
+		obj1.put("tos", k1);
+		obj1.put("froms", k2);
+		obj1.put("subjects", k3);
+		obj1.put("bodies", k4);
+		obj1.put("order", k5);
+		obj1.put("time", k6);
+		obj1.put("pq", k7);
+		try (FileWriter file = new FileWriter("Users/temp3.json")) {
+
+			file.write(obj1.toString());
+			file.flush();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	boolean b_ser_check(int l, int k) {
+		for (int i = 0; i < state1.size(); i++) {
+			if ((int) state1.get(i) == l) {
+				return false;
+			}
+
+		}
+		for (int i = 0; i < state.size(); i++) {
+			if ((int) state.get(i) == k) {
+				return false;
+			}
+
+		}
+		return true;
 
 	}
 
 	@SuppressWarnings({ "static-access", "unchecked" })
 	@Override
-	public void read_indexfile(String category, String path) {
+	public void read_indexfile(String category, String path) throws java.text.ParseException {
 		JSONParser parser = new JSONParser();
 		DLinkedList mail = new DLinkedList();
 		DLinkedList send = new DLinkedList();
@@ -328,6 +544,8 @@ public class Filter implements IFilter {
 		DLinkedList orders = new DLinkedList();
 		DLinkedList times = new DLinkedList();
 		DLinkedList pqs = new DLinkedList();
+		DLinkedList compared = new DLinkedList();
+		boolean flag = false;
 		Mail x = new Mail();
 
 		try {
@@ -338,8 +556,8 @@ public class Filter implements IFilter {
 
 			// loop array
 			// here we load content of json file
-			JSONArray col1 = (JSONArray) jsonObject.get("tos");
-			JSONArray col2 = (JSONArray) jsonObject.get("froms");
+			JSONArray col1 = (JSONArray) jsonObject.get("tos");// destination
+			JSONArray col2 = (JSONArray) jsonObject.get("froms");// source
 			JSONArray col3 = (JSONArray) jsonObject.get("subjects");
 			JSONArray col4 = (JSONArray) jsonObject.get("bodies");
 			JSONArray col5 = (JSONArray) jsonObject.get("order");
@@ -382,18 +600,101 @@ public class Filter implements IFilter {
 
 			}
 			String names[] = new String[orders.size()];
-			for (int i = orders.size() - 1; i >= 0; i--) {
-				names[i] = (subjects.get(orders.size() - 1 - i).toString());
-			}
-			for (int i = 0; i < orders.size(); i++) {
-				for (int j = i + 1; j < orders.size(); j++) {
-					if (names[i].compareTo(names[j]) > 0) {
-						String temp = names[i];
-						names[i] = names[j];
-						names[j] = temp;
+			Date timee[] = new Date[orders.size()];
+			Date comparedd[] = new Date[orders.size()];
+			if (Objects.equals(category, "subject")) {
+				for (int i = 0; i < orders.size(); i++) {
+					compared.add(subjects.get(i));
+				}
+
+				for (int i = orders.size() - 1; i >= 0; i--) {
+					names[i] = (subjects.get(orders.size() - 1 - i).toString());
+				}
+				for (int i = 0; i < orders.size(); i++) {
+
+					for (int j = i + 1; j < orders.size(); j++) {
+						if (names[i].compareTo(names[j]) > 0) {
+							String temp = names[i];
+							names[i] = names[j];
+							names[j] = temp;
+						}
 					}
 				}
+			} else if (Objects.equals(category, "sender")) {
+				for (int i = 0; i < orders.size(); i++) {
+					compared.add(send.get(i));
+				}
+				for (int i = orders.size() - 1; i >= 0; i--) {
+					names[i] = (send.get(orders.size() - 1 - i).toString());
+				}
+				for (int i = 0; i < orders.size(); i++) {
+
+					for (int j = i + 1; j < orders.size(); j++) {
+						if (names[i].compareTo(names[j]) > 0) {
+							String temp = names[i];
+							names[i] = names[j];
+							names[j] = temp;
+						}
+					}
+				}
+			} else if (Objects.equals(category, "receiver")) {
+				for (int i = 0; i < orders.size(); i++) {
+					compared.add(recieve.get(i));
+				}
+				for (int i = orders.size() - 1; i >= 0; i--) {
+					names[i] = (recieve.get(orders.size() - 1 - i).toString());
+				}
+				for (int i = 0; i < orders.size(); i++) {
+
+					for (int j = i + 1; j < orders.size(); j++) {
+						if (names[i].compareTo(names[j]) > 0) {
+							String temp = names[i];
+							names[i] = names[j];
+							names[j] = temp;
+						}
+					}
+				}
+			} else if (Objects.equals(category, "time")) {
+				flag = true;
+
+				for (int i = 0; i < orders.size(); i++) {
+					comparedd[i] = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse((String) times.get(i));
+				}
+				for (int i = orders.size() - 1; i >= 0; i--) {
+					timee[i] = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+							.parse((String) times.get(orders.size() - 1 - i));
+				}
+				for (int i = 0; i < orders.size(); i++) {
+
+					for (int j = i + 1; j < orders.size(); j++) {
+						if (timee[i].compareTo(timee[j]) > 0) {
+							Date temp = timee[i];
+							timee[i] = timee[j];
+							timee[j] = temp;
+						}
+					}
+				}
+			} else if (Objects.equals(category, "priority")) {
+
+				for (int i = 0; i < orders.size(); i++) {
+					compared.add(pqs.get(i));
+				}
+				for (int i = orders.size() - 1; i >= 0; i--) {
+					names[i] = (pqs.get(orders.size() - 1 - i).toString());
+				}
+				for (int i = 0; i < orders.size(); i++) {
+
+					for (int j = i + 1; j < orders.size(); j++) {
+						if (names[i].compareTo(names[j]) > 0) {
+							String temp = names[i];
+							names[i] = names[j];
+							names[j] = temp;
+						}
+					}
+				}
+
 			}
+
 			DLinkedList n = new DLinkedList();
 			DLinkedList msg_order = new DLinkedList();
 			DLinkedList tos_order = new DLinkedList();
@@ -402,30 +703,69 @@ public class Filter implements IFilter {
 			DLinkedList time_order = new DLinkedList();
 			DLinkedList orders_order = new DLinkedList();
 			DLinkedList pqs_order = new DLinkedList();
-			for (int i = 0; i < orders.size(); i++) {
-				n.add(i, names[i]);
-				msg_order.add(1);
-				tos_order.add(1);
-				froms_order.add(1);
-				subjects_order.add(1);
-				time_order.add(1);
-				orders_order.add(1);
-				pqs_order.add(1);
-			}
+			DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			if (!flag) {
+				for (int i = 0; i < orders.size(); i++) {
+					n.add(i, names[i]);
+					msg_order.add(1);
+					tos_order.add(1);
+					froms_order.add(1);
+					subjects_order.add(1);
+					time_order.add(1);
+					orders_order.add(1);
+					pqs_order.add(1);
+				}
 
-			for (int i = 0; i < orders.size(); i++) {
-				for (int j = 0; j < orders.size(); j++) {
-					if (Objects.equals((String) n.get(i), (String) subjects.get(j))) {
-						msg_order.set(i, bodies.get(j));
-						tos_order.set(i, recieve.get(j));
-						froms_order.set(i, send.get(j));
-						subjects_order.set(i, subjects.get(j));
-						time_order.set(i, times.get(j));
-						orders_order.set(i, orders.get(j));
-						pqs_order.set(i, pqs.get(j));
+				for (int i = 0; i < orders.size(); i++) {
+					for (int j = 0; j < orders.size(); j++) {
+
+						if (Objects.equals((String) n.get(i), (String) compared.get(j)) && b_ser_check1(i, j)) {
+
+							state2.add(j);
+							state3.add(i);
+							msg_order.set(i, bodies.get(j));
+							tos_order.set(i, recieve.get(j));
+							froms_order.set(i, send.get(j));
+							subjects_order.set(i, subjects.get(j));
+							time_order.set(i, times.get(j));
+							orders_order.set(i, orders.get(j));
+							pqs_order.set(i, pqs.get(j));
+
+						}
+					}
+				}
+			} else {
+				for (int i = 0; i < orders.size(); i++) {
+					n.add(i, timee[i]);
+					msg_order.add(1);
+					tos_order.add(1);
+					froms_order.add(1);
+					subjects_order.add(1);
+					time_order.add(1);
+					orders_order.add(1);
+					pqs_order.add(1);
+				}
+
+				for (int i = 0; i < orders.size(); i++) {
+					for (int j = 0; j < orders.size(); j++) {
+
+						if (timee[i].compareTo(comparedd[j]) == 0 && b_ser_check1(i, j)) {
+
+							state2.add(j);
+							state3.add(i);
+							msg_order.set(i, bodies.get(j));
+							tos_order.set(i, recieve.get(j));
+							froms_order.set(i, send.get(j));
+							subjects_order.set(i, subjects.get(j));
+							time_order.set(i, times.get(j));
+							orders_order.set(i, orders.get(j));
+							pqs_order.set(i, pqs.get(j));
+
+						}
 					}
 				}
 			}
+
 			JSONObject obj1 = new JSONObject();
 			JSONArray k1 = new JSONArray();
 			JSONArray k2 = new JSONArray();
@@ -471,11 +811,27 @@ public class Filter implements IFilter {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-        
-        String ser = Filter.Searched_value;
+
+		String ser = Filter.Searched_value;
 		bsearch(ser, "Users/temp2.json");
 
 	}
 
+	boolean b_ser_check1(int l, int k) {
+		for (int i = 0; i < state3.size(); i++) {
+			if ((int) state3.get(i) == l) {
+				return false;
+			}
+
+		}
+		for (int i = 0; i < state2.size(); i++) {
+			if ((int) state2.get(i) == k) {
+				return false;
+			}
+
+		}
+		return true;
+
+	}
 
 }

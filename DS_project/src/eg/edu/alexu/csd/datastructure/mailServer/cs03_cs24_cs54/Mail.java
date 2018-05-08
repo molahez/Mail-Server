@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Objects;
 
@@ -21,7 +22,8 @@ import eg.edu.alexu.csd.datastructure.mailServer.IMail;
 
 public class Mail implements IMail {
 
-	public static String from, to, subject, email_body, time, p, order;
+	public static String from, to, subject, email_body, p,time, order;
+	
 
 	public Mail() {
 		from = null;
@@ -42,87 +44,6 @@ public class Mail implements IMail {
 		time = tt;
 		p = pq;
 	}
-
-	/*public static String getFrom() {
-		return from;
-	}
-
-	public static void setFrom(String from) {
-		Mail.from = from;
-	}
-
-	public static String getTo() {
-		return to;
-	}
-
-	public static void setTo(String to) {
-		Mail.to = to;
-	}
-
-	public static  String getSubject() {
-		return subject;
-	}
-
-	public  void setSubject(String subject) {
-		Mail.subject = subject;
-	}
-
-	public static String getEmail_body() {
-		return email_body;
-	}
-
-	public static void setEmail_body(String email_body) {
-		Mail.email_body = email_body;
-	}
-
-	public static String getTime() {
-		return time;
-	}
-
-	public static void setTime(String time) {
-		Mail.time = time;
-	}
-
-	public static String getP() {
-		return p;
-	}
-
-	public static void setP(String p) {
-		Mail.p = p;
-	}
-
-	public static String getOrder() {
-		return order;
-	}
-
-	public static void setOrder(String order) {
-		Mail.order = order;
-	}
-
-	public void var3(String fro, String t, String sub, String email_body, String tt, String pq, String o) {
-		from = fro;
-		to = t;
-		subject = sub;
-		Mail.email_body = email_body;
-		time = tt;
-		p = pq;
-		order = o;
-	}
-
-	public int compare(String string) {
-		return this.to.toString().compareTo(Mail.getTo());
-
-	}
-	public int comparefrom(Mail mail) {
-		return this.from.toString().compareTo(mail.getFrom());
-
-	}
-	public int comparesubject(String string) {
-		return this.subject.toString().compareTo(Mail.getSubject());
-
-	}*/
-	
-	
 
 	@SuppressWarnings({ "unchecked", "unused" })
 	@Override
@@ -213,9 +134,10 @@ public class Mail implements IMail {
 		times.add(tt);
 		pqs.add(pq);
 		if (orders.size() == 0) {
-			orders.add(1);
+			orders.add("1");
 		} else {
-			orders.add(orders.size() + 1);
+			int or = orders.size() + 1;
+			orders.add(Integer.toString(or));
 		}
 		for (int i = 0; i < recieve.size(); i++) {
 			k1.add(recieve.get(i));
@@ -225,13 +147,12 @@ public class Mail implements IMail {
 			k5.add(orders.get(i));
 
 			k6.add(times.get(i));
-			
+
 		}
 		for (int i = 0; i < recieve.size(); i++) {
 			k7.add(pqs.get(i));
-			
+
 		}
-		
 
 		obj1.put("tos", k1);
 		obj1.put("froms", k2);
@@ -478,7 +399,4 @@ public class Mail implements IMail {
 	}
 
 	
-
-	
-
 }

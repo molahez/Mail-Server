@@ -149,7 +149,7 @@ public class MainWindow {
 				xx = x.Searched_value;
 				
 				Appp y = new Appp();
-				if(Objects.equals(textField_1.getText(),"") &&(Objects.equals(cate,""))) {
+				if((Objects.equals(textField_1.getText(),"")) && cate.length()==0) {
 					
 					JOptionPane.showMessageDialog(null, "Please enter value and it's category to serach/n"+"for example: value(CSED) and category (Subject) ");
 					
@@ -344,6 +344,7 @@ public class MainWindow {
 		textField_1.setBounds(442, 126, 127, 44);
 		frame.getContentPane().add(textField_1);
 		textField_1.setColumns(10);
+		textField_1.setEditable(false);
 		
 		JMenuBar menuBar_1 = new JMenuBar();
 		menuBar_1.setMargin(new Insets(0, 0, 0, 6));
@@ -357,6 +358,7 @@ public class MainWindow {
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Senders");
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				textField_1.setEditable(true);
 				
 			
 				cate = "sender";
@@ -368,7 +370,7 @@ public class MainWindow {
 		JMenuItem mntmReceivers = new JMenuItem("Receivers");
 		mntmReceivers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				textField_1.setEditable(true);
 				
 				cate = "receiver";
 
@@ -379,23 +381,32 @@ public class MainWindow {
 		JMenuItem mntmImportance = new JMenuItem("Importance");
 		mntmImportance.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				textField_1.setEditable(true);
 				
 				cate = "priority";
 			}
 		});
-		mnNewMenu_1.add(mntmImportance);
 		
 		JMenuItem mntmSubject = new JMenuItem("Subject");
 		mntmSubject.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				textField_1.setEditable(true);
 				cate = "subject";
 				
 				
 			}
 		});
 		mnNewMenu_1.add(mntmSubject);
+		mnNewMenu_1.add(mntmImportance);
+		
+		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Time");
+		mntmNewMenuItem_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textField_1.setEditable(true);
+				cate = "time";
+			}
+		});
+		mnNewMenu_1.add(mntmNewMenuItem_5);
 		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);

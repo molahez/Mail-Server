@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
 import org.json.simple.JSONArray;
@@ -192,14 +193,6 @@ public class Appp implements IApp {
 		x = Filter.filter;
 		cat = Filter.category;
 		value = Filter.Searched_value;
-		
-	
-		
-	
-		
-		
-
-		
 		switch (x) {
 		case 1:
 			folder_chosen = folderr.folderchosen;
@@ -226,7 +219,12 @@ public class Appp implements IApp {
 			sort.OrderOfAll_4(name, folder_chosen); // alphabet of senders
 			break;
 		case 5:
-			filter.read_indexfile(cat, "Users/ahmed/Inbox/Index file.json"); // alphabet of senders
+			try {
+				filter.read_indexfile(cat, "Users/ahmed/Inbox/Index file.json");
+			} catch (java.text.ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} // alphabet of senders
 			break;
 		default:
 
@@ -255,8 +253,9 @@ public class Appp implements IApp {
 
 	@Override
 	public boolean compose(IMail email) {
-		String from, to = null, subject, email_body;
-		String z, y, path, time, pq;
+		String from, to = null, subject, email_body,time;
+		String z, y, path, pq;
+		
 		Contact x = new Contact();
 
 		from = Mail.from;
