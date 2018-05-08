@@ -43,7 +43,7 @@ public class Mail implements IMail {
 		p = pq;
 	}
 
-	public static String getFrom() {
+	/*public static String getFrom() {
 		return from;
 	}
 
@@ -120,7 +120,7 @@ public class Mail implements IMail {
 	public int comparesubject(String string) {
 		return this.subject.toString().compareTo(Mail.getSubject());
 
-	}
+	}*/
 	
 	
 
@@ -476,6 +476,8 @@ public class Mail implements IMail {
 			file.delete();
 		}
 	}
+
+	
 
 	
 

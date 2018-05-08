@@ -263,7 +263,7 @@ public class Filter implements IFilter {
 
 	}
 
-	public void quick_sort(DLinkedList input) {
+	/*public void quick_sort(DLinkedList input) {
 		MyStack stack = new MyStack();
 		Mail pivot;
 		int pivotIndex = 0;
@@ -353,5 +353,5 @@ public class Filter implements IFilter {
 		Mail temp = (Mail) arr.get(left);
 		arr.set(left, arr.get(right));
 		arr.set(right, temp);
-	}
+	}*/
 }
