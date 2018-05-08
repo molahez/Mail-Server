@@ -92,6 +92,7 @@ public class DLinkedList implements ILinkedList {
         }
 
         if (index > (size() - 1) || index < 0) {
+        	
             throw new IndexOutOfBoundsException();
         }
 

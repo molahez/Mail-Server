@@ -36,6 +36,9 @@ public class MainWindow {
 	int count = 5;
 	private JFrame frame;
 	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
 	
 
 	
@@ -137,6 +140,12 @@ public class MainWindow {
 		frame.getContentPane().add(btnCompose);
 
 		JButton btnSearch = new JButton("Search");
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Filter x = new Filter();
+				x.read_indexfile("subject","Users/ahmed/Inbox/Index file.json");
+			}
+		});
 		btnSearch.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		btnSearch.setBounds(281, 109, 113, 61);
 		frame.getContentPane().add(btnSearch);
@@ -313,6 +322,90 @@ public class MainWindow {
 		
 		JMenuItem mntmLowestpriority = new JMenuItem("Lowest_Priority");
 		mnNewMenu.add(mntmLowestpriority);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(442, 126, 127, 44);
+		frame.getContentPane().add(textField_1);
+		textField_1.setColumns(10);
+		
+		JMenuBar menuBar_1 = new JMenuBar();
+		menuBar_1.setMargin(new Insets(0, 0, 0, 6));
+		menuBar_1.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		menuBar_1.setBounds(601, 132, 101, 35);
+		frame.getContentPane().add(menuBar_1);
+		
+		JMenu mnNewMenu_1 = new JMenu("Search by:-");
+		menuBar_1.add(mnNewMenu_1);
+		
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Senders");
+		mnNewMenu_1.add(mntmNewMenuItem_1);
+		
+		JMenuItem mntmReceivers = new JMenuItem("Receivers");
+		mnNewMenu_1.add(mntmReceivers);
+		
+		JMenuItem mntmImportance = new JMenuItem("Importance");
+		mnNewMenu_1.add(mntmImportance);
+		
+		JMenuItem mntmSubject = new JMenuItem("Subject");
+		mnNewMenu_1.add(mntmSubject);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(442, 218, 127, 34);
+		frame.getContentPane().add(textField_2);
+		textField_2.setEditable(false);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		textField_3.setBounds(442, 282, 127, 36);
+		frame.getContentPane().add(textField_3);
+		textField_3.setEditable(false);
+		
+		JMenuBar menuBar_2 = new JMenuBar();
+		menuBar_2.setBounds(601, 216, 101, 22);
+		frame.getContentPane().add(menuBar_2);
+		
+		JMenu mnNewMenu_2 = new JMenu("Creating Filter");
+		menuBar_2.add(mnNewMenu_2);
+		
+		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Reciever");
+		mntmNewMenuItem_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textField_2.setEditable(true);
+				textField_3.setEditable(false);
+				String re = textField_2.getText();
+			}
+		});
+		mnNewMenu_2.add(mntmNewMenuItem_2);
+		
+		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Subject");
+		mntmNewMenuItem_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textField_3.setEditable(true);
+				textField_2.setEditable(false);
+				String co = textField_3.getText();
+			}
+		});
+		mnNewMenu_2.add(mntmNewMenuItem_3);
+		
+		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Receiver&Subject");
+		mntmNewMenuItem_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textField_2.setEditable(true);
+				textField_3.setEditable(true);
+				String re = textField_2.getText();
+				String co = textField_3.getText();
+			}
+		});
+		mnNewMenu_2.add(mntmNewMenuItem_4);
+		
+		JLabel lblSender = new JLabel("Sender");
+		lblSender.setBounds(442, 192, 58, 15);
+		frame.getContentPane().add(lblSender);
+		
+		JLabel lblSubject = new JLabel("Subject");
+		lblSubject.setBounds(442, 256, 58, 15);
+		frame.getContentPane().add(lblSubject);
 		tree.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {

@@ -21,7 +21,7 @@ import eg.edu.alexu.csd.datastructure.mailServer.IMail;
 
 public class Mail implements IMail {
 
-	public static String from, to, subject, email_body, time,p;
+	public static String from, to, subject, email_body, time, p, order;
 
 	public Mail() {
 		from = null;
@@ -30,6 +30,7 @@ public class Mail implements IMail {
 		email_body = null;
 		time = null;
 		p = null;
+		order = null;
 	}
 
 	@Override
@@ -41,6 +42,86 @@ public class Mail implements IMail {
 		time = tt;
 		p = pq;
 	}
+
+	public static String getFrom() {
+		return from;
+	}
+
+	public static void setFrom(String from) {
+		Mail.from = from;
+	}
+
+	public static String getTo() {
+		return to;
+	}
+
+	public static void setTo(String to) {
+		Mail.to = to;
+	}
+
+	public  String getSubject() {
+		return subject;
+	}
+
+	public  void setSubject(String subject) {
+		Mail.subject = subject;
+	}
+
+	public static String getEmail_body() {
+		return email_body;
+	}
+
+	public static void setEmail_body(String email_body) {
+		Mail.email_body = email_body;
+	}
+
+	public static String getTime() {
+		return time;
+	}
+
+	public static void setTime(String time) {
+		Mail.time = time;
+	}
+
+	public static String getP() {
+		return p;
+	}
+
+	public static void setP(String p) {
+		Mail.p = p;
+	}
+
+	public static String getOrder() {
+		return order;
+	}
+
+	public static void setOrder(String order) {
+		Mail.order = order;
+	}
+
+	public void var3(String fro, String t, String sub, String email_body, String tt, String pq, String o) {
+		from = fro;
+		to = t;
+		subject = sub;
+		Mail.email_body = email_body;
+		time = tt;
+		p = pq;
+		order = o;
+	}
+
+	public int compare(Mail mail) {
+		return this.to.toString().compareTo(mail.getTo());
+
+	}
+	public int comparefrom(Mail mail) {
+		return this.toString().compareTo(mail.getFrom());
+
+	}
+	public int comparesubject(Mail mail) {
+		return this.subject.toString().compareTo(mail.getSubject());
+
+	}
+	
 	
 
 	@SuppressWarnings({ "unchecked", "unused" })
@@ -104,7 +185,7 @@ public class Mail implements IMail {
 
 			}
 			while (iterator7.hasNext()) {
-				times.add(iterator7.next());
+				pqs.add(iterator7.next());
 
 			}
 
@@ -142,9 +223,15 @@ public class Mail implements IMail {
 			k3.add(subjects.get(i));
 			k4.add(bodies.get(i));
 			k5.add(orders.get(i));
+
 			k6.add(times.get(i));
-			k7.add(pqs.get(i));
+			
 		}
+		for (int i = 0; i < recieve.size(); i++) {
+			k7.add(pqs.get(i));
+			
+		}
+		
 
 		obj1.put("tos", k1);
 		obj1.put("froms", k2);
@@ -302,6 +389,7 @@ public class Mail implements IMail {
 		}
 
 	}
+
 	@SuppressWarnings("unchecked")
 	public int order1(String path) {
 		DLinkedList orders = new DLinkedList();
@@ -337,34 +425,36 @@ public class Mail implements IMail {
 		if (orders.size() == 0) {
 			return 1;
 		} else {
-			return orders.size() ;
+			return orders.size();
 		}
 
 	}
+
 	public void move_attachment(String contact, String email_to) {
 		String path = "Users/temp";
 		File x = new File(path);
 		Mail y = new Mail();
-		
+
 		if (x.isDirectory()) {
 			if (x.list().length > 0) {
 				y.directory_contents(contact, email_to);
 			} else {
-				
+
 			}
-			
+
 		} else {
-			
+
 		}
 	}
+
 	public void directory_contents(String contact, String email_to) {
 		String path = "Users/temp";
 		String cont;
 		File x = new File(path);
 		File[] files = x.listFiles();
 		Mail z = new Mail();
-		cont = z.return_contact(email_to); //contact for receiver
-		
+		cont = z.return_contact(email_to); // contact for receiver
+
 		for (File file : files) {
 			String path1 = "Users/" + cont + "/Inbox/Index file.json";
 			int t = z.order(path1);
@@ -372,13 +462,13 @@ public class Mail implements IMail {
 			String dest1 = "Users/" + cont + "/Inbox/" + c;
 			File rece = new File(dest1);
 			rece.mkdirs();
-			rece = new File (dest1 + "/" + file.getName());
+			rece = new File(dest1 + "/" + file.getName());
 			z.save_attachement(file, rece);
-			
+
 			path1 = "Users/" + contact + "/Sent/Index file.json";
 			t = z.order1(path1);
-			c = "" + t; 
-			String dest2 = "Users/" + contact + "/Sent/" + c ;
+			c = "" + t;
+			String dest2 = "Users/" + contact + "/Sent/" + c;
 			File send = new File(dest2);
 			send.mkdirs();
 			send = new File(dest2 + "/" + file.getName());

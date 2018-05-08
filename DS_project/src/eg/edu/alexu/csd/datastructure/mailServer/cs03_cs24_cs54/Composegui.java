@@ -181,7 +181,7 @@ public class Composegui {
 			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent e) {
 				Calendar cal = Calendar.getInstance();
-				 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+				SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 				Mail x = new Mail();
 				x.var2(email, textField.getText(), textField_1.getText(),textArea.getText(),sdf.format(cal.getTime()),p);
 				//Contact xx = new Contact();
