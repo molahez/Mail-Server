@@ -184,8 +184,7 @@ public class Composegui {
 				SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 				Mail x = new Mail();
 				x.var2(email, textField.getText(), textField_1.getText(),textArea.getText(),sdf.format(cal.getTime()),p);
-				//Contact xx = new Contact();
-				//xx.var(email,password,cont);
+				
 				
 				Appp y = new Appp();
 			   if(textField.getText()==""||textField_1.getText()==""||textArea.getText()=="") {

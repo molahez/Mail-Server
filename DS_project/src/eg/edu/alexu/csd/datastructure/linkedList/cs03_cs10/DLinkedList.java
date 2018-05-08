@@ -35,6 +35,7 @@ public class DLinkedList implements ILinkedList {
         Node newNode = new Node(element);
         Node temp = first;
         if (index < 0 || index > size()) {
+        	
             throw new IndexOutOfBoundsException();
         } else if (index == 0 && size() == 0) {
             first = newNode;

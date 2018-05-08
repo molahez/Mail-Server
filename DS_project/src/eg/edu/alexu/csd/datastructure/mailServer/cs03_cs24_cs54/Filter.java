@@ -3,9 +3,11 @@ package eg.edu.alexu.csd.datastructure.mailServer.cs03_cs24_cs54;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Objects;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -16,8 +18,27 @@ import eg.edu.alexu.csd.datastructure.linkedList.cs03_cs10.DLinkedList;
 import eg.edu.alexu.csd.datastructure.mailServer.IFilter;
 import eg.edu.alexu.csd.datastructure.stack.cs03.MyStack;
 
+@SuppressWarnings("unused")
 public class Filter implements IFilter {
-	String type;
+	public static String category;
+	public static String Searched_value;
+	public static Integer filter;
+	public Filter() {
+		category = null;
+		Searched_value = null;
+	    filter =  null;
+	   
+
+	}
+	
+	@Override
+	public void var(Integer fil,String cate,String val) {
+		filter = fil;
+		category = cate;
+		Searched_value = val;
+	}
+	
+	
 
 	public void choose_filter(String type, String descrip, String contact) {
 		String path = "Users/" + contact + "/Filterd mails/";
@@ -171,15 +192,10 @@ public class Filter implements IFilter {
 
 	}
 
-	@Override
-	public int bsearch(String x, DLinkedList y) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	public void bsearch(String x, String path) {
+		
+		// first we read the file
 
-	@SuppressWarnings({ "static-access", "unchecked" })
-	@Override
-	public void read_indexfile(String category, String path) {
 		JSONParser parser = new JSONParser();
 		DLinkedList mail = new DLinkedList();
 		DLinkedList send = new DLinkedList();
@@ -189,8 +205,7 @@ public class Filter implements IFilter {
 		DLinkedList orders = new DLinkedList();
 		DLinkedList times = new DLinkedList();
 		DLinkedList pqs = new DLinkedList();
-		Mail x = new Mail();
-		this.type = category;
+
 		try {
 
 			Object obj = parser.parse(new FileReader(path));
@@ -241,15 +256,211 @@ public class Filter implements IFilter {
 			while (iterator7.hasNext()) {
 				pqs.add(iterator7.next());
 
+			}
+		}
+
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// Binary search starts here
+		String names[] = new String[orders.size()];
+		DLinkedList dup = new DLinkedList();;
+		for (int i = orders.size() - 1; i >= 0; i--) {
+			names[i] = (subjects.get(orders.size() - 1 - i).toString());
+		}
+		int low = 0;
+		int high = names.length - 1;
+		int mid;
+		int it1 = 0;
+		int it2 = 0;
 		
+		while (low <= high) {
+			mid = (low + high) / 2;
+
+			if (names[mid].compareTo(x) < 0) {
+				low = mid + 1;
+			} else if (names[mid].compareTo(x) > 0) {
+				high = mid - 1;
+			} else {
+				dup.add(names[mid]);
+				it1 = mid - 1;
+				it2 = mid + 1;
+				while (Objects.equals(x,names[it1]) && it1 != 0) {
+					if (Objects.equals(x,names[it1])) {
+						dup.add(names[it1]);
+						it1--;
+
+					}
+				}
+				while (Objects.equals(x,names[it2]) && it2 != (names.length - 1)) {
+					if (Objects.equals(x,names[it2])) {
+						dup.add(names[it2]);
+						it2++;
+
+					}
+				}
+				break;
 			}
-			String arr[] = new String[pqs.size()];
-			for(int i = 0;i<pqs.size();i++) {
-				arr[i]=(String) subjects.get(i);
+		}
+		
+        for(int i=0; i<dup.size();i++) {
+        	System.out.println(dup.get(i));
+        }
+		
+
+	}
+
+	@SuppressWarnings({ "static-access", "unchecked" })
+	@Override
+	public void read_indexfile(String category, String path) {
+		JSONParser parser = new JSONParser();
+		DLinkedList mail = new DLinkedList();
+		DLinkedList send = new DLinkedList();
+		DLinkedList recieve = new DLinkedList();
+		DLinkedList subjects = new DLinkedList();
+		DLinkedList bodies = new DLinkedList();
+		DLinkedList orders = new DLinkedList();
+		DLinkedList times = new DLinkedList();
+		DLinkedList pqs = new DLinkedList();
+		Mail x = new Mail();
+
+		try {
+
+			Object obj = parser.parse(new FileReader(path));
+
+			JSONObject jsonObject = (JSONObject) obj;
+
+			// loop array
+			// here we load content of json file
+			JSONArray col1 = (JSONArray) jsonObject.get("tos");
+			JSONArray col2 = (JSONArray) jsonObject.get("froms");
+			JSONArray col3 = (JSONArray) jsonObject.get("subjects");
+			JSONArray col4 = (JSONArray) jsonObject.get("bodies");
+			JSONArray col5 = (JSONArray) jsonObject.get("order");
+			JSONArray col6 = (JSONArray) jsonObject.get("time");
+			JSONArray col7 = (JSONArray) jsonObject.get("pq");
+			Iterator<String> iterator1 = col1.iterator();
+			Iterator<String> iterator2 = col2.iterator();
+			Iterator<String> iterator3 = col3.iterator();
+			Iterator<String> iterator4 = col4.iterator();
+			Iterator<String> iterator5 = col5.iterator();
+			Iterator<String> iterator6 = col6.iterator();
+			Iterator<String> iterator7 = col7.iterator();
+			while (iterator1.hasNext()) {
+
+				recieve.add(iterator1.next());
+
 			}
-			Arrays.sort(arr);
-			System.out.println(arr[0]);
-			
+			while (iterator2.hasNext()) {
+				send.add(iterator2.next());
+
+			}
+			while (iterator3.hasNext()) {
+				subjects.add(iterator3.next());
+
+			}
+			while (iterator4.hasNext()) {
+				bodies.add(iterator4.next());
+
+			}
+			while (iterator5.hasNext()) {
+				orders.add(iterator5.next());
+
+			}
+			while (iterator6.hasNext()) {
+				times.add(iterator6.next());
+
+			}
+			while (iterator7.hasNext()) {
+				pqs.add(iterator7.next());
+
+			}
+			String names[] = new String[orders.size()];
+			for (int i = orders.size() - 1; i >= 0; i--) {
+				names[i] = (subjects.get(orders.size() - 1 - i).toString());
+			}
+			for (int i = 0; i < orders.size(); i++) {
+				for (int j = i + 1; j < orders.size(); j++) {
+					if (names[i].compareTo(names[j]) > 0) {
+						String temp = names[i];
+						names[i] = names[j];
+						names[j] = temp;
+					}
+				}
+			}
+			DLinkedList n = new DLinkedList();
+			DLinkedList msg_order = new DLinkedList();
+			DLinkedList tos_order = new DLinkedList();
+			DLinkedList froms_order = new DLinkedList();
+			DLinkedList subjects_order = new DLinkedList();
+			DLinkedList time_order = new DLinkedList();
+			DLinkedList orders_order = new DLinkedList();
+			DLinkedList pqs_order = new DLinkedList();
+			for (int i = 0; i < orders.size(); i++) {
+				n.add(i, names[i]);
+				msg_order.add(1);
+				tos_order.add(1);
+				froms_order.add(1);
+				subjects_order.add(1);
+				time_order.add(1);
+				orders_order.add(1);
+				pqs_order.add(1);
+			}
+
+			for (int i = 0; i < orders.size(); i++) {
+				for (int j = 0; j < orders.size(); j++) {
+					if (Objects.equals((String) n.get(i), (String) subjects.get(j))) {
+						msg_order.set(i, bodies.get(j));
+						tos_order.set(i, recieve.get(j));
+						froms_order.set(i, send.get(j));
+						subjects_order.set(i, subjects.get(j));
+						time_order.set(i, times.get(j));
+						orders_order.set(i, orders.get(j));
+						pqs_order.set(i, pqs.get(j));
+					}
+				}
+			}
+			JSONObject obj1 = new JSONObject();
+			JSONArray k1 = new JSONArray();
+			JSONArray k2 = new JSONArray();
+			JSONArray k3 = new JSONArray();
+			JSONArray k4 = new JSONArray();
+			JSONArray k5 = new JSONArray();
+			JSONArray k6 = new JSONArray();
+			JSONArray k7 = new JSONArray();
+
+			for (int i = 0; i < recieve.size(); i++) {
+				k1.add(tos_order.get(i));
+				k2.add(froms_order.get(i));
+				k3.add(subjects_order.get(i));
+				k4.add(msg_order.get(i));
+				k5.add(orders_order.get(i));
+				k6.add(time_order.get(i));
+				k7.add(pqs_order.get(i));
+
+			}
+
+			obj1.put("tos", k1);
+			obj1.put("froms", k2);
+			obj1.put("subjects", k3);
+			obj1.put("bodies", k4);
+			obj1.put("order", k5);
+			obj1.put("time", k6);
+			obj1.put("pq", k7);
+			try (FileWriter file = new FileWriter("Users/temp2.json")) {
+
+				file.write(obj1.toString());
+				file.flush();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -260,98 +471,11 @@ public class Filter implements IFilter {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+        
+        String ser = Filter.Searched_value;
+		bsearch(ser, "Users/temp2.json");
 
 	}
 
-	/*public void quick_sort(DLinkedList input) {
-		MyStack stack = new MyStack();
-		Mail pivot;
-		int pivotIndex = 0;
-		int leftIndex = pivotIndex + 1;
-		int rightIndex = input.size() - 1;
 
-		stack.push(pivotIndex);// Push always with left and right
-		stack.push(rightIndex);
-
-		int leftIndexOfSubSet, rightIndexOfSubset;
-
-		while (stack.size() > 0) {
-			rightIndexOfSubset = (int) stack.pop();// pop always with right and left
-			leftIndexOfSubSet = (int) stack.pop();
-
-			if (rightIndexOfSubset - leftIndexOfSubSet < 2) {
-				continue;
-			}
-
-			leftIndex = leftIndexOfSubSet + 1;
-			pivotIndex = leftIndexOfSubSet;
-			rightIndex = rightIndexOfSubset;
-
-			pivot = (Mail) input.get(pivotIndex);
-
-			if (leftIndex > rightIndex)
-				continue;
-
-			while (leftIndex < rightIndex) {
-				int com = 0;
-				Mail temp = (Mail) input.get(leftIndex);
-				// edit
-				if (type.equals("to")) {
-					com = pivot.comparesubject(temp.getSubject());
-				} else if (type.equals("from")) {
-					com = pivot.comparesubject(temp.getSubject());
-				} else if (type.equals("subject")) {
-					com = pivot.comparesubject(temp.getSubject());
-				}
-				while ((leftIndex <= rightIndex) && (com >= 0))
-					leftIndex++; // increment right to find the greater
-				// element than the pivot
-				temp = (Mail) input.get(rightIndex);
-				if (type.equals("to")) {
-					com = pivot.comparesubject(temp.getSubject());
-				} else if (type.equals("from")) {
-					com = pivot.comparesubject(temp.getSubject());
-				} else if (type.equals("subject")) {
-					com = pivot.comparesubject(temp.getSubject());
-				}
-				while ((leftIndex <= rightIndex) && (com <= 0))
-					rightIndex--;// decrement right to find the
-				// smaller element than the pivot
-
-				if (rightIndex >= leftIndex) // if right index is
-					// greater then only swap
-					SwapElement(input, leftIndex, rightIndex);
-			}
-			int com = 0;
-			Mail temp = (Mail) input.get(rightIndex);
-			Mail temp2 = (Mail) input.get(pivotIndex);
-			// edit
-			if (type.equals("to")) {
-				com = temp2.comparesubject(temp.getSubject());
-			} else if (type.equals("from")) {
-				com = temp2.comparesubject(temp.getSubject());
-			} else if (type.equals("subject")) {
-				com = temp2.comparesubject(temp.getSubject());
-			}
-			if (pivotIndex <= rightIndex)
-				if (com > 0)
-					SwapElement(input, pivotIndex, rightIndex);
-
-			if (leftIndexOfSubSet < rightIndex) {
-				stack.push(leftIndexOfSubSet);
-				stack.push(rightIndex - 1);
-			}
-
-			if (rightIndexOfSubset > rightIndex) {
-				stack.push(rightIndex + 1);
-				stack.push(rightIndexOfSubset);
-			}
-		}
-	}
-
-	private static void SwapElement(DLinkedList arr, int left, int right) {
-		Mail temp = (Mail) arr.get(left);
-		arr.set(left, arr.get(right));
-		arr.set(right, temp);
-	}*/
 }

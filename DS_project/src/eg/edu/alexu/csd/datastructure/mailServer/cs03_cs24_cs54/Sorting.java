@@ -15,8 +15,9 @@ import eg.edu.alexu.csd.datastructure.linkedList.cs03_cs10.DLinkedList;
 import eg.edu.alexu.csd.datastructure.mailServer.ISort;
 import eg.edu.alexu.csd.datastructure.stack.cs03.MyStack;
 
-public class Storing implements ISort{
+public class Sorting implements ISort{
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void OrderOfAll_1(String namee,String folderChosennn) {
 		
@@ -126,6 +127,7 @@ public class Storing implements ISort{
 			  time_order.add(i,time.get(arr[i]-1));
 		    }
 	}
+	@SuppressWarnings({ "unused", "unchecked" })
 	@Override
   public void OrderOfAll_2(String namee,String folderChosennn) {
 		
@@ -193,6 +195,7 @@ public class Storing implements ISort{
 		}
 		
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public void OrderOfAll_3(String namee,String folderChosennn) {
 		
@@ -300,6 +303,7 @@ public class Storing implements ISort{
 	        }
 		
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 public void OrderOfAll_4(String namee,String folderChosennn) {
 		

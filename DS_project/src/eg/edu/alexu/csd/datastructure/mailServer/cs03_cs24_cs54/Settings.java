@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.Color;
-import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
@@ -83,6 +82,7 @@ public class Settings {
 		
 		JButton button = new JButton("Back");
 		button.addActionListener(new ActionListener() {
+			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent e) {
 
 				frame.dispose();
@@ -98,6 +98,7 @@ public class Settings {
 		
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
+			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent e) {
 				Contact x = new Contact();
 				x.var(email, new String(passwordField.getPassword()),cont);

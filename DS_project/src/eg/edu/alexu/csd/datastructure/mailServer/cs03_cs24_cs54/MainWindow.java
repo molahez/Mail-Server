@@ -27,12 +27,13 @@ import java.awt.Insets;
 import javax.swing.JPopupMenu;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 public class MainWindow {
-
+	Filter x = new Filter();
 	static DLinkedList fol = new DLinkedList();
 	static boolean state = false;
-	String temp,email, password, cont;
+	String temp,email, password, cont,cate = "",re,co;
 	int count = 5;
 	private JFrame frame;
 	private JTextField textField;
@@ -143,7 +144,21 @@ public class MainWindow {
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Filter x = new Filter();
-				x.read_indexfile("subject","Users/ahmed/Inbox/Index file.json");
+				String xx;
+				x.var(5, cate, textField_1.getText());
+				xx = x.Searched_value;
+				
+				Appp y = new Appp();
+				if(Objects.equals(textField_1.getText(),"") &&(Objects.equals(cate,""))) {
+					
+					JOptionPane.showMessageDialog(null, "Please enter value and it's category to serach/n"+"for example: value(CSED) and category (Subject) ");
+					
+				}
+				else {
+				y.setViewingOptions(null, x, null);
+				
+				}
+				
 			}
 		});
 		btnSearch.setFont(new Font("Century Gothic", Font.PLAIN, 16));
@@ -268,6 +283,7 @@ public class MainWindow {
 		
 		JButton btnAccountSettings = new JButton("Account Settings");
 		btnAccountSettings.addActionListener(new ActionListener() {
+			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
 				Settings kk = new Settings();
@@ -284,6 +300,7 @@ public class MainWindow {
 		
 		JButton btnEnterFolder = new JButton("Enter Folder");
 		btnEnterFolder.addActionListener(new ActionListener() {
+			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println(temp);
 				frame.dispose();
@@ -338,15 +355,46 @@ public class MainWindow {
 		menuBar_1.add(mnNewMenu_1);
 		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Senders");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			
+				cate = "sender";
+				
+			}
+		});
 		mnNewMenu_1.add(mntmNewMenuItem_1);
 		
 		JMenuItem mntmReceivers = new JMenuItem("Receivers");
+		mntmReceivers.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				cate = "receiver";
+
+			}
+		});
 		mnNewMenu_1.add(mntmReceivers);
 		
 		JMenuItem mntmImportance = new JMenuItem("Importance");
+		mntmImportance.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				cate = "priority";
+			}
+		});
 		mnNewMenu_1.add(mntmImportance);
 		
 		JMenuItem mntmSubject = new JMenuItem("Subject");
+		mntmSubject.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				cate = "subject";
+				
+				
+			}
+		});
 		mnNewMenu_1.add(mntmSubject);
 		
 		textField_2 = new JTextField();
@@ -365,7 +413,7 @@ public class MainWindow {
 		menuBar_2.setBounds(601, 216, 101, 22);
 		frame.getContentPane().add(menuBar_2);
 		
-		JMenu mnNewMenu_2 = new JMenu("Creating Filter");
+		JMenu mnNewMenu_2 = new JMenu("Choosing Filter");
 		menuBar_2.add(mnNewMenu_2);
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Reciever");
@@ -373,7 +421,9 @@ public class MainWindow {
 			public void actionPerformed(ActionEvent arg0) {
 				textField_2.setEditable(true);
 				textField_3.setEditable(false);
-				String re = textField_2.getText();
+				textField_2.setText("");
+				textField_3.setText("");
+				 
 			}
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_2);
@@ -383,7 +433,9 @@ public class MainWindow {
 			public void actionPerformed(ActionEvent e) {
 				textField_3.setEditable(true);
 				textField_2.setEditable(false);
-				String co = textField_3.getText();
+				textField_2.setText("");
+				textField_3.setText("");
+				
 			}
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_3);
@@ -393,19 +445,36 @@ public class MainWindow {
 			public void actionPerformed(ActionEvent e) {
 				textField_2.setEditable(true);
 				textField_3.setEditable(true);
-				String re = textField_2.getText();
-				String co = textField_3.getText();
+				textField_2.setText("");
+				textField_3.setText("");
+				
 			}
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_4);
 		
-		JLabel lblSender = new JLabel("Sender");
+		JLabel lblSender = new JLabel("Reciever");
 		lblSender.setBounds(442, 192, 58, 15);
 		frame.getContentPane().add(lblSender);
 		
 		JLabel lblSubject = new JLabel("Subject");
 		lblSubject.setBounds(442, 256, 58, 15);
 		frame.getContentPane().add(lblSubject);
+		
+		JButton btnCreateFilter = new JButton("Create Filter");
+		btnCreateFilter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				re = textField_2.getText();
+				co = textField_3.getText();
+				textField_3.setEditable(false);
+				textField_2.setEditable(false);
+				textField_2.setText("");
+				textField_3.setText("");
+				System.out.println(re);
+			}
+		});
+		btnCreateFilter.setFont(new Font("Century Gothic", Font.PLAIN, 14));
+		btnCreateFilter.setBounds(601, 282, 127, 36);
+		frame.getContentPane().add(btnCreateFilter);
 		tree.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {

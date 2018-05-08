@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -129,7 +130,7 @@ public class Sign_up {
 				}
 			}
 		});
-		btnNewButton.setBounds(518, 338, 119, 71);
+		btnNewButton.setBounds(519, 338, 118, 92);
 		frame.getContentPane().add(btnNewButton);
 
 		lblEmailAddress = new JLabel("Email Address:-");
@@ -154,8 +155,16 @@ public class Sign_up {
 		passwordField.setBounds(468, 159, 169, 30);
 		frame.getContentPane().add(passwordField);
 
-		btnNewButton_1 = new JButton("Back");
-		btnNewButton_1.setForeground(Color.DARK_GRAY);
+		btnNewButton_1 = new JButton("");
+		btnNewButton_1.setBackground(new Color(0, 0, 0));
+		 try {
+			    
+			    btnNewButton_1.setIcon(new ImageIcon("recources/back.jpg"));
+			  } catch (Exception ex) {
+			    System.out.println(ex);
+			  }
+		 
+		btnNewButton_1.setForeground(new Color(0, 0, 255));
 		btnNewButton_1.setFont(new Font("Century Gothic", Font.PLAIN, 20));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			@SuppressWarnings("static-access")
@@ -167,7 +176,7 @@ public class Sign_up {
 			}
 
 		});
-		btnNewButton_1.setBounds(247, 338, 102, 71);
+		btnNewButton_1.setBounds(250, 338, 94, 92);
 		frame.getContentPane().add(btnNewButton_1);
 
 		JLabel lblExUsermailservercom = new JLabel("ex:- user@mailserver.com");
