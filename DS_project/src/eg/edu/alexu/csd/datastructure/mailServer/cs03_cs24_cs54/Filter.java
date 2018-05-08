@@ -1,8 +1,8 @@
 package eg.edu.alexu.csd.datastructure.mailServer.cs03_cs24_cs54;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -16,8 +16,165 @@ import eg.edu.alexu.csd.datastructure.mailServer.IFilter;
 import eg.edu.alexu.csd.datastructure.stack.cs03.MyStack;
 
 public class Filter implements IFilter {
-
 	String type;
+
+	public void choose_filter(String type, String descrip, String contact) {
+		String path = "Users/" + contact + "/Filterd mails/";
+		Contact y = new Contact();
+
+		if (type == "Sender") {
+			File x = new File(path + "Sender");
+
+			if (x.exists()) {
+				x = new File(path + "Sender/" + descrip);
+				x.mkdirs();
+				y.create_file(path + "Sender/" + descrip);
+			} else {
+				x.mkdirs();
+				x = new File(path + "Sender/" + descrip);
+				x.mkdirs();
+				y.create_file(path + "Sender/" + descrip);
+			}
+		} else if (type == "Subject") {
+			File x = new File(path + "Subject");
+
+			if (x.exists()) {
+				x = new File(path + "Subject/" + descrip);
+				x.mkdirs();
+				y.create_file(path + "Subject/" + descrip);
+			} else {
+				x.mkdirs();
+				x = new File(path + "Subject/" + descrip);
+				x.mkdirs();
+				y.create_file(path + "Subject/" + descrip);
+			}
+		} else if (type == "Sender & Subject") {
+			File x = new File(path + "Sender & Subject");
+			if (x.exists()) {
+				x = new File(path + "Sender & Subject/" + descrip);
+				x.mkdirs();
+				y.create_file(path + "Sender & Subject/" + descrip);
+			} else {
+				x.mkdirs();
+				x = new File(path + "Sender & Subject/" + descrip);
+				x.mkdirs();
+				y.create_file(path + "Sender & Subject/" + descrip);
+			}
+		}
+	}
+
+	public boolean check_filter(String contact) {
+		String path = "Users/" + contact + "/Filterd mails";
+		File x = new File(path);
+
+		if (x.list().length > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public void put_in_filter(String to, String Subject, String contact, String from, String body, String tt,
+			String pq) {
+		String path = "Users/" + contact + "/Filterd mails";
+		File x = new File(path);
+		int flag = 1;
+		Mail y = new Mail();
+
+		while (flag == 1) {
+			path = path + "/Sender";
+			File[] files = x.listFiles();
+			for (File file : files) {
+				if (from == file.getName()) {
+					path = path + "/" + file.getName() + "/Index file.json";
+					y.save_email(to, from, Subject, body, path, tt, pq);
+					String path1 = "Users/" + contact + "/Inbox/Index file.json";
+					String path2 = "Users/" + contact + "/Inbox";
+					File x1 = new File(path2);
+					File[] files1 = x1.listFiles();
+					int n = y.order1(path1) - 1;
+					for (File file1 : files1) {
+						if (Integer.toString(n) == file1.getName()) {
+							file1.renameTo(new File("Users/" + contact + "/Filter mails/Sender/" + file.getName() + "/"
+									+ Integer.toString(y.order1(path))));
+							break;
+						}
+					}
+
+					flag = 0;
+					break;
+				}
+			}
+			if (flag == 0) {
+				break;
+			} else if (flag == 1) {
+				flag = 2;
+			}
+		}
+		while (flag == 2) {
+			path = path + "/Subject";
+			File[] files = x.listFiles();
+			for (File file : files) {
+				if (Subject == file.getName()) {
+					path = path + "/" + file.getName() + "/Index file.json";
+					y.save_email(to, from, Subject, body, path, tt, pq);
+					String path1 = "Users/" + contact + "/Inbox/Index file.json";
+					String path2 = "Users/" + contact + "/Inbox";
+					File x1 = new File(path2);
+					File[] files1 = x1.listFiles();
+					int n = y.order1(path1) - 1;
+					for (File file1 : files1) {
+						if (Integer.toString(n) == file1.getName()) {
+							file1.renameTo(new File("Users/" + contact + "/Filter mails/Subject/" + file.getName() + "/"
+									+ Integer.toString(y.order1(path))));
+							break;
+						}
+					}
+
+					flag = 0;
+					break;
+				}
+			}
+			if (flag == 0) {
+				break;
+			} else if (flag == 2) {
+				flag = 3;
+			}
+		}
+		while (flag == 3) {
+			path = path + "/Sender & Subject";
+			File[] files = x.listFiles();
+			for (File file : files) {
+				if (Subject == file.getName()) {
+					path = path + "/" + file.getName() + "/Index file.json";
+					y.save_email(to, from, Subject, body, path, tt, pq);
+					String path1 = "Users/" + contact + "/Inbox/Index file.json";
+					String path2 = "Users/" + contact + "/Inbox";
+					File x1 = new File(path2);
+					File[] files1 = x1.listFiles();
+					int n = y.order1(path1) - 1;
+					for (File file1 : files1) {
+						if (Integer.toString(n) == file1.getName()) {
+							file1.renameTo(new File("Users/" + contact + "/Filter mails/Sender & Subject/"
+									+ file.getName() + "/" + Integer.toString(y.order1(path))));
+							break;
+						}
+					}
+
+					flag = 0;
+					break;
+				}
+			}
+			break;
+		}
+
+	}
+
+	@Override
+	public int bsearch(String x, DLinkedList y) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 	@Override
 	public void read_indexfile(String category, String path) {
@@ -55,7 +212,7 @@ public class Filter implements IFilter {
 				x.setOrder(iterator5.next().toString());
 				x.setTime(iterator6.next());
 				x.setOrder(iterator7.next());
-				
+
 				mail.add(x);
 				quick_sort(mail);
 			}
@@ -71,21 +228,6 @@ public class Filter implements IFilter {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-
-		/*
-		 * for (int i = 0; i < recieve.size(); i++) { k1.add(recieve.get(i));
-		 * k2.add(send.get(i)); k3.add(subjects.get(i)); k4.add(bodies.get(i));
-		 * k5.add(orders.get(i)); k6.add(times.get(i)); k7.add(pqs.get(i)); }
-		 * 
-		 * obj1.put("tos", k1); obj1.put("froms", k2); obj1.put("subjects", k3);
-		 * obj1.put("bodies", k4); obj1.put("order", k5); obj1.put("time", k6);
-		 * obj1.put("pq", k7); try (FileWriter file = new FileWriter(path)) {
-		 * 
-		 * file.write(obj1.toString()); file.flush();
-		 * 
-		 * } catch (IOException e) { e.printStackTrace(); }
-		 */
 
 	}
 
@@ -121,14 +263,12 @@ public class Filter implements IFilter {
 			while (leftIndex < rightIndex) {
 				int com = 0;
 				Mail temp = (Mail) input.get(leftIndex);
-				//edit
+				// edit
 				if (type.equals("to")) {
 					com = pivot.compare(temp);
-				}
-				else if(type.equals("from")) {
+				} else if (type.equals("from")) {
 					com = pivot.comparefrom(temp);
-				}
-				else if(type.equals("subject")) {
+				} else if (type.equals("subject")) {
 					com = pivot.comparesubject(temp);
 				}
 				while ((leftIndex <= rightIndex) && (com >= 0))
@@ -137,11 +277,9 @@ public class Filter implements IFilter {
 				temp = (Mail) input.get(rightIndex);
 				if (type.equals("to")) {
 					com = pivot.compare(temp);
-				}
-				else if(type.equals("from")) {
+				} else if (type.equals("from")) {
 					com = pivot.comparefrom(temp);
-				}
-				else if(type.equals("subject")) {
+				} else if (type.equals("subject")) {
 					com = pivot.comparesubject(temp);
 				}
 				while ((leftIndex <= rightIndex) && (com <= 0))
@@ -155,18 +293,16 @@ public class Filter implements IFilter {
 			int com = 0;
 			Mail temp = (Mail) input.get(rightIndex);
 			Mail temp2 = (Mail) input.get(pivotIndex);
-			//edit
+			// edit
 			if (type.equals("to")) {
 				com = temp2.compare(temp);
-			}
-			else if(type.equals("from")) {
+			} else if (type.equals("from")) {
 				com = temp2.comparefrom(temp);
-			}
-			else if(type.equals("subject")) {
+			} else if (type.equals("subject")) {
 				com = temp2.comparesubject(temp);
 			}
 			if (pivotIndex <= rightIndex)
-				if (com>0)
+				if (com > 0)
 					SwapElement(input, pivotIndex, rightIndex);
 
 			if (leftIndexOfSubSet < rightIndex) {
@@ -185,12 +321,5 @@ public class Filter implements IFilter {
 		Mail temp = (Mail) arr.get(left);
 		arr.set(left, arr.get(right));
 		arr.set(right, temp);
-	}
-
-	@Override
-	public int bsearch(String x, DLinkedList y) {
-		return 0;
-		// linked list of mails
-
 	}
 }
