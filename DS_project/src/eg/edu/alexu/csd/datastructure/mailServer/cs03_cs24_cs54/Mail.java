@@ -59,7 +59,7 @@ public class Mail implements IMail {
 		Mail.to = to;
 	}
 
-	public  String getSubject() {
+	public static  String getSubject() {
 		return subject;
 	}
 
@@ -109,16 +109,16 @@ public class Mail implements IMail {
 		order = o;
 	}
 
-	public int compare(Mail mail) {
-		return this.to.toString().compareTo(mail.getTo());
+	public int compare(String string) {
+		return this.to.toString().compareTo(Mail.getTo());
 
 	}
 	public int comparefrom(Mail mail) {
-		return this.toString().compareTo(mail.getFrom());
+		return this.from.toString().compareTo(mail.getFrom());
 
 	}
-	public int comparesubject(Mail mail) {
-		return this.subject.toString().compareTo(mail.getSubject());
+	public int comparesubject(String string) {
+		return this.subject.toString().compareTo(Mail.getSubject());
 
 	}
 	
@@ -476,5 +476,7 @@ public class Mail implements IMail {
 			file.delete();
 		}
 	}
+
+	
 
 }

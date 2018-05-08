@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Iterator;
 
 import org.json.simple.JSONArray;
@@ -176,10 +177,18 @@ public class Filter implements IFilter {
 		return 0;
 	}
 
+	@SuppressWarnings({ "static-access", "unchecked" })
 	@Override
 	public void read_indexfile(String category, String path) {
 		JSONParser parser = new JSONParser();
 		DLinkedList mail = new DLinkedList();
+		DLinkedList send = new DLinkedList();
+		DLinkedList recieve = new DLinkedList();
+		DLinkedList subjects = new DLinkedList();
+		DLinkedList bodies = new DLinkedList();
+		DLinkedList orders = new DLinkedList();
+		DLinkedList times = new DLinkedList();
+		DLinkedList pqs = new DLinkedList();
 		Mail x = new Mail();
 		this.type = category;
 		try {
@@ -205,19 +214,42 @@ public class Filter implements IFilter {
 			Iterator<String> iterator6 = col6.iterator();
 			Iterator<String> iterator7 = col7.iterator();
 			while (iterator1.hasNext()) {
-				x.setTo(iterator1.next());
-				x.setFrom(iterator2.next());
-				x.setFrom(iterator3.next());
-				x.setEmail_body(iterator4.next());
-				x.setOrder(iterator5.next().toString());
-				x.setTime(iterator6.next());
-				x.setOrder(iterator7.next());
 
-				mail.add(x);
-				quick_sort(mail);
+				recieve.add(iterator1.next());
+
 			}
-			Mail current = (Mail) mail.get(0);
-			System.out.println(current.getSubject());
+			while (iterator2.hasNext()) {
+				send.add(iterator2.next());
+
+			}
+			while (iterator3.hasNext()) {
+				subjects.add(iterator3.next());
+
+			}
+			while (iterator4.hasNext()) {
+				bodies.add(iterator4.next());
+
+			}
+			while (iterator5.hasNext()) {
+				orders.add(iterator5.next());
+
+			}
+			while (iterator6.hasNext()) {
+				times.add(iterator6.next());
+
+			}
+			while (iterator7.hasNext()) {
+				pqs.add(iterator7.next());
+
+		
+			}
+			String arr[] = new String[pqs.size()];
+			for(int i = 0;i<pqs.size();i++) {
+				arr[i]=(String) subjects.get(i);
+			}
+			Arrays.sort(arr);
+			System.out.println(arr[0]);
+			
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -265,22 +297,22 @@ public class Filter implements IFilter {
 				Mail temp = (Mail) input.get(leftIndex);
 				// edit
 				if (type.equals("to")) {
-					com = pivot.compare(temp);
+					com = pivot.comparesubject(temp.getSubject());
 				} else if (type.equals("from")) {
-					com = pivot.comparefrom(temp);
+					com = pivot.comparesubject(temp.getSubject());
 				} else if (type.equals("subject")) {
-					com = pivot.comparesubject(temp);
+					com = pivot.comparesubject(temp.getSubject());
 				}
 				while ((leftIndex <= rightIndex) && (com >= 0))
 					leftIndex++; // increment right to find the greater
 				// element than the pivot
 				temp = (Mail) input.get(rightIndex);
 				if (type.equals("to")) {
-					com = pivot.compare(temp);
+					com = pivot.comparesubject(temp.getSubject());
 				} else if (type.equals("from")) {
-					com = pivot.comparefrom(temp);
+					com = pivot.comparesubject(temp.getSubject());
 				} else if (type.equals("subject")) {
-					com = pivot.comparesubject(temp);
+					com = pivot.comparesubject(temp.getSubject());
 				}
 				while ((leftIndex <= rightIndex) && (com <= 0))
 					rightIndex--;// decrement right to find the
@@ -295,11 +327,11 @@ public class Filter implements IFilter {
 			Mail temp2 = (Mail) input.get(pivotIndex);
 			// edit
 			if (type.equals("to")) {
-				com = temp2.compare(temp);
+				com = temp2.comparesubject(temp.getSubject());
 			} else if (type.equals("from")) {
-				com = temp2.comparefrom(temp);
+				com = temp2.comparesubject(temp.getSubject());
 			} else if (type.equals("subject")) {
-				com = temp2.comparesubject(temp);
+				com = temp2.comparesubject(temp.getSubject());
 			}
 			if (pivotIndex <= rightIndex)
 				if (com > 0)
