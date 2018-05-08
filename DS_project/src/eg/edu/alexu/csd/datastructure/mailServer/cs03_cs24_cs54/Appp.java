@@ -186,7 +186,29 @@ public class Appp implements IApp {
 
 	@Override
 	public void setViewingOptions(IFolder folder, IFilter filter, ISort sort) {
-		
+		String folder_chosen , name ;
+		folder_chosen = folderr.folderchosen;
+		folder.folderChosen(folder_chosen);
+		name=Contact.contact_name;
+	    
+		int sortType =1;
+		switch (sortType) {
+        case 1:  
+        	sort.OrderOfAll_1(name,folder_chosen); //sort decending according date
+                 break;
+        case 2: 
+        	sort.OrderOfAll_2(name,folder_chosen); //sort asending according date
+                 break;
+        case 3: 
+        	sort.OrderOfAll_3(name,folder_chosen); //alphabet of subjects
+                 break;
+        case 4: 
+        	sort.OrderOfAll_4(name,folder_chosen); //alphabet of senders
+                 break;
+        default:
+        	 
+                 break;
+		}
 
 	}
 

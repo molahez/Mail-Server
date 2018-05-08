@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Objects;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -14,16 +15,17 @@ import eg.edu.alexu.csd.datastructure.linkedList.cs03_cs10.DLinkedList;
 import eg.edu.alexu.csd.datastructure.mailServer.ISort;
 import eg.edu.alexu.csd.datastructure.stack.cs03.MyStack;
 
-public class Storing {
+public class Storing implements ISort{
 	
-	public void OrderOfAll() {
+	@Override
+	public void OrderOfAll_1(String namee,String folderChosennn) {
 		
 		DLinkedList allOrders = new DLinkedList();
 		JSONParser parser = new JSONParser();
         
 		try {
 
-			Object obj = parser.parse(new FileReader("Users/"+Contact.contact_name+"/Inbox/Index file.json"));
+			Object obj = parser.parse(new FileReader("Users/"+namee+"/"+folderChosennn+"/Index file.json"));
                   
 			JSONObject jsonObject = (JSONObject) obj;
 
@@ -62,7 +64,7 @@ public class Storing {
 
 		try {
 
-			Object obj = parserr.parse(new FileReader("Users/"+Contact.contact_name+"/Inbox/Index file.json"));
+			Object obj = parserr.parse(new FileReader("Users/"+namee+"/"+folderChosennn+"/Index file.json"));
 
 			JSONObject jsonObject = (JSONObject) obj;
 
@@ -124,7 +126,288 @@ public class Storing {
 			  time_order.add(i,time.get(arr[i]-1));
 		    }
 	}
+	@Override
+  public void OrderOfAll_2(String namee,String folderChosennn) {
+		
+		DLinkedList allOrders = new DLinkedList();
+		DLinkedList bodies = new DLinkedList();
+		DLinkedList tos = new DLinkedList();
+		DLinkedList froms = new DLinkedList();
+		DLinkedList subjects = new DLinkedList();
+		DLinkedList time = new DLinkedList();
+		JSONParser parser = new JSONParser();
+        
+		try {
+
+			Object obj = parser.parse(new FileReader("Users/"+namee+"/"+folderChosennn+"/Index file.json"));
+                  
+			JSONObject jsonObject = (JSONObject) obj;
+
+			// loop array
+			// here we load content of json file
+			JSONArray col1 = (JSONArray) jsonObject.get("order");
+			JSONArray col2 = (JSONArray) jsonObject.get("bodies");
+			JSONArray col3 = (JSONArray) jsonObject.get("tos");
+			JSONArray col4 = (JSONArray) jsonObject.get("froms");
+			JSONArray col5 = (JSONArray) jsonObject.get("subjects");
+			JSONArray col6 = (JSONArray) jsonObject.get("time");
+			Iterator<String> iterator1 = col1.iterator();
+			Iterator<String> iterator2 = col1.iterator();
+			Iterator<String> iterator3 = col2.iterator();
+			Iterator<String> iterator4 = col3.iterator();
+			Iterator<String> iterator5 = col4.iterator();
+			Iterator<String> iterator6 = col5.iterator();
+
+			while (iterator1.hasNext()) {
+				allOrders.add(iterator1.next());
+			}
+			while (iterator2.hasNext()) {
+
+				bodies.add(iterator2.next());
+
+			}
+			while (iterator3.hasNext()) {
+				tos.add(iterator3.next());
+ 
+			}
+			while (iterator4.hasNext()) {
+				froms.add(iterator4.next());
+
+			}
+			while (iterator5.hasNext()) {
+				subjects.add(iterator5.next());
+
+			}
+			while (iterator6.hasNext()) {
+				time.add(iterator6.next());
+
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	@Override
+	public void OrderOfAll_3(String namee,String folderChosennn) {
+		
+		DLinkedList allOrders = new DLinkedList();
+		DLinkedList bodies = new DLinkedList();
+		DLinkedList tos = new DLinkedList();
+		DLinkedList froms = new DLinkedList();
+		DLinkedList subjects = new DLinkedList();
+		DLinkedList time = new DLinkedList();
+		JSONParser parser = new JSONParser();
+        
+		try {
+
+			Object obj = parser.parse(new FileReader("Users/"+namee+"/"+folderChosennn+"/Index file.json"));
+                  
+			JSONObject jsonObject = (JSONObject) obj;
+
+			// loop array
+			// here we load content of json file
+			JSONArray col1 = (JSONArray) jsonObject.get("order");
+			JSONArray col2 = (JSONArray) jsonObject.get("bodies");
+			JSONArray col3 = (JSONArray) jsonObject.get("tos");
+			JSONArray col4 = (JSONArray) jsonObject.get("froms");
+			JSONArray col5 = (JSONArray) jsonObject.get("subjects");
+			JSONArray col6 = (JSONArray) jsonObject.get("time");
+			Iterator<String> iterator1 = col1.iterator();
+			Iterator<String> iterator2 = col2.iterator();
+			Iterator<String> iterator3 = col3.iterator();
+			Iterator<String> iterator4 = col4.iterator();
+			Iterator<String> iterator5 = col5.iterator();
+			Iterator<String> iterator6 = col6.iterator();
+
+			while (iterator1.hasNext()) {
+				allOrders.add(iterator1.next());
+			}
+			while (iterator2.hasNext()) {
+
+				bodies.add(iterator2.next());
+
+			}
+			while (iterator3.hasNext()) {
+				tos.add(iterator3.next());
+ 
+			}
+			while (iterator4.hasNext()) {
+				froms.add(iterator4.next());
+
+			}
+			while (iterator5.hasNext()) {
+				subjects.add(iterator5.next());
+
+			}
+			while (iterator6.hasNext()) {
+				time.add(iterator6.next());
+
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String names[] = new String[allOrders.size()];
+		 for (int i = allOrders.size()-1; i >=0; i--) {
+             names[i]=(subjects.get(allOrders.size()-1-i).toString());
+		}	
+	        for (int i = 0; i < allOrders.size(); i++) 
+	        {
+	            for (int j = i + 1; j < allOrders.size(); j++) 
+	            {
+	                if ( names[i].compareTo( names[j])>0 ) 
+	                {
+	                  String  temp = names[i];
+	                    names[i] = names[j];
+	                    names[j] = temp;
+	                }
+	            }
+	         }
+	        DLinkedList n =new DLinkedList();
+	        DLinkedList msg_order =new DLinkedList();
+			DLinkedList tos_order =new DLinkedList();
+			DLinkedList froms_order =new DLinkedList();
+			DLinkedList subjects_order =new DLinkedList();
+			DLinkedList time_order =new DLinkedList();
+			DLinkedList orders_order =new DLinkedList();
+			
+	        for (int i = 0; i < allOrders.size(); i++) {
+	        	n.add(i,names[i]);
+	        }
+	        
+	        for (int i = 0; i < allOrders.size()-1; i++) {
+	        	 for (int j = 0; j < allOrders.size()-1; j++) {
+	        		 if (Objects.equals(n.get(i), subjects.get(j))) {
+	        			 msg_order.add(i, bodies.get(j));
+	        			 tos_order.add(i, tos.get(j));
+	        			 froms_order.add(i, froms.get(j));
+	        			 subjects_order.add(i, subjects.get(j));
+	        			 time_order.add(i, time.get(j));
+	        			 orders_order.add(i, allOrders.get(j));
+	        		 }
+	        	 }
+	        }
+		
+	}
+	@Override
+public void OrderOfAll_4(String namee,String folderChosennn) {
+		
+		DLinkedList allOrders = new DLinkedList();
+		DLinkedList bodies = new DLinkedList();
+		DLinkedList tos = new DLinkedList();
+		DLinkedList froms = new DLinkedList();
+		DLinkedList subjects = new DLinkedList();
+		DLinkedList time = new DLinkedList();
+		JSONParser parser = new JSONParser();
+        
+		try {
+
+			Object obj = parser.parse(new FileReader("Users/"+namee+"/"+folderChosennn+"/Index file.json"));
+                  
+			JSONObject jsonObject = (JSONObject) obj;
+
+			// loop array
+			// here we load content of json file
+			JSONArray col1 = (JSONArray) jsonObject.get("order");
+			JSONArray col2 = (JSONArray) jsonObject.get("bodies");
+			JSONArray col3 = (JSONArray) jsonObject.get("tos");
+			JSONArray col4 = (JSONArray) jsonObject.get("froms");
+			JSONArray col5 = (JSONArray) jsonObject.get("subjects");
+			JSONArray col6 = (JSONArray) jsonObject.get("time");
+			Iterator<String> iterator1 = col1.iterator();
+			Iterator<String> iterator2 = col2.iterator();
+			Iterator<String> iterator3 = col3.iterator();
+			Iterator<String> iterator4 = col4.iterator();
+			Iterator<String> iterator5 = col5.iterator();
+			Iterator<String> iterator6 = col6.iterator();
+
+			while (iterator1.hasNext()) {
+				allOrders.add(iterator1.next());
+			}
+			while (iterator2.hasNext()) {
+
+				bodies.add(iterator2.next());
+
+			}
+			while (iterator3.hasNext()) {
+				tos.add(iterator3.next());
+ 
+			}
+			while (iterator4.hasNext()) {
+				froms.add(iterator4.next());
+
+			}
+			while (iterator5.hasNext()) {
+				subjects.add(iterator5.next());
+
+			}
+			while (iterator6.hasNext()) {
+				time.add(iterator6.next());
+
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String names[] = new String[allOrders.size()];
+		 for (int i = allOrders.size()-1; i >=0; i--) {
+             names[i]=(froms.get(allOrders.size()-1-i).toString());
+		}	
+	        for (int i = 0; i < allOrders.size(); i++) 
+	        {
+	            for (int j = i + 1; j < allOrders.size(); j++) 
+	            {
+	                if ( names[i].compareTo( names[j])>0) 
+	                {
+	                  String  temp = names[i];
+	                    names[i] = names[j];
+	                    names[j] = temp;
+	                }
+	            }
+	        }
+	        DLinkedList n =new DLinkedList();
+	        DLinkedList msg_order =new DLinkedList();
+			DLinkedList tos_order =new DLinkedList();
+			DLinkedList froms_order =new DLinkedList();
+			DLinkedList subjects_order =new DLinkedList();
+			DLinkedList time_order =new DLinkedList();
+			DLinkedList orders_order =new DLinkedList();
+			
+	        for (int i = 0; i < allOrders.size(); i++) {
+	        	n.add(i,names[i]);
+	        }
+	        
+	        for (int i = 0; i < allOrders.size()-1; i++) {
+	        	 for (int j = 0; j < allOrders.size()-1; j++) {
+	        		 if (Objects.equals(n.get(i), froms.get(j))) {
+	        			 msg_order.add(i, bodies.get(j));
+	        			 tos_order.add(i, tos.get(j));
+	        			 froms_order.add(i, froms.get(j));
+	        			 subjects_order.add(i, subjects.get(j));
+	        			 time_order.add(i, time.get(j));
+	        			 orders_order.add(i, allOrders.get(j));
+	        		 }
+	        	 }
+	        }
 	
+		
+	}
 	public static void quick_sort( int[] input)
     {
         MyStack stack = new MyStack();
