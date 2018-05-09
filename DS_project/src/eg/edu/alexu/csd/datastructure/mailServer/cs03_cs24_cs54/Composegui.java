@@ -28,14 +28,13 @@ import javax.swing.JMenuItem;
 import java.awt.Insets;
 
 public class Composegui {
-	//to get main data in main window
-	
+	// to get main data in main window
 
 	protected static final JLabel textContent = null;
 	private JFrame frame;
 	private JTextField textField;
 	private JTextField textField_1;
-	String temp,email, password, cont,p = "";
+	String temp, email, password, cont, p = "";
 
 	/**
 	 * Launch the application.
@@ -76,7 +75,7 @@ public class Composegui {
 		email = Contact.emal;
 		password = Contact.password;
 		cont = Contact.contact_name;
-		
+
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(255, 255, 255));
 		frame.setBounds(100, 100, 1000, 600);
@@ -124,11 +123,11 @@ public class Composegui {
 		JTextArea textArea = new JTextArea();
 		textArea.setBackground(new Color(255, 255, 255));
 		x.setViewportView(textArea);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(154, 418, 309, 57);
 		frame.getContentPane().add(scrollPane);
-		
+
 		JTextArea textArea_1 = new JTextArea();
 		scrollPane.setViewportView(textArea_1);
 		textArea_1.setBackground(SystemColor.control);
@@ -141,21 +140,20 @@ public class Composegui {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fs = new JFileChooser(new File("F:\\"));
 				fs.setDialogTitle("upload");
-				
+
 				@SuppressWarnings("unused")
 				int result = fs.showSaveDialog(null);
 				File fi = fs.getSelectedFile();
 				if (fi == null) {
 					JOptionPane.showMessageDialog(null, " No Attachement uploaded");
-				    
-				}
-				else {
-					File Dir = new File("Users/temp"+"/"+fi.getName());	
+
+				} else {
+					File Dir = new File("Users/temp" + "/" + fi.getName());
 					Mail x = new Mail();
 					x.save_attachement(fi, Dir);
-					textArea_1.append(fi.getName()+"\n");
+					textArea_1.append(fi.getName() + "\n");
 				}
-				
+
 			}
 		});
 		btnNewButton.setFont(new Font("Century Gothic", Font.PLAIN, 16));
@@ -174,17 +172,17 @@ public class Composegui {
 		});
 		btnBack.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		frame.getContentPane().add(btnBack);
-		
+
 		JLabel label = new JLabel("Body");
 		label.setBounds(68, 216, 76, 45);
 		label.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		frame.getContentPane().add(label);
-		
+
 		JLabel lblAttachments = new JLabel("Attachments:-");
 		lblAttachments.setBounds(42, 404, 102, 45);
 		lblAttachments.setFont(new Font("Century Gothic", Font.PLAIN, 15));
 		frame.getContentPane().add(lblAttachments);
-		
+
 		JButton btnSend = new JButton("Send");
 		btnSend.setBounds(471, 486, 131, 45);
 		btnSend.addActionListener(new ActionListener() {
@@ -193,84 +191,98 @@ public class Composegui {
 				Calendar cal = Calendar.getInstance();
 				DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				Mail x = new Mail();
-			
-				x.var2(email, textField.getText(), textField_1.getText(),textArea.getText(),sdf.format(cal.getTime()),p);
-				
-				
-				Appp y = new Appp();
-			   if(textField.getText()==""||textField_1.getText()==""||textArea.getText()=="" || p =="") {
-				  JOptionPane.showMessageDialog(null, " Please fill all fields");
-			   }
-			   else if(Objects.equals(email, textField.getText())) {
-				   JOptionPane.showMessageDialog(null, "You can't send email to yourself");
-					  textField.setText("");
-			   }
-			   else if(y.compose(x)) {
-				    
-				    x.move_attachment(cont, textField.getText());
-				    frame.dispose();
-					MainWindow kk = new MainWindow();
-					Appp.writee(true);
-					kk.main(new String[5]);
-				  
-			  }
-			  else {
-				  JOptionPane.showMessageDialog(null, " The Reciever is not in our server ");
-				  textField.setText("");
-			  }
-				
-				
+				Contact z = new Contact();
+				String[] emails = textField.getText().split(";");
+				int i = 0;
+				boolean flag = false;
+				boolean flag1 = false;
+
+				if (textField.getText() == "" || textField_1.getText() == "" || textArea.getText() == "" || p == "") {
+					JOptionPane.showMessageDialog(null, " Please fill all fields");
+				} else {
+					for (i = 0; i < emails.length; i++) {
+						if (Objects.equals(email, emails[i])) {
+							flag = true;
+						}
+					}
+					if (flag == true) {
+						JOptionPane.showMessageDialog(null, "You can't send email to yourself");
+						textField.setText("");
+					} else {
+						for (i = 0; i < emails.length; i++) {
+							if (!z.check1(emails[i])) {
+								flag1 = true;
+							}
+						}
+						if (flag1 == true) {
+							JOptionPane.showMessageDialog(null, " The Reciever is not in our server ");
+							textField.setText("");
+						} else {
+							for (i = 0; i < emails.length; i++) {
+								x.var2(email, emails[i], textField_1.getText(), textArea.getText(),
+										sdf.format(cal.getTime()), p);
+
+								Appp y = new Appp();
+								y.compose(x);
+								x.move_attachment(cont, emails[i]);
+								frame.dispose();
+								MainWindow kk = new MainWindow();
+								Appp.writee(true);
+								kk.main(new String[5]);
+
+							}
+							x.delete_temp();
+						}
+					}
+				}
 			}
 		});
 		btnSend.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		frame.getContentPane().add(btnSend);
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setFont(new Font("Century Gothic", Font.PLAIN, 12));
 		menuBar.setMargin(new Insets(0, 0, 0, 6));
 		menuBar.setBounds(630, 60, 101, 22);
 		frame.getContentPane().add(menuBar);
-		
+
 		JMenu mnNewMenu = new JMenu("Priority");
 		mnNewMenu.setForeground(SystemColor.desktop);
 		mnNewMenu.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		menuBar.add(mnNewMenu);
-		
+
 		JMenuItem mntmNewMenuItem = new JMenuItem("1");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				p ="1";
-				
-				
+				p = "1";
+
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem);
-		
+
 		JMenuItem menuItem = new JMenuItem("2");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				p ="2";
+				p = "2";
 			}
 		});
 		mnNewMenu.add(menuItem);
-		
+
 		JMenuItem menuItem_1 = new JMenuItem("3");
 		menuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				p ="3";
+				p = "3";
 			}
 		});
 		mnNewMenu.add(menuItem_1);
-		
+
 		JMenuItem menuItem_2 = new JMenuItem("4");
 		menuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				p ="4";
+				p = "4";
 			}
 		});
 		mnNewMenu.add(menuItem_2);
-		
-		
 
 	}
 }

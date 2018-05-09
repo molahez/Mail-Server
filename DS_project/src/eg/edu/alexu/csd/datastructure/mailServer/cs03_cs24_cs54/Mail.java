@@ -393,9 +393,18 @@ public class Mail implements IMail {
 			File send = new File(dest2);
 			send.mkdirs();
 			send = new File(dest2 + "/" + file.getName());
-			file.renameTo(send);
-			file.delete();
+			z.save_attachement(file, send);
 		}
+	}
+	public void delete_temp() {
+		File index = new File("Users/temp");
+		String[] entries = index.list();
+		for(String s: entries){
+		    File currentFile = new File(index.getPath(),s);
+		    currentFile.delete();
+		}
+		index.delete();
+		index.mkdirs();
 	}
 
 

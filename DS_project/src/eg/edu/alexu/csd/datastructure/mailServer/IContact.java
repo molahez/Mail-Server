@@ -14,5 +14,6 @@ public interface IContact {
 	public void var2(String emai);
 	public void create_file(String path);
 	public void edit_contact(String email, String pass);
+	public boolean check1(String email);
 
 }

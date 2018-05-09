@@ -337,5 +337,42 @@ public class Contact implements IContact {
 
 		return flag;
 	}
+	public boolean check1(String email) {
+		DLinkedList emails = new DLinkedList();
+		boolean flag = false;
+		JSONParser parser = new JSONParser();
+
+		try {
+
+			Object obj = parser.parse(new FileReader("Users/contact.json"));
+
+			JSONObject jsonObject = (JSONObject) obj;
+
+			// loop array
+			// here we load content of json file
+			JSONArray col1 = (JSONArray) jsonObject.get("emails");
+			Iterator<String> iterator1 = col1.iterator();
+
+			while (iterator1.hasNext()) {
+				emails.add(iterator1.next());
+
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		for (int i = 0; i < emails.size(); i++) {
+			if (Objects.equals(email, emails.get(i))) {
+				flag = true;
+			}
+		}
+		return flag;
+	}
 
 }

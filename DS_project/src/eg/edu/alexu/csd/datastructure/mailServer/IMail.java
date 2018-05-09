@@ -14,5 +14,6 @@ public interface IMail {
 	public void move_attachment(String contact, String email_to);
 	public void directory_contents(String contact, String email_to);
 	void var2(String fro, String t, String sub, String email_body, String tt, String pq);
+	public void delete_temp();
 	
 }
