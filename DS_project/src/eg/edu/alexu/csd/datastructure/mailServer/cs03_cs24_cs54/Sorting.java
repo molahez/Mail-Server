@@ -167,7 +167,7 @@ public class Sorting implements ISort{
 		obj1.put("order", k5);
 		obj1.put("time", k6);
 		obj1.put("pq", k7);
-		try (FileWriter file = new FileWriter("Users/temp3.json")) {
+		try (FileWriter file = new FileWriter("Users/temp.json")) {
 
 			file.write(obj1.toString());
 			file.flush();
@@ -279,7 +279,7 @@ public class Sorting implements ISort{
 		obj1.put("order", k5);
 		obj1.put("time", k6);
 		obj1.put("pq", k7);
-		try (FileWriter file = new FileWriter("Users/temp3.json")) {
+		try (FileWriter file = new FileWriter("Users/temp.json")) {
 
 			file.write(obj1.toString());
 			file.flush();
@@ -441,7 +441,7 @@ public class Sorting implements ISort{
 			obj1.put("order", k5);
 			obj1.put("time", k6);
 			obj1.put("pq", k7);
-			try (FileWriter file = new FileWriter("Users/temp3.json")) {
+			try (FileWriter file = new FileWriter("Users/temp.json")) {
 
 				file.write(obj1.toString());
 				file.flush();
@@ -602,7 +602,7 @@ public void OrderOfAll_4(String namee,String folderChosennn) {
 			obj1.put("order", k5);
 			obj1.put("time", k6);
 			obj1.put("pq", k7);
-			try (FileWriter file = new FileWriter("Users/temp3.json")) {
+			try (FileWriter file = new FileWriter("Users/temp.json")) {
 
 				file.write(obj1.toString());
 				file.flush();
@@ -771,7 +771,7 @@ public void OrderOfAll_4(String namee,String folderChosennn) {
 			obj1.put("order", k5);
 			obj1.put("time", k6);
 			obj1.put("pq", k7);
-			try (FileWriter file = new FileWriter("Users/temp3.json")) {
+			try (FileWriter file = new FileWriter("Users/temp.json")) {
 
 				file.write(obj1.toString());
 				file.flush();

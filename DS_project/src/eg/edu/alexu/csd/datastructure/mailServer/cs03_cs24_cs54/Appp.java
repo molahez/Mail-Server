@@ -188,34 +188,35 @@ public class Appp implements IApp {
 	@Override
 	public void setViewingOptions(final IFolder folder,final  IFilter filter,final  ISort sort) {
 
-		String folder_chosen, name,cat,value;
+		String folder_chosen, name,cat;
 		Integer x;
 		x = Filter.filter;
 		cat = Filter.category;
-		value = Filter.Searched_value;
+
 		switch (x) {
 		case 1:
 			folder_chosen = folderr.folderchosen;
-			folder.folderChosen(folder_chosen);
-			name = Contact.contact_name;
+			
+			name = folderr.contname;
+			
 			sort.OrderOfAll_1(name, folder_chosen); // sort decending according date
 			break;
 		case 2:
 			folder_chosen = folderr.folderchosen;
-			folder.folderChosen(folder_chosen);
-			name=Contact.contact_name;
+			
+			name = folderr.contname;
 			sort.OrderOfAll_2(name, folder_chosen); // sort asending according date
 			break;
 		case 3:
 			folder_chosen = folderr.folderchosen;
-			folder.folderChosen(folder_chosen);
-			name=Contact.contact_name;
+			
+			name = folderr.contname;
 			sort.OrderOfAll_3(name, folder_chosen); // alphabet of subjects
 			break;
 		case 4:
 			folder_chosen = folderr.folderchosen;
-			folder.folderChosen(folder_chosen);
-			name=Contact.contact_name;
+			
+			name = folderr.contname;
 			sort.OrderOfAll_4(name, folder_chosen); // alphabet of senders
 			break;
 		case 5:
@@ -228,7 +229,6 @@ public class Appp implements IApp {
 			break;
 		case 6:
 			folder_chosen = folderr.folderchosen;
-			folder.folderChosen(folder_chosen);
 			name=Contact.contact_name;
 			sort.OrderOfAll_5(name, folder_chosen); // sort by Priority Queue
 			break;

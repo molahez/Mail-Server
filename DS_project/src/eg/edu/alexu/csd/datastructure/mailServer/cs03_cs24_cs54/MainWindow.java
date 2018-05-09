@@ -31,6 +31,7 @@ import javax.swing.JOptionPane;
 
 public class MainWindow {
 	Filter x = new Filter();
+	Integer val = 0;
 	static DLinkedList fol = new DLinkedList();
 	static boolean state = false;
 	String temp,email, password, cont,cate = "",re,co;
@@ -144,10 +145,7 @@ public class MainWindow {
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Filter x = new Filter();
-				String xx;
 				x.var(5, cate, textField_1.getText());
-				xx = x.Searched_value;
-				
 				Appp y = new Appp();
 				if((Objects.equals(textField_1.getText(),"")) && cate.length()==0) {
 					
@@ -302,11 +300,17 @@ public class MainWindow {
 		btnEnterFolder.addActionListener(new ActionListener() {
 			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println(temp);
 				frame.dispose();
+				Sorting x = new Sorting();
+				Contact yy = new Contact();
+				folderr fold = new folderr();
+				fold.folderChosen(temp,cont);
+
+				Filter switch_index = new Filter();
+				switch_index.var(val, null, null);
+				Appp y = new Appp();
+				y.setViewingOptions(fold,switch_index , x);
 				EmailsView kk = new EmailsView();
-				
-				
 				Appp.writee(true);
 				kk.main(new String[5]);
 				
@@ -329,16 +333,45 @@ public class MainWindow {
 		menuBar.add(mnNewMenu);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Newest");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				val = 1;
+				
+			}
+		});
 		mnNewMenu.add(mntmNewMenuItem);
 		
 		JMenuItem mntmOldest = new JMenuItem("Oldest");
+		mntmOldest.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				val = 2;
+			}
+		});
 		mnNewMenu.add(mntmOldest);
 		
-		JMenuItem mntmHighestpriority = new JMenuItem("Highest_Priority");
+		JMenuItem mntmHighestpriority = new JMenuItem("Subjects alphabetically");
+		mntmHighestpriority.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				val = 3;
+			}
+		});
 		mnNewMenu.add(mntmHighestpriority);
 		
-		JMenuItem mntmLowestpriority = new JMenuItem("Lowest_Priority");
+		JMenuItem mntmLowestpriority = new JMenuItem("Senders alphabetically");
+		mntmLowestpriority.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				val = 4;
+			}
+		});
 		mnNewMenu.add(mntmLowestpriority);
+		
+		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Importance");
+		mntmNewMenuItem_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				val = 6;
+			}
+		});
+		mnNewMenu.add(mntmNewMenuItem_6);
 		
 		textField_1 = new JTextField();
 		textField_1.setBounds(442, 126, 127, 44);
