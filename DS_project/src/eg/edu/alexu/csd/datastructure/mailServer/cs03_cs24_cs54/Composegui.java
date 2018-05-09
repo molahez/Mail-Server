@@ -109,7 +109,7 @@ public class Composegui {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				int keyCode = e.getKeyCode();
-				if( keyCode == KeyEvent.VK_ENTER) {
+				if( keyCode == KeyEvent.VK_SPACE) {
 					textField.setText(textField.getText()+";");
 				}
 			}
