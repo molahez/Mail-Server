@@ -2,6 +2,7 @@ package eg.edu.alexu.csd.datastructure.mailServer.cs03_cs24_cs54;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Objects;
@@ -65,6 +66,7 @@ public class Sorting implements ISort{
 		DLinkedList froms = new DLinkedList();
 		DLinkedList subjects = new DLinkedList();
 		DLinkedList time = new DLinkedList();
+		DLinkedList pq = new DLinkedList();
 		JSONParser parserr = new JSONParser();
 
 		try {
@@ -80,11 +82,13 @@ public class Sorting implements ISort{
 			JSONArray col3 = (JSONArray) jsonObject.get("froms");
 			JSONArray col4 = (JSONArray) jsonObject.get("subjects");
 			JSONArray col5 = (JSONArray) jsonObject.get("time");
+			JSONArray col6 = (JSONArray) jsonObject.get("pq");
 			Iterator<String> iterator1 = col1.iterator();
 			Iterator<String> iterator2 = col2.iterator();
 			Iterator<String> iterator3 = col3.iterator();
 			Iterator<String> iterator4 = col4.iterator();
 			Iterator<String> iterator5 = col5.iterator();
+			Iterator<String> iterator6 = col6.iterator();
 			while (iterator1.hasNext()) {
 
 				bodies.add(iterator1.next());
@@ -106,6 +110,10 @@ public class Sorting implements ISort{
 				time.add(iterator5.next());
 
 			}
+			while (iterator6.hasNext()) {
+				pq.add(iterator6.next());
+
+			}
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -122,6 +130,7 @@ public class Sorting implements ISort{
 		DLinkedList froms_order =new DLinkedList();
 		DLinkedList subjects_order =new DLinkedList();
 		DLinkedList time_order =new DLinkedList();
+		DLinkedList pq_order =new DLinkedList();
 		
 		for (int i = 0; i <= allOrders.size()-1; i++) {
 			  msg_order.add(i,bodies.get(arr[i]-1));
@@ -129,8 +138,46 @@ public class Sorting implements ISort{
 			  froms_order.add(i,froms.get(arr[i]-1));
 			  subjects_order.add(i,subjects.get(arr[i]-1));
 			  time_order.add(i,time.get(arr[i]-1));
+			  pq_order.add(i,pq.get(arr[i]-1));
 		    }
+		JSONObject obj1 = new JSONObject();
+		JSONArray k1 = new JSONArray();
+		JSONArray k2 = new JSONArray();
+		JSONArray k3 = new JSONArray();
+		JSONArray k4 = new JSONArray();
+		JSONArray k5 = new JSONArray();
+		JSONArray k6 = new JSONArray();
+		JSONArray k7 = new JSONArray();
+
+		for (int i = 0; i < allOrders.size(); i++) {
+			k1.add(tos_order.get(i));
+			k2.add(froms_order.get(i));
+			k3.add(subjects_order.get(i));
+			k4.add(msg_order.get(i));
+			k5.add(arr[i]);
+			k6.add(time_order.get(i));
+			k7.add(pq_order.get(i));
+
+		}
+
+		obj1.put("tos", k1);
+		obj1.put("froms", k2);
+		obj1.put("subjects", k3);
+		obj1.put("bodies", k4);
+		obj1.put("order", k5);
+		obj1.put("time", k6);
+		obj1.put("pq", k7);
+		try (FileWriter file = new FileWriter("Users/temp3.json")) {
+
+			file.write(obj1.toString());
+			file.flush();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
+	
+	
 	@SuppressWarnings({ "unused", "unchecked" })
 	@Override
   public void OrderOfAll_2(String namee,String folderChosennn) {
@@ -141,6 +188,8 @@ public class Sorting implements ISort{
 		DLinkedList froms = new DLinkedList();
 		DLinkedList subjects = new DLinkedList();
 		DLinkedList time = new DLinkedList();
+		DLinkedList pq = new DLinkedList();
+		
 		JSONParser parser = new JSONParser();
         
 		try {
@@ -157,12 +206,14 @@ public class Sorting implements ISort{
 			JSONArray col4 = (JSONArray) jsonObject.get("froms");
 			JSONArray col5 = (JSONArray) jsonObject.get("subjects");
 			JSONArray col6 = (JSONArray) jsonObject.get("time");
+			JSONArray col7 = (JSONArray) jsonObject.get("pq");
 			Iterator<String> iterator1 = col1.iterator();
-			Iterator<String> iterator2 = col1.iterator();
-			Iterator<String> iterator3 = col2.iterator();
-			Iterator<String> iterator4 = col3.iterator();
-			Iterator<String> iterator5 = col4.iterator();
-			Iterator<String> iterator6 = col5.iterator();
+			Iterator<String> iterator2 = col2.iterator();
+			Iterator<String> iterator3 = col3.iterator();
+			Iterator<String> iterator4 = col4.iterator();
+			Iterator<String> iterator5 = col5.iterator();
+			Iterator<String> iterator6 = col6.iterator();
+			Iterator<String> iterator7 = col7.iterator();
 
 			while (iterator1.hasNext()) {
 				allOrders.add(iterator1.next());
@@ -188,6 +239,10 @@ public class Sorting implements ISort{
 				time.add(iterator6.next());
 
 			}
+			while (iterator7.hasNext()) {
+				pq.add(iterator7.next());
+
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -195,6 +250,41 @@ public class Sorting implements ISort{
 		} catch (ParseException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		JSONObject obj1 = new JSONObject();
+		JSONArray k1 = new JSONArray();
+		JSONArray k2 = new JSONArray();
+		JSONArray k3 = new JSONArray();
+		JSONArray k4 = new JSONArray();
+		JSONArray k5 = new JSONArray();
+		JSONArray k6 = new JSONArray();
+		JSONArray k7 = new JSONArray();
+
+		for (int i = 0; i < allOrders.size(); i++) {
+			k1.add(tos.get(i));
+			k2.add(froms.get(i));
+			k3.add(subjects.get(i));
+			k4.add(bodies.get(i));
+			k5.add(allOrders.get(i));
+			k6.add(time.get(i));
+			k7.add(pq.get(i));
+
+		}
+
+		obj1.put("tos", k1);
+		obj1.put("froms", k2);
+		obj1.put("subjects", k3);
+		obj1.put("bodies", k4);
+		obj1.put("order", k5);
+		obj1.put("time", k6);
+		obj1.put("pq", k7);
+		try (FileWriter file = new FileWriter("Users/temp3.json")) {
+
+			file.write(obj1.toString());
+			file.flush();
+
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
@@ -209,6 +299,7 @@ public class Sorting implements ISort{
 		DLinkedList froms = new DLinkedList();
 		DLinkedList subjects = new DLinkedList();
 		DLinkedList time = new DLinkedList();
+		DLinkedList pq = new DLinkedList();
 		JSONParser parser = new JSONParser();
         
 		try {
@@ -225,12 +316,14 @@ public class Sorting implements ISort{
 			JSONArray col4 = (JSONArray) jsonObject.get("froms");
 			JSONArray col5 = (JSONArray) jsonObject.get("subjects");
 			JSONArray col6 = (JSONArray) jsonObject.get("time");
+			JSONArray col7 = (JSONArray) jsonObject.get("pq");
 			Iterator<String> iterator1 = col1.iterator();
 			Iterator<String> iterator2 = col2.iterator();
 			Iterator<String> iterator3 = col3.iterator();
 			Iterator<String> iterator4 = col4.iterator();
 			Iterator<String> iterator5 = col5.iterator();
 			Iterator<String> iterator6 = col6.iterator();
+			Iterator<String> iterator7 = col7.iterator();
 
 			while (iterator1.hasNext()) {
 				allOrders.add(iterator1.next());
@@ -254,6 +347,10 @@ public class Sorting implements ISort{
 			}
 			while (iterator6.hasNext()) {
 				time.add(iterator6.next());
+
+			}
+			while (iterator7.hasNext()) {
+				pq.add(iterator7.next());
 
 			}
 		} catch (FileNotFoundException e) {
@@ -288,6 +385,7 @@ public class Sorting implements ISort{
 			DLinkedList subjects_order =new DLinkedList();
 			DLinkedList time_order =new DLinkedList();
 			DLinkedList orders_order =new DLinkedList();
+			DLinkedList pq_order =new DLinkedList();
 			
 	        for (int i = 0; i < allOrders.size(); i++) {
 	        	n.add(i,names[i]);
@@ -297,6 +395,7 @@ public class Sorting implements ISort{
    			    subjects_order.add(1);
    			    time_order.add(1);
    			    orders_order.add(1);
+   			    pq_order.add(1);
 	        	
 	        }
 	        
@@ -311,10 +410,45 @@ public class Sorting implements ISort{
 	        			 subjects_order.add(i, subjects.get(j));
 	        			 time_order.add(i, time.get(j));
 	        			 orders_order.add(i, allOrders.get(j));
+	        			 pq_order.add(i, pq.get(j));
 	        		 }
 	        	 }
 	        }
-		
+	        JSONObject obj1 = new JSONObject();
+			JSONArray k1 = new JSONArray();
+			JSONArray k2 = new JSONArray();
+			JSONArray k3 = new JSONArray();
+			JSONArray k4 = new JSONArray();
+			JSONArray k5 = new JSONArray();
+			JSONArray k6 = new JSONArray();
+			JSONArray k7 = new JSONArray();
+
+			for (int i = 0; i < allOrders.size(); i++) {
+				k1.add(tos_order.get(i));
+				k2.add(froms_order.get(i));
+				k3.add(subjects_order.get(i));
+				k4.add(msg_order.get(i));
+				k5.add(orders_order.get(i));
+				k6.add(time_order.get(i));
+				k7.add(pq_order.get(i));
+
+			}
+
+			obj1.put("tos", k1);
+			obj1.put("froms", k2);
+			obj1.put("subjects", k3);
+			obj1.put("bodies", k4);
+			obj1.put("order", k5);
+			obj1.put("time", k6);
+			obj1.put("pq", k7);
+			try (FileWriter file = new FileWriter("Users/temp3.json")) {
+
+				file.write(obj1.toString());
+				file.flush();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 	}
 	@SuppressWarnings("unchecked")
 	@Override
@@ -326,6 +460,7 @@ public void OrderOfAll_4(String namee,String folderChosennn) {
 		DLinkedList froms = new DLinkedList();
 		DLinkedList subjects = new DLinkedList();
 		DLinkedList time = new DLinkedList();
+		DLinkedList pq = new DLinkedList();
 		JSONParser parser = new JSONParser();
         
 		try {
@@ -342,12 +477,14 @@ public void OrderOfAll_4(String namee,String folderChosennn) {
 			JSONArray col4 = (JSONArray) jsonObject.get("froms");
 			JSONArray col5 = (JSONArray) jsonObject.get("subjects");
 			JSONArray col6 = (JSONArray) jsonObject.get("time");
+			JSONArray col7 = (JSONArray) jsonObject.get("pq");
 			Iterator<String> iterator1 = col1.iterator();
 			Iterator<String> iterator2 = col2.iterator();
 			Iterator<String> iterator3 = col3.iterator();
 			Iterator<String> iterator4 = col4.iterator();
 			Iterator<String> iterator5 = col5.iterator();
 			Iterator<String> iterator6 = col6.iterator();
+			Iterator<String> iterator7 = col7.iterator();
 
 			while (iterator1.hasNext()) {
 				allOrders.add(iterator1.next());
@@ -371,6 +508,10 @@ public void OrderOfAll_4(String namee,String folderChosennn) {
 			}
 			while (iterator6.hasNext()) {
 				time.add(iterator6.next());
+
+			}
+			while (iterator7.hasNext()) {
+				pq.add(iterator7.next());
 
 			}
 		} catch (FileNotFoundException e) {
@@ -405,6 +546,7 @@ public void OrderOfAll_4(String namee,String folderChosennn) {
 			DLinkedList subjects_order =new DLinkedList();
 			DLinkedList time_order =new DLinkedList();
 			DLinkedList orders_order =new DLinkedList();
+			DLinkedList pq_order =new DLinkedList();
 			
 	        for (int i = 0; i < allOrders.size(); i++) {
 	        	n.add(i,names[i]);
@@ -414,6 +556,7 @@ public void OrderOfAll_4(String namee,String folderChosennn) {
    			    subjects_order.add(1);
    			    time_order.add(1);
    			    orders_order.add(1);
+   			    pq_order.add(1);
 	        }
 	        
 	        for (int i = 0; i < allOrders.size(); i++) {
@@ -427,9 +570,46 @@ public void OrderOfAll_4(String namee,String folderChosennn) {
 	        			 subjects_order.add(i, subjects.get(j));
 	        			 time_order.add(i, time.get(j));
 	        			 orders_order.add(i, allOrders.get(j));
+	        			 pq_order.add(i, pq.get(j));
 	        		 }
 	        	 }
 	        }
+	        
+	        JSONObject obj1 = new JSONObject();
+			JSONArray k1 = new JSONArray();
+			JSONArray k2 = new JSONArray();
+			JSONArray k3 = new JSONArray();
+			JSONArray k4 = new JSONArray();
+			JSONArray k5 = new JSONArray();
+			JSONArray k6 = new JSONArray();
+			JSONArray k7 = new JSONArray();
+
+			for (int i = 0; i < allOrders.size(); i++) {
+				k1.add(tos_order.get(i));
+				k2.add(froms_order.get(i));
+				k3.add(subjects_order.get(i));
+				k4.add(msg_order.get(i));
+				k5.add(orders_order.get(i));
+				k6.add(time_order.get(i));
+				k7.add(pq_order.get(i));
+
+			}
+
+			obj1.put("tos", k1);
+			obj1.put("froms", k2);
+			obj1.put("subjects", k3);
+			obj1.put("bodies", k4);
+			obj1.put("order", k5);
+			obj1.put("time", k6);
+			obj1.put("pq", k7);
+			try (FileWriter file = new FileWriter("Users/temp3.json")) {
+
+				file.write(obj1.toString());
+				file.flush();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 	}
 	
 	
@@ -564,7 +744,41 @@ public void OrderOfAll_4(String namee,String folderChosennn) {
 	        		 }
 	        	 }
 	        }
-		
+	        JSONObject obj1 = new JSONObject();
+			JSONArray k1 = new JSONArray();
+			JSONArray k2 = new JSONArray();
+			JSONArray k3 = new JSONArray();
+			JSONArray k4 = new JSONArray();
+			JSONArray k5 = new JSONArray();
+			JSONArray k6 = new JSONArray();
+			JSONArray k7 = new JSONArray();
+
+			for (int i = 0; i < allOrders.size(); i++) {
+				k1.add(tos_order.get(i));
+				k2.add(froms_order.get(i));
+				k3.add(subjects_order.get(i));
+				k4.add(msg_order.get(i));
+				k5.add(orders_order.get(i));
+				k6.add(time_order.get(i));
+				k7.add(pq_order.get(i));
+
+			}
+
+			obj1.put("tos", k1);
+			obj1.put("froms", k2);
+			obj1.put("subjects", k3);
+			obj1.put("bodies", k4);
+			obj1.put("order", k5);
+			obj1.put("time", k6);
+			obj1.put("pq", k7);
+			try (FileWriter file = new FileWriter("Users/temp3.json")) {
+
+				file.write(obj1.toString());
+				file.flush();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 	}
 	
 	
