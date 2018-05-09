@@ -262,6 +262,7 @@ public class Appp implements IApp {
 		String z, y, path, pq;
 		
 		Contact x = new Contact();
+		Filter h = new Filter();
 
 		from = Mail.from;
 		to = Mail.to;
@@ -278,6 +279,9 @@ public class Appp implements IApp {
 
 			path = "Users/" + z + "/Inbox/Index file.json"; // save for receiver
 			email.save_email(to, from, subject, email_body, path, time, pq);
+			if (h.check_filter(z)) {
+				h.put_in_filter(to, subject, z, from, email_body, time, pq);
+			}
 
 			path = "Users/" + y + "/Sent/Index file.json"; // save for sender
 			email.save_email(to, from, subject, email_body, path, time, pq);

@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -104,95 +106,112 @@ public class Filter implements IFilter {
 	public void put_in_filter(String to, String Subject, String contact, String from, String body, String tt,
 			String pq) {
 		String path = "Users/" + contact + "/Filterd mails";
+		String temp;
 		File x = new File(path);
 		int flag = 1;
 		Mail y = new Mail();
 
 		while (flag == 1) {
-			path = path + "/Sender";
+			temp = path + "/Sender";
+			x = new File(temp);
 			File[] files = x.listFiles();
-			for (File file : files) {
-				if (from == file.getName()) {
-					path = path + "/" + file.getName() + "/Index file.json";
-					y.save_email(to, from, Subject, body, path, tt, pq);
-					String path1 = "Users/" + contact + "/Inbox/Index file.json";
-					String path2 = "Users/" + contact + "/Inbox";
-					File x1 = new File(path2);
-					File[] files1 = x1.listFiles();
-					int n = y.order1(path1) - 1;
-					for (File file1 : files1) {
-						if (Integer.toString(n) == file1.getName()) {
-							file1.renameTo(new File("Users/" + contact + "/Filter mails/Sender/" + file.getName() + "/"
-									+ Integer.toString(y.order1(path))));
-							break;
+			if (x.exists()) {
+				for (File file : files) {
+					if (from == file.getName()) {
+						temp = temp + "/" + file.getName() + "/Index file.json";
+						y.save_email(to, from, Subject, body, temp, tt, pq);
+						String path1 = "Users/" + contact + "/Inbox/Index file.json";
+						String path2 = "Users/" + contact + "/Inbox";
+						File x1 = new File(path2);
+						File[] files1 = x1.listFiles();
+						int n = y.order1(path1) - 1;
+						for (File file1 : files1) {
+							if (Objects.equals(file1.getName(), Integer.toString(n))) {
+								copyFolder(file1, new File("Users/" + contact + "/Filterd mails/Sender/" + file.getName()
+										+ "/" + Integer.toString(y.order1(temp))));
+								break;
+							}
 						}
-					}
 
-					flag = 0;
-					break;
+						flag = 0;
+						break;
+					}
 				}
-			}
-			if (flag == 0) {
-				break;
-			} else if (flag == 1) {
+				if (flag == 0) {
+					break;
+				} else if (flag == 1) {
+					flag = 2;
+				}
+			} else {
 				flag = 2;
 			}
 		}
 		while (flag == 2) {
-			path = path + "/Subject";
+			temp = path + "/Subject";
+			x = new File(temp);
 			File[] files = x.listFiles();
-			for (File file : files) {
-				if (Subject == file.getName()) {
-					path = path + "/" + file.getName() + "/Index file.json";
-					y.save_email(to, from, Subject, body, path, tt, pq);
-					String path1 = "Users/" + contact + "/Inbox/Index file.json";
-					String path2 = "Users/" + contact + "/Inbox";
-					File x1 = new File(path2);
-					File[] files1 = x1.listFiles();
-					int n = y.order1(path1) - 1;
-					for (File file1 : files1) {
-						if (Integer.toString(n) == file1.getName()) {
-							file1.renameTo(new File("Users/" + contact + "/Filter mails/Subject/" + file.getName() + "/"
-									+ Integer.toString(y.order1(path))));
-							break;
+			if (x.exists()) {
+				for (File file : files) {
+					if (Objects.equals(Subject, file.getName())) {
+						temp = temp + "/" + Subject + "/Index file.json";
+						y.save_email(to, from, Subject, body, temp, tt, pq);
+						String path1 = "Users/" + contact + "/Inbox/Index file.json";
+						String path2 = "Users/" + contact + "/Inbox";
+						File x1 = new File(path2);
+						File[] files1 = x1.listFiles();
+						int n = y.order1(path1) - 1;
+						for (File file1 : files1) {
+							if (Objects.equals(file1.getName(), Integer.toString(n))) {
+								copyFolder(file1, new File("Users/" + contact + "/Filterd mails/Subject/" + file.getName()
+										+ "/" + Integer.toString(y.order1(temp))));
+								break;
+							}
 						}
-					}
 
-					flag = 0;
-					break;
+						flag = 0;
+						break;
+					}
 				}
-			}
-			if (flag == 0) {
-				break;
-			} else if (flag == 2) {
+				if (flag == 0) {
+					break;
+				} else if (flag == 2) {
+					flag = 3;
+				}
+			} else {
 				flag = 3;
 			}
 		}
 		while (flag == 3) {
-			path = path + "/Sender & Subject";
+			temp = path + "/Sender & Subject";
+			x = new File(temp);
+			String h = y.return_contact(from) + "-" + Subject;
 			File[] files = x.listFiles();
-			for (File file : files) {
-				if (Subject == file.getName()) {
-					path = path + "/" + file.getName() + "/Index file.json";
-					y.save_email(to, from, Subject, body, path, tt, pq);
-					String path1 = "Users/" + contact + "/Inbox/Index file.json";
-					String path2 = "Users/" + contact + "/Inbox";
-					File x1 = new File(path2);
-					File[] files1 = x1.listFiles();
-					int n = y.order1(path1) - 1;
-					for (File file1 : files1) {
-						if (Integer.toString(n) == file1.getName()) {
-							file1.renameTo(new File("Users/" + contact + "/Filter mails/Sender & Subject/"
-									+ file.getName() + "/" + Integer.toString(y.order1(path))));
-							break;
+			if (x.exists()) {
+				for (File file : files) {
+					if (Objects.equals(h, file.getName())) {
+						temp = temp + "/" + file.getName() + "/Index file.json";
+						y.save_email(to, from, Subject, body, temp, tt, pq);
+						String path1 = "Users/" + contact + "/Inbox/Index file.json";
+						String path2 = "Users/" + contact + "/Inbox";
+						File x1 = new File(path2);
+						File[] files1 = x1.listFiles();
+						int n = y.order1(path1) - 1;
+						for (File file1 : files1) {
+							if (Objects.equals(file1.getName(), Integer.toString(n))) {
+								copyFolder(file1, new File("Users/" + contact + "/Filterd mails/Sender & Subject/" + file.getName()
+								+ "/" + Integer.toString(y.order1(temp))));
+								break;
+							}
 						}
-					}
 
-					flag = 0;
-					break;
+						flag = 0;
+						break;
+					}
 				}
+				break;
+			} else {
+				break;
 			}
-			break;
 		}
 
 	}
@@ -833,5 +852,41 @@ public class Filter implements IFilter {
 		return true;
 
 	}
+	 public void copyFolder(File sourceFolder, File destinationFolder)
+	    {
+	        //Check if sourceFolder is a directory or file
+	        //If sourceFolder is file; then copy the file directly to new location
+	        if (sourceFolder.isDirectory())
+	        {
+	            //Verify if destinationFolder is already present; If not then create it
+	            if (!destinationFolder.exists())
+	            {
+	                destinationFolder.mkdirs();
+	           
+	            }
+	             
+	            //Get all files from source directory
+	            String files[] = sourceFolder.list();
+	             
+	            //Iterate over all files and copy them to destinationFolder one by one
+	            for (String file : files)
+	            {
+	                File srcFile = new File(sourceFolder, file);
+	                File destFile = new File(destinationFolder, file);
+	                 
+	                //Recursive function call
+	                copyFolder(srcFile, destFile);
+	            }
+	        }
+	        else
+	        {
+	            //Copy the file content from one place to another
+	        	try {
+	            Files.copy(sourceFolder.toPath(), destinationFolder.toPath(), StandardCopyOption.REPLACE_EXISTING);
+	        	} catch (IOException e){
+	        		
+	        	}
+	        	}
+	    }
 
 }

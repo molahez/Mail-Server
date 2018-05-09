@@ -1,5 +1,6 @@
 package eg.edu.alexu.csd.datastructure.mailServer;
 
+import java.io.File;
 import java.text.ParseException;
 import java.util.Date;
 
@@ -13,5 +14,6 @@ public interface IFilter {
 	public void put_in_filter(String to, String Subject, String contact, String from, String body, String tt,
 			String pq); 
 	public boolean check_filter(String contact);
+	public void copyFolder(File sourceFolder, File destinationFolder);
 
 }

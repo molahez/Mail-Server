@@ -465,8 +465,6 @@ public class MainWindow {
 			public void actionPerformed(ActionEvent arg0) {
 				textField_2.setEditable(true);
 				textField_3.setEditable(false);
-				textField_2.setText("");
-				textField_3.setText("");
 				 
 			}
 		});
@@ -477,8 +475,6 @@ public class MainWindow {
 			public void actionPerformed(ActionEvent e) {
 				textField_3.setEditable(true);
 				textField_2.setEditable(false);
-				textField_2.setText("");
-				textField_3.setText("");
 				
 			}
 		});
@@ -489,8 +485,6 @@ public class MainWindow {
 			public void actionPerformed(ActionEvent e) {
 				textField_2.setEditable(true);
 				textField_3.setEditable(true);
-				textField_2.setText("");
-				textField_3.setText("");
 				
 			}
 		});
@@ -507,13 +501,21 @@ public class MainWindow {
 		JButton btnCreateFilter = new JButton("Create Filter");
 		btnCreateFilter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				Filter x = new Filter();
 				re = textField_2.getText();
 				co = textField_3.getText();
+				if (re.isEmpty()) {
+					x.choose_filter("Subject", co, cont);
+				} else if (co.isEmpty()) {
+					x.choose_filter("Subject", re, cont);
+				} else {
+					x.choose_filter("Sender & Subject", re + "-" + co, cont);
+				}
+				
 				textField_3.setEditable(false);
 				textField_2.setEditable(false);
 				textField_2.setText("");
 				textField_3.setText("");
-				System.out.println(re);
 			}
 		});
 		btnCreateFilter.setFont(new Font("Century Gothic", Font.PLAIN, 14));
