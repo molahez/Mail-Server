@@ -188,11 +188,12 @@ public class Appp implements IApp {
 	@Override
 	public void setViewingOptions(final IFolder folder,final  IFilter filter,final  ISort sort) {
 
-		String folder_chosen, name,cat;
+		String folder_chosen, name,cat,email,cont;
 		Integer x;
 		x = Filter.filter;
 		cat = Filter.category;
-
+		Contact y1 = new Contact();
+		y1.var(folderr.em, null, folderr.contname);
 		switch (x) {
 		case 1:
 			folder_chosen = folderr.folderchosen;
@@ -229,7 +230,7 @@ public class Appp implements IApp {
 			break;
 		case 6:
 			folder_chosen = folderr.folderchosen;
-			name=Contact.contact_name;
+			name = folderr.contname;
 			sort.OrderOfAll_5(name, folder_chosen); // sort by Priority Queue
 			break;
 		default:	

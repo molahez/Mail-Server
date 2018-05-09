@@ -76,6 +76,7 @@ public class Composegui {
 		email = Contact.emal;
 		password = Contact.password;
 		cont = Contact.contact_name;
+		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(255, 255, 255));
 		frame.setBounds(100, 100, 1000, 600);
