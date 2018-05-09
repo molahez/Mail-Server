@@ -515,6 +515,8 @@ public class MainWindow {
 
 
 				
+
+				
 				textField_3.setEditable(false);
 				textField_2.setEditable(false);
 				textField_2.setText("");
