@@ -226,8 +226,13 @@ public class Appp implements IApp {
 				e.printStackTrace();
 			} // alphabet of senders
 			break;
-		default:
-
+		case 6:
+			folder_chosen = folderr.folderchosen;
+			folder.folderChosen(folder_chosen);
+			name=Contact.contact_name;
+			sort.OrderOfAll_5(name, folder_chosen); // sort by Priority Queue
+			break;
+		default:	
 			break;
 		}
 
