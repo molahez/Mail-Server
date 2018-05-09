@@ -305,13 +305,14 @@ public class MainWindow {
 				Contact yy = new Contact();
 				folderr fold = new folderr();
 				fold.folderChosen(temp,cont);
+				fold.label(email);
 
 				Filter switch_index = new Filter();
 				switch_index.var(val, null, null);
 				Appp y = new Appp();
 				y.setViewingOptions(fold,switch_index , x);
 				EmailsView kk = new EmailsView();
-				Appp.writee(true);
+				
 				kk.main(new String[5]);
 				
 				

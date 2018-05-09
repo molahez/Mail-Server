@@ -23,6 +23,7 @@ import javax.swing.tree.DefaultTreeModel;
 public class EmailsView {
 
 	private JFrame frame;
+	String temp,email, password,cont;
 
 	/**
 	 * Launch the application.
@@ -45,6 +46,7 @@ public class EmailsView {
 	 */
 	public EmailsView() {
 		initialize();
+		
 		frame.addWindowListener(new WindowAdapter() {
 
 			public void windowClosing(WindowEvent e) {
@@ -61,6 +63,10 @@ public class EmailsView {
 	 */
 	@SuppressWarnings("serial")
 	private void initialize() {
+		email = Contact.emal;
+		password = Contact.password;
+		cont = Contact.contact_name;
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1000, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,27 +83,7 @@ public class EmailsView {
 		lblFoldername.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		lblFoldername.setBounds(25, 45, 141, 28);
 		frame.getContentPane().add(lblFoldername);
-		/*int k = 0;
-		String s = "a";
-		for (int i = 0; i < 10; i++) {
-			JLabel label1 = new JLabel("Sender-Subject");
-			s=s+"a";
-			label1.addMouseListener(new MouseAdapter() {
-			
-				public void mouseClicked(MouseEvent arg0) {
-					JOptionPane.showMessageDialog(null,s);
-				}
 
-			});
-			label1.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-			label1.setBounds(25, 87 + k, 272, 28);
-			frame.getContentPane().add(label1);
-			k = k + 44;
-			
-
-		}*/
-
-		
 
 		JButton btnPreviouspage = new JButton("Previous_Page");
 		btnPreviouspage.setFont(new Font("Century Gothic", Font.PLAIN, 20));

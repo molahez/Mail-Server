@@ -133,12 +133,12 @@ public class Sorting implements ISort{
 		DLinkedList pq_order =new DLinkedList();
 		
 		for (int i = 0; i <= allOrders.size()-1; i++) {
-			  msg_order.add(i,bodies.get(arr[i]-1));
-			  tos_order.add(i,tos.get(arr[i]-1));
-			  froms_order.add(i,froms.get(arr[i]-1));
-			  subjects_order.add(i,subjects.get(arr[i]-1));
-			  time_order.add(i,time.get(arr[i]-1));
-			  pq_order.add(i,pq.get(arr[i]-1));
+			  msg_order.add(i,bodies.get(allOrders.size()-arr[i]));
+			  tos_order.add(i,tos.get(allOrders.size()-arr[i]));
+			  froms_order.add(i,froms.get(allOrders.size()-arr[i]));
+			  subjects_order.add(i,subjects.get(allOrders.size()-arr[i]));
+			  time_order.add(i,time.get(allOrders.size()-arr[i]));
+			  pq_order.add(i,pq.get(allOrders.size()-arr[i]));
 		    }
 		JSONObject obj1 = new JSONObject();
 		JSONArray k1 = new JSONArray();
@@ -154,7 +154,7 @@ public class Sorting implements ISort{
 			k2.add(froms_order.get(i));
 			k3.add(subjects_order.get(i));
 			k4.add(msg_order.get(i));
-			k5.add(arr[i]);
+			k5.add(allOrders.size()-arr[i]+1);
 			k6.add(time_order.get(i));
 			k7.add(pq_order.get(i));
 
