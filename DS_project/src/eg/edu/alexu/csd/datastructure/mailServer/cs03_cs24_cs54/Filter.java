@@ -862,6 +862,7 @@ public class Filter implements IFilter {
 	            if (!destinationFolder.exists())
 	            {
 	                destinationFolder.mkdirs();
+
 	           
 	            }
 	             

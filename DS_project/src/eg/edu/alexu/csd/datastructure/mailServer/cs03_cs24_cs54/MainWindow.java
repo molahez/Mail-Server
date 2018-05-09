@@ -511,6 +511,7 @@ public class MainWindow {
 				} else {
 					x.choose_filter("Sender & Subject", re + "-" + co, cont);
 				}
+
 				
 				textField_3.setEditable(false);
 				textField_2.setEditable(false);

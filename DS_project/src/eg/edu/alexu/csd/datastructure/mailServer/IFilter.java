@@ -15,5 +15,6 @@ public interface IFilter {
 			String pq); 
 	public boolean check_filter(String contact);
 	public void copyFolder(File sourceFolder, File destinationFolder);
+	
 
 }
