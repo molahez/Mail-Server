@@ -26,6 +26,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.Insets;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Composegui {
 	// to get main data in main window
@@ -103,6 +105,15 @@ public class Composegui {
 		frame.getContentPane().add(lblE);
 
 		textField = new JTextField();
+		textField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				int keyCode = e.getKeyCode();
+				if( keyCode == KeyEvent.VK_ENTER) {
+					textField.setText(textField.getText()+";");
+				}
+			}
+		});
 		textField.setBounds(154, 103, 469, 30);
 		textField.setBackground(new Color(255, 255, 255));
 		textField.setFont(new Font("Century Gothic", Font.PLAIN, 14));
