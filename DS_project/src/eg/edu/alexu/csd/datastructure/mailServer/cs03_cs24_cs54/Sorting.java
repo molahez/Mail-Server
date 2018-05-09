@@ -183,7 +183,7 @@ public class Sorting implements ISort {
 			k2.add(froms_order.get(i));
 			k3.add(subjects_order.get(i));
 			k4.add(msg_order.get(i));
-			k5.add(allOrders.size() - arr[i] + 1);
+			k5.add(Integer.toString(allOrders.size() - arr[i] + 1));
 			k6.add(time_order.get(i));
 			k7.add(pq_order.get(i));
 
