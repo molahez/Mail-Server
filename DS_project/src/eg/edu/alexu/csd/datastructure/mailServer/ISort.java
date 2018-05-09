@@ -10,4 +10,5 @@ public interface ISort {
 	public void OrderOfAll_4(String namee,String folderChosennn);
 	public void OrderOfAll_5(String namee,String folderChosennn);
 	
+	
 }

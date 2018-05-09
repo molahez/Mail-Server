@@ -921,6 +921,42 @@ public class Sorting implements ISort {
 		return emails;
 
 	}
+	public static int get_page() {
+		JSONParser parser = new JSONParser();
+		String pg = "";
+		try {
+
+			Object obj = parser.parse(new FileReader("Users/page.json"));
+
+			JSONObject jsonObject = (JSONObject) obj;
+			 pg = (String) jsonObject.get("pg");
+			
+			
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return Integer.parseInt(pg);
+	}
+	public static void save_page(int x) {
+		JSONObject obj = new JSONObject();
+		obj.put("pg", Integer.toString(x));
+		 try (FileWriter file = new FileWriter("Users/page.json")) {
+
+	            file.write(obj.toString());
+	            file.flush();
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	}
 
 	private static void SwapElement(int[] arr, int left, int right) {
 		int temp = arr[left];

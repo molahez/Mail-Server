@@ -1,6 +1,5 @@
 package eg.edu.alexu.csd.datastructure.mailServer.cs03_cs24_cs54;
 
-import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -9,26 +8,16 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTree;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.table.AbstractTableModel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
 
 import eg.edu.alexu.csd.datastructure.linkedList.cs03_cs10.DLinkedList;
-
-import javax.swing.JTable;
-import javax.swing.JScrollPane;
 
 public class EmailsView {
 
@@ -41,8 +30,9 @@ public class EmailsView {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		emails = Sorting.read_sorted();
-
+		
+		
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -54,29 +44,6 @@ public class EmailsView {
 			}
 		});
 	}
-
-	@SuppressWarnings("serial")
-	class TableData extends AbstractTableModel {
-
-		@Override
-		public int getColumnCount() {
-			// TODO Auto-generated method stub
-			return 3;
-		}
-
-		@Override
-		public int getRowCount() {
-			// TODO Auto-generated method stub
-			return 5;
-		}
-
-		@Override
-		public Object getValueAt(int arg0, int arg1) {
-			// TODO Auto-generated method stub
-			return "x";
-		}
-	}
-	
 
 	/**
 	 * Create the application.
@@ -122,11 +89,32 @@ public class EmailsView {
 		frame.getContentPane().add(lblFoldername);
 
 		JButton btnPreviouspage = new JButton("Previous_Page");
+		btnPreviouspage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(Sorting.get_page()>1) {
+				Sorting.save_page(Sorting.get_page()-1);
+				frame.dispose();
+				EmailsView kk = new EmailsView();
+				Appp.writee(true);
+				kk.main(new String[5]);
+			}}
+		});
 		btnPreviouspage.setFont(new Font("Century Gothic", Font.PLAIN, 20));
 		btnPreviouspage.setBounds(243, 38, 181, 35);
 		frame.getContentPane().add(btnPreviouspage);
 
 		JButton btnNextpage = new JButton("Next_Page");
+		btnNextpage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(emails.size()>Sorting.get_page()*10) {
+				Sorting.save_page(Sorting.get_page()+1);
+				frame.dispose();
+				EmailsView kk = new EmailsView();
+				Appp.writee(true);
+				kk.main(new String[5]);
+				
+			}}
+		});
 		btnNextpage.setFont(new Font("Century Gothic", Font.PLAIN, 20));
 		btnNextpage.setBounds(493, 38, 181, 35);
 		frame.getContentPane().add(btnNextpage);
@@ -150,26 +138,60 @@ public class EmailsView {
 		scrollPane.setBounds(25, 131, 729, 402);
 		frame.getContentPane().add(scrollPane);
 
-		table = new JTable() {public boolean isCellEditable(int row,int column){
-		    return false;
-		  }};
-		
+		table = new JTable() {
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+
 		table.setFont(new Font("Century Gothic", Font.PLAIN, 20));
-		
+
 		scrollPane.setViewportView(table);
 		DefaultTableModel xx = new DefaultTableModel();
 		table.setRowHeight(40);
-		
+
 		xx.addColumn("Importance");
 		xx.addColumn("Subject");
 		xx.addColumn("Sender");
 		xx.addColumn("Receiver");
 		xx.addColumn("Time");
-		for (int i = 0; i < 10; i++) {
-			xx.addRow(new Object[] {((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject, ((Sorting) emails.get(i)).from,
-					((Sorting) emails.get(i)).to, ((Sorting) emails.get(i)).time});
+		int y = Sorting.get_page();
+		emails = Sorting.read_sorted();
+		switch (y) {
+		case 1:
+			for (int i = 0; i < 10; i++) {
+				xx.addRow(new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
+						((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to, ((Sorting) emails.get(i)).time });
+			}
+			break;
+		case 2:
+			for (int i = 10; i < 20; i++) {
+				xx.addRow(new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
+						((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to, ((Sorting) emails.get(i)).time });
+			}
+			break;
+		case 3:
+			for (int i = 20; i < 30; i++) {
+				xx.addRow(new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
+						((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to, ((Sorting) emails.get(i)).time });
+			}
+			break;
+		case 4:
+			for (int i = 30; i < 40; i++) {
+				xx.addRow(new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
+						((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to, ((Sorting) emails.get(i)).time });
+			}
+			break;
+		case 5:
+			for (int i = 40; i < 50; i++) {
+				xx.addRow(new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
+						((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to, ((Sorting) emails.get(i)).time });
+			}
+			break;
+		default:
+			break;
 		}
-		
+
 		table.setModel(xx);
 
 	}

@@ -1,7 +1,9 @@
 package eg.edu.alexu.csd.datastructure.mailServer.cs03_cs24_cs54;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -14,21 +16,17 @@ import java.util.Objects;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JTree;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 
 import eg.edu.alexu.csd.datastructure.linkedList.cs03_cs10.DLinkedList;
-import java.awt.Color;
-import javax.swing.JMenuBar;
-import java.awt.Insets;
-import javax.swing.JPopupMenu;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 
 public class MainWindow {
 	Filter x = new Filter();
@@ -309,13 +307,11 @@ public class MainWindow {
 				folderr fold = new folderr();
 				fold.folderChosen(temp,cont);
 				fold.label(email);
-
 				Filter switch_index = new Filter();
 				switch_index.var(val, null, null);
 				Appp y = new Appp();
 				y.setViewingOptions(fold,switch_index , x);
 				EmailsView kk = new EmailsView();
-				
 				kk.main(new String[5]);
 				
 				

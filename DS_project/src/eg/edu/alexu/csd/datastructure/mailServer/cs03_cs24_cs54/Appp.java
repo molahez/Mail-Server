@@ -241,7 +241,24 @@ public class Appp implements IApp {
 
 	@Override
 	public IMail[] listEmails(int page) {
-		// TODO Auto-generated method stub
+		JSONParser parser = new JSONParser();
+		try {
+
+			Object obj = parser.parse(new FileReader("Users/temp.json"));
+
+			JSONObject jsonObject = (JSONObject) obj;
+
+			
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
