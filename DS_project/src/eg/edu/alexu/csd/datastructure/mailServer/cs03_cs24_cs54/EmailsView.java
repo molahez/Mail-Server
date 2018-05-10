@@ -278,22 +278,6 @@ public class EmailsView {
 		lblFoldername_1.setBounds(25, 45, 107, 28);
 		frame.getContentPane().add(lblFoldername_1);
 
-		JButton btnDeleteEmails = new JButton("Delete emails");
-		btnDeleteEmails.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				DLinkedList y = new DLinkedList();
-				DLinkedList.contact = cont;
-				DLinkedList.chosen_folder = folderchosen;
-				Appp x = new Appp();
-				x.deleteEmails(required);
-
-			
-			}
-		});
-		btnDeleteEmails.setFont(new Font("Century Gothic", Font.PLAIN, 15));
-		btnDeleteEmails.setBounds(789, 143, 161, 35);
-		frame.getContentPane().add(btnDeleteEmails);
-
 		JButton btnMoveEmails = new JButton("Move emails");
 		btnMoveEmails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -310,11 +294,12 @@ public class EmailsView {
 			public void mouseClicked(java.awt.event.MouseEvent e)
 
 			{
-
+				System.out.println("hi");
 				int row = table.rowAtPoint(e.getPoint());
 
 				int col = table.columnAtPoint(e.getPoint());
 				if (col != 6) {
+					System.out.println("hi");
 					content.add(row + (Sorting.get_page() - 1) * 10,
 							new Sorting(((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).pq,
 									((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).to,
@@ -330,14 +315,14 @@ public class EmailsView {
 					Sorting.save_page(1);
 					kk.main(new String[5]);
 
-					
-
 				}
 
 			}
 		}
 
 		);
+
+		table.setModel(xx);
 
 		table.getModel().addTableModelListener(new TableModelListener() {
 
@@ -346,6 +331,7 @@ public class EmailsView {
 				int row = e.getFirstRow();
 				int column = e.getColumn();
 				if (column == 6) {
+					System.out.println("hi");
 					TableModel model = (TableModel) e.getSource();
 					String columnName = model.getColumnName(column);
 					Boolean checked = (Boolean) model.getValueAt(row, column);
@@ -372,7 +358,21 @@ public class EmailsView {
 
 			}
 		});
-		table.setModel(xx);
+		JButton btnDeleteEmails = new JButton("Delete emails");
+		btnDeleteEmails.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DLinkedList y = new DLinkedList();
+				DLinkedList.contact = cont;
+				DLinkedList.chosen_folder = folderchosen;
+				System.out.println(folderchosen);
+				Appp x = new Appp();
+				x.deleteEmails(required);
+
+			}
+		});
+		btnDeleteEmails.setFont(new Font("Century Gothic", Font.PLAIN, 15));
+		btnDeleteEmails.setBounds(789, 143, 161, 35);
+		frame.getContentPane().add(btnDeleteEmails);
 
 	}
 }

@@ -375,6 +375,7 @@ public class DLinkedList implements ILinkedList {
 						orders.remove(k);
 						times.remove(k);
 						pqs.remove(k);
+						System.out.println("hi");
 						break;
 					}
 				}
@@ -419,6 +420,7 @@ public class DLinkedList implements ILinkedList {
 		Mail x = new Mail();
 		String path = "Users/" + cont + "/Trash/Index file.json";
 		System.out.println(path);
+		
 		for (int i = 0; i < details.size(); i++) {
 			if (!((Sorting) details.get(i)).to.isEmpty()) {
 				System.out.println(((Sorting) details.get(i)).to);

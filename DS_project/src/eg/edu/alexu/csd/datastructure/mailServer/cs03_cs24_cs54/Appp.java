@@ -252,6 +252,7 @@ public class Appp implements IApp {
 		String cont, chosen_folder;
 		cont = DLinkedList.contact;
 		chosen_folder = DLinkedList.chosen_folder;
+		System.out.println(DLinkedList.contact);
 		
 		String path = "Users/" + cont + "/" + chosen_folder + "/Index file.json";
 		
