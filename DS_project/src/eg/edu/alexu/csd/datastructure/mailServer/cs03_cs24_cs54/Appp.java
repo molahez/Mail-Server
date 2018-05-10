@@ -136,7 +136,7 @@ public class Appp implements IApp {
 				add("Sent");
 				add("Trash");
 				add("Filterd mails");
-				add("Junk");
+				add("Drafts");
 			}
 		};
 

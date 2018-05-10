@@ -284,6 +284,7 @@ public class DLinkedList implements ILinkedList {
 
 	@SuppressWarnings("unchecked")
 	public void delete_from_index(String path, ILinkedList details) {
+		System.out.println(path);
 		DLinkedList send = new DLinkedList();
 		DLinkedList recieve = new DLinkedList();
 		DLinkedList subjects = new DLinkedList();

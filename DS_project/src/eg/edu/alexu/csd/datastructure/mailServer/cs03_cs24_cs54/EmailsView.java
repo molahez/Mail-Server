@@ -8,8 +8,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -62,7 +64,6 @@ public class EmailsView {
 				Appp.writee(false);
 				Sorting.save_page(1);
 				System.exit(0);
-				
 
 			}
 
@@ -86,7 +87,7 @@ public class EmailsView {
 		frame.getContentPane().setLayout(null);
 
 		JLabel lblFoldername = new JLabel(cont);
-		
+
 		lblFoldername.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		lblFoldername.setBounds(168, 45, 107, 28);
 		frame.getContentPane().add(lblFoldername);
@@ -147,7 +148,7 @@ public class EmailsView {
 
 		table = new JTable() {
 			public boolean isCellEditable(int row, int column) {
-				return column == 5;
+				return column == 6;
 			}
 		};
 
@@ -198,13 +199,13 @@ public class EmailsView {
 				for (int i = 0; i < emails.size(); i++) {
 					xx.addRow(new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
 							((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
-							((Sorting) emails.get(i)).time,((Sorting) emails.get(i)).body });
+							((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
 				}
 			} else {
 				for (int i = 0; i < 10; i++) {
 					xx.addRow(new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
 							((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
-							((Sorting) emails.get(i)).time,((Sorting) emails.get(i)).body });
+							((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
 				}
 			}
 			break;
@@ -213,13 +214,13 @@ public class EmailsView {
 				for (int i = 10; i < emails.size(); i++) {
 					xx.addRow(new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
 							((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
-							((Sorting) emails.get(i)).time,((Sorting) emails.get(i)).body });
+							((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
 				}
 			} else {
 				for (int i = 10; i < 20; i++) {
 					xx.addRow(new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
 							((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
-							((Sorting) emails.get(i)).time,((Sorting) emails.get(i)).body });
+							((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
 				}
 			}
 			break;
@@ -228,13 +229,13 @@ public class EmailsView {
 				for (int i = 10; i < emails.size(); i++) {
 					xx.addRow(new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
 							((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
-							((Sorting) emails.get(i)).time,((Sorting) emails.get(i)).body });
+							((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
 				}
 			} else {
 				for (int i = 20; i < 30; i++) {
 					xx.addRow(new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
 							((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
-							((Sorting) emails.get(i)).time,((Sorting) emails.get(i)).body });
+							((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
 				}
 			}
 			break;
@@ -243,13 +244,13 @@ public class EmailsView {
 				for (int i = 10; i < emails.size(); i++) {
 					xx.addRow(new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
 							((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
-							((Sorting) emails.get(i)).time,((Sorting) emails.get(i)).body });
+							((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
 				}
 			} else {
 				for (int i = 30; i < 40; i++) {
 					xx.addRow(new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
 							((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
-							((Sorting) emails.get(i)).time,((Sorting) emails.get(i)).body });
+							((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
 				}
 			}
 			break;
@@ -258,13 +259,13 @@ public class EmailsView {
 				for (int i = 10; i < emails.size(); i++) {
 					xx.addRow(new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
 							((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
-							((Sorting) emails.get(i)).time,((Sorting) emails.get(i)).body });
+							((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
 				}
 			} else {
 				for (int i = 40; i < 50; i++) {
 					xx.addRow(new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
 							((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
-							((Sorting) emails.get(i)).time,((Sorting) emails.get(i)).body });
+							((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
 				}
 			}
 			break;
@@ -272,12 +273,30 @@ public class EmailsView {
 			break;
 		}
 
-		table.setModel(xx);
-
 		JLabel lblFoldername_1 = new JLabel("Folder_name");
 		lblFoldername_1.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		lblFoldername_1.setBounds(25, 45, 107, 28);
 		frame.getContentPane().add(lblFoldername_1);
+
+		JButton btnDeleteEmails = new JButton("Delete emails");
+		btnDeleteEmails.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+			}
+		});
+		btnDeleteEmails.setFont(new Font("Century Gothic", Font.PLAIN, 15));
+		btnDeleteEmails.setBounds(789, 143, 161, 35);
+		frame.getContentPane().add(btnDeleteEmails);
+
+		JButton btnMoveEmails = new JButton("Move emails");
+		btnMoveEmails.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
+		btnMoveEmails.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		btnMoveEmails.setBounds(789, 204, 161, 35);
+		frame.getContentPane().add(btnMoveEmails);
 		table.addMouseListener(new java.awt.event.MouseAdapter()
 
 		{
@@ -289,32 +308,27 @@ public class EmailsView {
 				int row = table.rowAtPoint(e.getPoint());
 
 				int col = table.columnAtPoint(e.getPoint());
+				if (col != 6) {
+					content.add(row + (Sorting.get_page() - 1) * 10,
+							new Sorting(((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).pq,
+									((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).to,
+									((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).from,
+									((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).Subject,
+									((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).body,
+									((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).time,
+									((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).order));
+					Sorting.save_email(content, row + (Sorting.get_page() - 1) * 10);
+					frame.dispose();
+					Email_content kk = new Email_content();
+					Appp.writee(true);
+					Sorting.save_page(1);
+					kk.main(new String[5]);
 
-				content.add(row + (Sorting.get_page() - 1) * 10,
-						new Sorting(((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).pq,
-								((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).to,
-								((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).from,
-								((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).Subject,
-								((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).body,
-								((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).time,
-								((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).order));
-				Sorting.save_email(content, row + (Sorting.get_page() - 1) * 10);
-				frame.dispose();
-				Email_content kk = new Email_content();
-				Appp.writee(true);
-				Sorting.save_page(1);
-				kk.main(new String[5]);
+					
 
-				/*
-				 * JOptionPane.showMessageDialog(null, " Value in the cell clicked :" + "" +
-				 * table.getValueAt(row, col).toString());
-				 * 
-				 * System.out.println(" Value in the cell clicked :" + "" +
-				 * table.getValueAt(row, col).toString());
-				 */
+				}
 
 			}
-
 		}
 
 		);
@@ -325,7 +339,7 @@ public class EmailsView {
 			public void tableChanged(TableModelEvent e) {
 				int row = e.getFirstRow();
 				int column = e.getColumn();
-				if (column == 5) {
+				if (column == 6) {
 					TableModel model = (TableModel) e.getSource();
 					String columnName = model.getColumnName(column);
 					Boolean checked = (Boolean) model.getValueAt(row, column);
@@ -346,10 +360,13 @@ public class EmailsView {
 						required.set(row + (Sorting.get_page() - 1) * 10, new Sorting("", "", "", "", "", "", ""));
 						System.out.println(columnName + ": " + false);
 					}
+				} else {
+
 				}
 
 			}
 		});
+		table.setModel(xx);
 
 	}
 }
