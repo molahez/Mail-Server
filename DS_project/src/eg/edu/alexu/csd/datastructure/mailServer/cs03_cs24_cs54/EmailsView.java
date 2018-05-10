@@ -9,23 +9,18 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
 import eg.edu.alexu.csd.datastructure.linkedList.cs03_cs10.DLinkedList;
-import javax.swing.JCheckBox;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import javax.swing.event.ChangeEvent;
 
 public class EmailsView {
 
@@ -100,6 +95,7 @@ public class EmailsView {
 
 		JButton btnPreviouspage = new JButton("Previous_Page");
 		btnPreviouspage.addActionListener(new ActionListener() {
+			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent e) {
 				if (Sorting.get_page() > 1) {
 					Sorting.save_page(Sorting.get_page() - 1);
@@ -116,6 +112,7 @@ public class EmailsView {
 
 		JButton btnNextpage = new JButton("Next_Page");
 		btnNextpage.addActionListener(new ActionListener() {
+			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent arg0) {
 				if (emails.size() > Sorting.get_page() * 10) {
 					Sorting.save_page(Sorting.get_page() + 1);

@@ -15,8 +15,13 @@ import org.json.simple.parser.ParseException;
 public class Jso {
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args) {
+		String x ="i am very good";
+		if(x.toLowerCase().contains("I".toLowerCase())) {
+			System.out.println("f");
+		}
+		
 
-        JSONParser parser = new JSONParser();
+        /*JSONParser parser = new JSONParser();
 
         try {
 
@@ -47,7 +52,7 @@ public class Jso {
         }
         catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
     }
 

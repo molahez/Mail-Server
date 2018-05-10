@@ -10,9 +10,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -33,22 +36,19 @@ public class MainWindow {
 	Integer val = 0;
 	static DLinkedList fol = new DLinkedList();
 	static boolean state = false;
-	String temp,email, password, cont,cate = "",re,co;
+	String temp,temp1="", email, password, cont, cate = "", re, co;
 	int count = 5;
 	private JFrame frame;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
-	
-
-	
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-	
+
 		try {
 			fol = Appp.read();
 
@@ -72,25 +72,22 @@ public class MainWindow {
 		});
 
 	}
-	
-	
 
 	/**
 	 * Create the application.
 	 */
 	public MainWindow() {
-		
+
 		initialize();
-		
-		frame.addWindowListener(new WindowAdapter(){
-			
-			
-			public void windowClosing (WindowEvent e) {
+
+		frame.addWindowListener(new WindowAdapter() {
+
+			public void windowClosing(WindowEvent e) {
 				Appp.writee(false);
 				System.exit(0);
-				
+
 			}
-			
+
 		});
 	}
 
@@ -101,13 +98,21 @@ public class MainWindow {
 	private void initialize() {
 		email = Contact.emal;
 		password = Contact.password;
-		cont = Contact.contact_name;	
+		cont = Contact.contact_name;
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(255, 255, 255));
 		frame.getContentPane().setFont(new Font("Century Gothic", Font.PLAIN, 20));
 		frame.setBounds(100, 100, 1000, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		try {
+			frame.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("recources/bg.jpg")))));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		frame.setResizable(false);
+		frame.pack();
 
 		JLabel lblEmailAddress = new JLabel("Email Address:-");
 		lblEmailAddress.setFont(new Font("Century Gothic", Font.PLAIN, 18));
@@ -139,29 +144,31 @@ public class MainWindow {
 			}
 		});
 		btnCompose.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		btnCompose.setBounds(34, 109, 113, 61);
+		btnCompose.setBounds(34, 126, 113, 44);
 		frame.getContentPane().add(btnCompose);
 
 		JButton btnSearch = new JButton("Search");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Filter x = new Filter();
+				folderr fold = new folderr();
+				fold.folderChosen(temp1, cont);
 				x.var(5, cate, textField_1.getText());
 				Appp y = new Appp();
-				if((Objects.equals(textField_1.getText(),"")) && cate.length()==0) {
-					
-					JOptionPane.showMessageDialog(null, "Please enter value and it's category to serach/n"+"for example: value(CSED) and category (Subject) ");
-					
+				if ((Objects.equals(textField_1.getText(), "")) || (cate=="") || (temp1=="")) {
+
+					JOptionPane.showMessageDialog(null, "Please enter value and it's category to serach and folder to search in/n"
+							+ "for example: value(CSED) and category (Subject) and folder(Inbox) ");
+
+				} else {
+					y.setViewingOptions(null, x, null);
+
 				}
-				else {
-				y.setViewingOptions(null, x, null);
-				
-				}
-				
+
 			}
 		});
 		btnSearch.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		btnSearch.setBounds(281, 109, 113, 61);
+		btnSearch.setBounds(281, 126, 113, 44);
 		frame.getContentPane().add(btnSearch);
 
 		JTree tree = new JTree();
@@ -173,9 +180,9 @@ public class MainWindow {
 				}
 			}
 		}));
-		
+
 		tree.setFont(new Font("Century Gothic", Font.PLAIN, 20));
-		tree.setBounds(34, 216, 178, 203);
+		tree.setBounds(34, 205, 180, 184);
 		frame.getContentPane().add(tree);
 
 		JButton btnAddFolder = new JButton("Add Folder");
@@ -198,7 +205,7 @@ public class MainWindow {
 
 		});
 		btnAddFolder.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		btnAddFolder.setBounds(247, 216, 147, 36);
+		btnAddFolder.setBounds(34, 415, 147, 36);
 		frame.getContentPane().add(btnAddFolder);
 
 		JButton btnEditFolder = new JButton("Edit Folder");
@@ -225,7 +232,7 @@ public class MainWindow {
 			}
 		});
 		btnEditFolder.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		btnEditFolder.setBounds(247, 266, 147, 36);
+		btnEditFolder.setBounds(210, 415, 147, 36);
 		frame.getContentPane().add(btnEditFolder);
 
 		JButton btnDeleteFolder = new JButton("Delete Folder");
@@ -254,12 +261,12 @@ public class MainWindow {
 			}
 		});
 		btnDeleteFolder.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		btnDeleteFolder.setBounds(247, 327, 147, 36);
+		btnDeleteFolder.setBounds(391, 415, 147, 36);
 		frame.getContentPane().add(btnDeleteFolder);
 
 		textField = new JTextField();
 		textField.setBackground(new Color(255, 255, 255));
-		textField.setBounds(247, 384, 147, 35);
+		textField.setBounds(210, 473, 147, 35);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 
@@ -270,7 +277,7 @@ public class MainWindow {
 
 				frame.dispose();
 				Homewindow kk = new Homewindow();
-				
+
 				state = true;
 				Appp.writee(true);
 				kk.main(new String[5]);
@@ -279,68 +286,72 @@ public class MainWindow {
 		btnSignOut.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		btnSignOut.setBounds(34, 489, 113, 61);
 		frame.getContentPane().add(btnSignOut);
-		
+
 		JButton btnAccountSettings = new JButton("Account Settings");
 		btnAccountSettings.addActionListener(new ActionListener() {
 			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
 				Settings kk = new Settings();
-				
-				
+
 				Appp.writee(true);
 				kk.main(new String[5]);
-				
+
 			}
 		});
 		btnAccountSettings.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		btnAccountSettings.setBounds(741, 35, 204, 61);
 		frame.getContentPane().add(btnAccountSettings);
-		
-		JButton btnEnterFolder = new JButton("Enter Folder");
+
+		JButton btnEnterFolder = new JButton("Display");
 		btnEnterFolder.addActionListener(new ActionListener() {
 			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose();
 				Sorting x = new Sorting();
-				Contact yy = new Contact();
 				folderr fold = new folderr();
-				fold.folderChosen(temp,cont);
+				fold.folderChosen(temp, cont);
 				fold.label(email);
 				Filter switch_index = new Filter();
 				switch_index.var(val, null, null);
 				Appp y = new Appp();
-				y.setViewingOptions(fold,switch_index , x);
+				y.setViewingOptions(fold, switch_index, x);
 				EmailsView kk = new EmailsView();
 				kk.main(new String[5]);
-				
-				
-				
+
 			}
 		});
 		btnEnterFolder.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		btnEnterFolder.setEnabled(false);
-		btnEnterFolder.setBounds(34, 442, 147, 36);
+		btnEnterFolder.setBounds(247, 261, 147, 36);
 		frame.getContentPane().add(btnEnterFolder);
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setMargin(new Insets(0, 0, 0, 6));
 		menuBar.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-		menuBar.setBounds(264, 442, 101, 35);
+		menuBar.setBounds(264, 200, 101, 35);
 		frame.getContentPane().add(menuBar);
-		
+
 		JMenu mnNewMenu = new JMenu("Sort_By");
 		menuBar.add(mnNewMenu);
-		
+
 		JMenuItem mntmNewMenuItem = new JMenuItem("Newest");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				val = 1;
-				
+
 			}
 		});
-		mnNewMenu.add(mntmNewMenuItem);
 		
+		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Default");
+		mntmNewMenuItem_8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				val = 1;
+			}
+		});
+		mnNewMenu.add(mntmNewMenuItem_8);
+		mnNewMenu.add(mntmNewMenuItem);
+
 		JMenuItem mntmOldest = new JMenuItem("Oldest");
 		mntmOldest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -348,7 +359,7 @@ public class MainWindow {
 			}
 		});
 		mnNewMenu.add(mntmOldest);
-		
+
 		JMenuItem mntmHighestpriority = new JMenuItem("Subjects alphabetically");
 		mntmHighestpriority.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -356,7 +367,7 @@ public class MainWindow {
 			}
 		});
 		mnNewMenu.add(mntmHighestpriority);
-		
+
 		JMenuItem mntmLowestpriority = new JMenuItem("Senders alphabetically");
 		mntmLowestpriority.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -364,7 +375,7 @@ public class MainWindow {
 			}
 		});
 		mnNewMenu.add(mntmLowestpriority);
-		
+
 		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Importance");
 		mntmNewMenuItem_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -372,66 +383,64 @@ public class MainWindow {
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_6);
-		
+
 		textField_1 = new JTextField();
 		textField_1.setBounds(442, 126, 127, 44);
 		frame.getContentPane().add(textField_1);
 		textField_1.setColumns(10);
 		textField_1.setEditable(false);
-		
+
 		JMenuBar menuBar_1 = new JMenuBar();
 		menuBar_1.setMargin(new Insets(0, 0, 0, 6));
 		menuBar_1.setFont(new Font("Century Gothic", Font.PLAIN, 12));
 		menuBar_1.setBounds(601, 132, 101, 35);
 		frame.getContentPane().add(menuBar_1);
-		
+
 		JMenu mnNewMenu_1 = new JMenu("Search by:-");
 		menuBar_1.add(mnNewMenu_1);
-		
+
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Senders");
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				textField_1.setEditable(true);
-				
-			
+
 				cate = "sender";
-				
+
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_1);
-		
+
 		JMenuItem mntmReceivers = new JMenuItem("Receivers");
 		mntmReceivers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				textField_1.setEditable(true);
-				
+
 				cate = "receiver";
 
 			}
 		});
 		mnNewMenu_1.add(mntmReceivers);
-		
+
 		JMenuItem mntmImportance = new JMenuItem("Importance");
 		mntmImportance.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				textField_1.setEditable(true);
-				
+
 				cate = "priority";
 			}
 		});
-		
+
 		JMenuItem mntmSubject = new JMenuItem("Subject");
 		mntmSubject.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				textField_1.setEditable(true);
 				cate = "subject";
-				
-				
+
 			}
 		});
 		mnNewMenu_1.add(mntmSubject);
 		mnNewMenu_1.add(mntmImportance);
-		
+
 		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Time");
 		mntmNewMenuItem_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -440,64 +449,73 @@ public class MainWindow {
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_5);
-		
+
+		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Email's Content");
+		mntmNewMenuItem_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textField_1.setEditable(true);
+				cate = "body";
+			}
+		});
+		mnNewMenu_1.add(mntmNewMenuItem_7);
+
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
-		textField_2.setBounds(442, 218, 127, 34);
+		textField_2.setBounds(800, 282, 127, 34);
 		frame.getContentPane().add(textField_2);
 		textField_2.setEditable(false);
-		
+
 		textField_3 = new JTextField();
 		textField_3.setColumns(10);
-		textField_3.setBounds(442, 282, 127, 36);
+		textField_3.setBounds(800, 353, 127, 36);
 		frame.getContentPane().add(textField_3);
 		textField_3.setEditable(false);
-		
+
 		JMenuBar menuBar_2 = new JMenuBar();
-		menuBar_2.setBounds(601, 216, 101, 22);
+		menuBar_2.setBounds(800, 216, 101, 22);
 		frame.getContentPane().add(menuBar_2);
-		
+
 		JMenu mnNewMenu_2 = new JMenu("Choosing Filter");
 		menuBar_2.add(mnNewMenu_2);
-		
+
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Reciever");
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				textField_2.setEditable(true);
 				textField_3.setEditable(false);
-				 
+
 			}
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_2);
-		
+
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Subject");
 		mntmNewMenuItem_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				textField_3.setEditable(true);
 				textField_2.setEditable(false);
-				
+
 			}
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_3);
-		
+
 		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Receiver&Subject");
 		mntmNewMenuItem_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				textField_2.setEditable(true);
 				textField_3.setEditable(true);
-				
+
 			}
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_4);
-		
+
 		JLabel lblSender = new JLabel("Reciever");
-		lblSender.setBounds(442, 192, 58, 15);
+		lblSender.setBounds(800, 256, 58, 15);
 		frame.getContentPane().add(lblSender);
-		
+
 		JLabel lblSubject = new JLabel("Subject");
-		lblSubject.setBounds(442, 256, 58, 15);
+		lblSubject.setBounds(800, 327, 58, 15);
 		frame.getContentPane().add(lblSubject);
-		
+
 		JButton btnCreateFilter = new JButton("Create Filter");
 		btnCreateFilter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -512,10 +530,6 @@ public class MainWindow {
 					x.choose_filter("Sender & Subject", re + "-" + co, cont);
 				}
 
-
-				
-
-				
 				textField_3.setEditable(false);
 				textField_2.setEditable(false);
 				textField_2.setText("");
@@ -523,8 +537,33 @@ public class MainWindow {
 			}
 		});
 		btnCreateFilter.setFont(new Font("Century Gothic", Font.PLAIN, 14));
-		btnCreateFilter.setBounds(601, 282, 127, 36);
+		btnCreateFilter.setBounds(800, 416, 127, 36);
 		frame.getContentPane().add(btnCreateFilter);
+		
+		JMenuBar menuBar_3 = new JMenuBar();
+		menuBar_3.setMargin(new Insets(0, 0, 0, 6));
+		menuBar_3.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		menuBar_3.setBounds(722, 132, 101, 35);
+		frame.getContentPane().add(menuBar_3);
+		
+		JMenu mnNewMenu_3 = new JMenu("Search in:-");
+		menuBar_3.add(mnNewMenu_3);
+		
+		JMenuItem mntmNewMenuItem_10 = new JMenuItem("Inbox");
+		mntmNewMenuItem_10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				temp1="Inbox";
+			}
+		});
+		mnNewMenu_3.add(mntmNewMenuItem_10);
+		
+		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Sent");
+		mntmNewMenuItem_9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				temp1="Sent";
+			}
+		});
+		mnNewMenu_3.add(mntmNewMenuItem_9);
 		tree.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -544,6 +583,4 @@ public class MainWindow {
 			}
 		});
 	}
-
-
 }

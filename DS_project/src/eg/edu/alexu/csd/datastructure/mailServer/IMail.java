@@ -1,7 +1,6 @@
 package eg.edu.alexu.csd.datastructure.mailServer;
 
 import java.io.File;
-import java.util.Date;
 
 public interface IMail {
 	

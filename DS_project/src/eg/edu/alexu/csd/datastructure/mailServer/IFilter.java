@@ -2,7 +2,6 @@ package eg.edu.alexu.csd.datastructure.mailServer;
 
 import java.io.File;
 import java.text.ParseException;
-import java.util.Date;
 
 public interface IFilter {
 	public void var(Integer fil,String cate,String val);

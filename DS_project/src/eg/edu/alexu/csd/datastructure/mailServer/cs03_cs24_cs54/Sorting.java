@@ -877,6 +877,7 @@ public class Sorting implements ISort {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	static DLinkedList read_sorted() {
 		JSONParser parser = new JSONParser();
 		DLinkedList emails = new DLinkedList();
@@ -945,6 +946,7 @@ public class Sorting implements ISort {
 		
 		return Integer.parseInt(pg);
 	}
+	@SuppressWarnings("unchecked")
 	public static void save_page(int x) {
 		JSONObject obj = new JSONObject();
 		obj.put("pg", Integer.toString(x));
