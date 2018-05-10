@@ -1,47 +1,41 @@
 package eg.edu.alexu.csd.datastructure.mailServer.cs03_cs24_cs54;
 
 import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 import eg.edu.alexu.csd.datastructure.linkedList.cs03_cs10.DLinkedList;
 import eg.edu.alexu.csd.datastructure.linkedList.cs03_cs10.SLinkedList;
 
-public class EmailsView {
+public class Search_content {
 
 	private JFrame frame;
-	String temp, email, password, cont, folderchosen;
 	private JTable table;
+	String temp, email, password, cont, folderchosen;
 	static DLinkedList emails = new DLinkedList();
+	static DLinkedList tempo = new DLinkedList();
 	static DLinkedList required = new DLinkedList();
 	static SLinkedList content = new SLinkedList();
 	boolean flag;
-
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EmailsView window = new EmailsView();
+					Search_content window = new Search_content();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,9 +47,8 @@ public class EmailsView {
 	/**
 	 * Create the application.
 	 */
-	public EmailsView() {
+	public Search_content() {
 		initialize();
-
 		frame.addWindowListener(new WindowAdapter() {
 
 			public void windowClosing(WindowEvent e) {
@@ -72,85 +65,85 @@ public class EmailsView {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	@SuppressWarnings("serial")
 	private void initialize() {
 		email = Contact.emal;
 		password = Contact.password;
 		cont = Contact.contact_name;
 		folderchosen = folderr.folderchosen;
-		Sorting.save_state(1);
-
+		Sorting.save_state(2);
+		//here we must our search results
+		
+		tempo = Filter.read_sorted();
+		emails = Filter.filter_results(tempo);
+		 
+		
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1000, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-
-		JLabel lblFoldername = new JLabel(cont);
 		
-		lblFoldername.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		lblFoldername.setBounds(168, 45, 107, 28);
-		frame.getContentPane().add(lblFoldername);
-
-		JButton btnPreviouspage = new JButton("Previous_Page");
-		btnPreviouspage.addActionListener(new ActionListener() {
+		JButton button = new JButton("Previous_Page");
+		button.setFont(new Font("Century Gothic", Font.PLAIN, 20));
+		button.addActionListener(new ActionListener() {
 			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent e) {
 				if (Sorting.get_page() > 1) {
 					Sorting.save_page(Sorting.get_page() - 1);
 					frame.dispose();
-					EmailsView kk = new EmailsView();
+					Search_content kk = new Search_content();
 					Appp.writee(true);
 					kk.main(new String[5]);
 				}
 			}
 		});
-		btnPreviouspage.setFont(new Font("Century Gothic", Font.PLAIN, 20));
-		btnPreviouspage.setBounds(314, 38, 181, 35);
-		frame.getContentPane().add(btnPreviouspage);
-
-		JButton btnNextpage = new JButton("Next_Page");
-		btnNextpage.addActionListener(new ActionListener() {
+		button.setBounds(266, 31, 181, 35);
+		frame.getContentPane().add(button);
+		
+		JLabel label = new JLabel(cont);
+		label.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		label.setBounds(27, 35, 107, 28);
+		frame.getContentPane().add(label);
+		
+		JButton button_1 = new JButton("Next_Page");
+		button_1.addActionListener(new ActionListener() {
 			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent arg0) {
 				if (emails.size() > Sorting.get_page() * 10) {
 					Sorting.save_page(Sorting.get_page() + 1);
 					frame.dispose();
-					EmailsView kk = new EmailsView();
+					Search_content kk = new Search_content();
 					Appp.writee(true);
 					kk.main(new String[5]);
 
 				}
 			}
 		});
-		btnNextpage.setFont(new Font("Century Gothic", Font.PLAIN, 20));
-		btnNextpage.setBounds(536, 38, 181, 35);
-		frame.getContentPane().add(btnNextpage);
-
-		JButton button = new JButton("Back");
-		button.addActionListener(new ActionListener() {
+		button_1.setFont(new Font("Century Gothic", Font.PLAIN, 20));
+		button_1.setBounds(527, 31, 181, 35);
+		frame.getContentPane().add(button_1);
+		
+		JButton button_2 = new JButton("Back");
+		button_2.addActionListener(new ActionListener() {
 			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
 				MainWindow kk = new MainWindow();
 				Appp.writee(true);
 				kk.main(new String[5]);
+				Sorting.save_page(1);
 
 			}
 		});
-		button.setFont(new Font("Century Gothic", Font.PLAIN, 20));
-		button.setBounds(750, 38, 161, 35);
-		frame.getContentPane().add(button);
-
+		button_2.setFont(new Font("Century Gothic", Font.PLAIN, 20));
+		button_2.setBounds(765, 31, 161, 35);
+		frame.getContentPane().add(button_2);
+		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(25, 131, 729, 393);
+		scrollPane.setBounds(27, 102, 915, 393);
 		frame.getContentPane().add(scrollPane);
-
-		table = new JTable() {
-			public boolean isCellEditable(int row, int column) {
-				return column == 5;
-			}
-		};
-
+		
+		table = new JTable();
 		table.setFont(new Font("Century Gothic", Font.PLAIN, 20));
 
 		scrollPane.setViewportView(table);
@@ -167,10 +160,7 @@ public class EmailsView {
 					return String.class;
 				case 4:
 					return String.class;
-				case 5:
-					return String.class;
-				case 6:
-					return Boolean.class;
+				
 				default:
 					return String.class;
 				}
@@ -184,10 +174,8 @@ public class EmailsView {
 		xx.addColumn("Sender");
 		xx.addColumn("Receiver");
 		xx.addColumn("Time");
-		xx.addColumn("content");
-		xx.addColumn("Check");
+		xx.addColumn("Content");
 		int y = Sorting.get_page();
-		emails = Sorting.read_sorted();
 		for (int i = 0; i < emails.size(); i++) {
 			required.add(new Sorting("", "", "", "", "", "", ""));
 			content.add(new Sorting("", "", "", "", "", "", ""));
@@ -273,11 +261,6 @@ public class EmailsView {
 		}
 
 		table.setModel(xx);
-
-		JLabel lblFoldername_1 = new JLabel("Folder_name");
-		lblFoldername_1.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		lblFoldername_1.setBounds(25, 45, 107, 28);
-		frame.getContentPane().add(lblFoldername_1);
 		table.addMouseListener(new java.awt.event.MouseAdapter()
 
 		{
@@ -318,38 +301,6 @@ public class EmailsView {
 		}
 
 		);
-
-		table.getModel().addTableModelListener(new TableModelListener() {
-
-			@Override
-			public void tableChanged(TableModelEvent e) {
-				int row = e.getFirstRow();
-				int column = e.getColumn();
-				if (column == 5) {
-					TableModel model = (TableModel) e.getSource();
-					String columnName = model.getColumnName(column);
-					Boolean checked = (Boolean) model.getValueAt(row, column);
-					if (checked) {
-						required.add(row + (Sorting.get_page() - 1) * 10,
-								new Sorting(((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).pq,
-										((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).to,
-										((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).from,
-										((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).Subject,
-										((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).body,
-										((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).time,
-										((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).order));
-
-						String col = table.getValueAt(row, 0).toString();
-						System.out.println(col);
-						System.out.println(columnName + ": " + true);
-					} else {
-						required.set(row + (Sorting.get_page() - 1) * 10, new Sorting("", "", "", "", "", "", ""));
-						System.out.println(columnName + ": " + false);
-					}
-				}
-
-			}
-		});
-
+		
 	}
 }

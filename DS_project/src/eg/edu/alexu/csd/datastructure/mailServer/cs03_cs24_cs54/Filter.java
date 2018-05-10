@@ -355,13 +355,13 @@ public class Filter implements IFilter {
 		DLinkedList orders_order = new DLinkedList();
 		DLinkedList pqs_order = new DLinkedList();
 		for (int i = 0; i < orders.size(); i++) {
-			msg_order.add(1);
-			tos_order.add(1);
-			froms_order.add(1);
-			subjects_order.add(1);
-			time_order.add(1);
-			orders_order.add(1);
-			pqs_order.add(1);
+			msg_order.add("");
+			tos_order.add("");
+			froms_order.add("");
+			subjects_order.add("");
+			time_order.add("");
+			orders_order.add("");
+			pqs_order.add("");
 		}
 		
 
@@ -541,10 +541,66 @@ public class Filter implements IFilter {
 		}
 		return true;
 
+	}//here we read the file that contains results  
+	static DLinkedList read_sorted() {
+		JSONParser parser = new JSONParser();
+		DLinkedList emails = new DLinkedList();
+		try {
+
+			Object obj = parser.parse(new FileReader("Users/temp3.json"));
+
+			JSONObject jsonObject = (JSONObject) obj;
+
+			// loop array
+			JSONArray col1 = (JSONArray) jsonObject.get("pq");
+			JSONArray col2 = (JSONArray) jsonObject.get("tos");
+			JSONArray col3 = (JSONArray) jsonObject.get("froms");
+			JSONArray col4 = (JSONArray) jsonObject.get("subjects");
+			JSONArray col5 = (JSONArray) jsonObject.get("bodies");
+			JSONArray col6 = (JSONArray) jsonObject.get("time");
+			JSONArray col7 = (JSONArray) jsonObject.get("order");
+			Iterator<String> iterator1 = col1.iterator();
+			Iterator<String> iterator2 = col2.iterator();
+			Iterator<String> iterator3 = col3.iterator();
+			Iterator<String> iterator4 = col4.iterator();
+			Iterator<String> iterator5 = col5.iterator();
+			Iterator<String> iterator6 = col6.iterator();
+			Iterator<String> iterator7 = col7.iterator();
+			
+
+			while (iterator1.hasNext()) {
+				emails.add(new Sorting(iterator1.next(), iterator2.next(), iterator3.next(), iterator4.next(),
+						iterator5.next(), iterator6.next(), iterator7.next()));
+
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return emails;
+
+	}
+	static DLinkedList filter_results(DLinkedList x) {
+		DLinkedList emails = new DLinkedList();
+		for(int i=0;i<x.size();i++) {
+			if((String)((Sorting) x.get(i)).pq!="") {
+				emails.add(x.get(i));
+			}
+			
+		}
+		return emails;
+		
 	}
 
 	@SuppressWarnings({ "static-access", "unchecked" })
 	@Override
+	//here we sort according to category but only in body we search
 	public void read_indexfile(String category, String path) throws java.text.ParseException {
 
 		JSONParser parser = new JSONParser();
@@ -623,13 +679,13 @@ public class Filter implements IFilter {
 			if (Objects.equals(category, "body")) {
 				for (int i = 0; i < orders.size(); i++) {
 					
-					msg_order.add(1);
-					tos_order.add(1);
-					froms_order.add(1);
-					subjects_order.add(1);
-					time_order.add(1);
-					orders_order.add(1);
-					pqs_order.add(1);
+					msg_order.add("");
+					tos_order.add("");
+					froms_order.add("");
+					subjects_order.add("");
+					time_order.add("");
+					orders_order.add("");
+					pqs_order.add("");
 				}
 				
 				for (int i = 0; i < bodies.size(); i++) {
@@ -672,7 +728,7 @@ public class Filter implements IFilter {
 				obj1.put("order", k5);
 				obj1.put("time", k6);
 				obj1.put("pq", k7);
-				try (FileWriter file = new FileWriter("Users/temp2.json")) {
+				try (FileWriter file = new FileWriter("Users/temp3.json")) {
 
 					file.write(obj1.toString());
 					file.flush();

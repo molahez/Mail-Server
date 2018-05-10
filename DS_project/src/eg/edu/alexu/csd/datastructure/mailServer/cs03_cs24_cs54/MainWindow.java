@@ -162,6 +162,10 @@ public class MainWindow {
 
 				} else {
 					y.setViewingOptions(null, x, null);
+					Appp.writee(false);
+					frame.dispose();
+					Search_content kk = new Search_content();
+					kk.main(new String[5]);
 
 				}
 
@@ -274,10 +278,8 @@ public class MainWindow {
 		btnSignOut.addActionListener(new ActionListener() {
 			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent e) {
-
 				frame.dispose();
 				Homewindow kk = new Homewindow();
-
 				state = true;
 				Appp.writee(true);
 				kk.main(new String[5]);
@@ -318,6 +320,7 @@ public class MainWindow {
 				y.setViewingOptions(fold, switch_index, x);
 				EmailsView kk = new EmailsView();
 				kk.main(new String[5]);
+				Appp.writee(false);
 
 			}
 		});
