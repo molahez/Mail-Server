@@ -446,6 +446,7 @@ public class DLinkedList implements ILinkedList {
 	}
 	public void put_move(ILinkedList details, String cont, String chosen) {
         Filter h = new Filter();
+
 		Mail x = new Mail();
 		String path = "Users/" + cont + "/" + chosen + "/Index file.json";
 		System.out.println(path);
