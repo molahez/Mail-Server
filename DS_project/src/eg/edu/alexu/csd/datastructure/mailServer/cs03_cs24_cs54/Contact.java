@@ -337,6 +337,7 @@ public class Contact implements IContact {
 
 		return flag;
 	}
+	@SuppressWarnings("unchecked")
 	public boolean check1(String email) {
 		DLinkedList emails = new DLinkedList();
 		boolean flag = false;

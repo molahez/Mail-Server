@@ -13,6 +13,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import eg.edu.alexu.csd.datastructure.linkedList.cs03_cs10.DLinkedList;
+import eg.edu.alexu.csd.datastructure.linkedList.cs03_cs10.SLinkedList;
 import eg.edu.alexu.csd.datastructure.mailServer.ISort;
 import eg.edu.alexu.csd.datastructure.stack.cs03.MyStack;
 
@@ -20,6 +21,7 @@ public class Sorting implements ISort {
 
 	DLinkedList state = new DLinkedList();
 	DLinkedList state1 = new DLinkedList();
+	
 
 	public String pq;
 	public String to;
@@ -877,6 +879,7 @@ public class Sorting implements ISort {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	static DLinkedList read_sorted() {
 		JSONParser parser = new JSONParser();
 		DLinkedList emails = new DLinkedList();
@@ -945,6 +948,31 @@ public class Sorting implements ISort {
 		
 		return Integer.parseInt(pg);
 	}
+	public static int get_state() {
+		JSONParser parser = new JSONParser();
+		String pg = "";
+		try {
+
+			Object obj = parser.parse(new FileReader("Users/state.json"));
+
+			JSONObject jsonObject = (JSONObject) obj;
+			 pg = (String) jsonObject.get("state");
+			
+			
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return Integer.parseInt(pg);
+	}
+	@SuppressWarnings("unchecked")
 	public static void save_page(int x) {
 		JSONObject obj = new JSONObject();
 		obj.put("pg", Integer.toString(x));
@@ -956,6 +984,108 @@ public class Sorting implements ISort {
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
+	}
+	@SuppressWarnings("unchecked")
+	public static void save_state(int x) {
+		JSONObject obj = new JSONObject();
+		obj.put("state", Integer.toString(x));
+		 try (FileWriter file = new FileWriter("Users/state.json")) {
+
+	            file.write(obj.toString());
+	            file.flush();
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	}
+	//here we want to save the email we want to display after we view all emails in any folder such as Inbox
+	@SuppressWarnings("unchecked")
+	public static void save_email(SLinkedList y,int order) {
+		SLinkedList emails_cont = new SLinkedList();
+		
+		JSONObject obj1 = new JSONObject();
+		JSONArray k1 = new JSONArray();
+		JSONArray k2 = new JSONArray();
+		JSONArray k3 = new JSONArray();
+		JSONArray k4 = new JSONArray();
+		JSONArray k5 = new JSONArray();
+		JSONArray k6 = new JSONArray();
+		JSONArray k7 = new JSONArray();
+
+		 
+			k1.add(((Sorting)y.get(order)).to);
+			k2.add(((Sorting)y.get(order)).from);
+			k3.add(((Sorting)y.get(order)).Subject);
+			k4.add(((Sorting)y.get(order)).body);
+			k5.add(((Sorting)y.get(order)).order);
+			k6.add(((Sorting)y.get(order)).time);
+			k7.add(((Sorting)y.get(order)).pq);
+
+		
+
+		obj1.put("tos", k1);
+		obj1.put("froms", k2);
+		obj1.put("subjects", k3);
+		obj1.put("bodies", k4);
+		obj1.put("order", k5);
+		obj1.put("time", k6);
+		obj1.put("pq", k7);
+		try (FileWriter file = new FileWriter("Users/cont.json")) {
+
+			file.write(obj1.toString());
+			file.flush();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	public static SLinkedList load_email() {
+		SLinkedList emails_cont = new SLinkedList();
+		JSONParser parser = new JSONParser();
+		String pg = "";
+		try {
+
+			Object obj = parser.parse(new FileReader("Users/cont.json"));
+
+			JSONObject jsonObject = (JSONObject) obj;
+			JSONArray col1 = (JSONArray) jsonObject.get("pq");
+			JSONArray col2 = (JSONArray) jsonObject.get("tos");
+			JSONArray col3 = (JSONArray) jsonObject.get("froms");
+			JSONArray col4 = (JSONArray) jsonObject.get("subjects");
+			JSONArray col5 = (JSONArray) jsonObject.get("bodies");
+			JSONArray col6 = (JSONArray) jsonObject.get("time");
+			JSONArray col7 = (JSONArray) jsonObject.get("order");
+			Iterator<String> iterator1 = col1.iterator();
+			Iterator<String> iterator2 = col2.iterator();
+			Iterator<String> iterator3 = col3.iterator();
+			Iterator<String> iterator4 = col4.iterator();
+			Iterator<String> iterator5 = col5.iterator();
+			Iterator<String> iterator6 = col6.iterator();
+			Iterator<String> iterator7 = col7.iterator();
+			
+
+			while (iterator1.hasNext()) {
+				emails_cont.add(new Sorting(iterator1.next(), iterator2.next(), iterator3.next(), iterator4.next(),
+						iterator5.next(), iterator6.next(), iterator7.next()));
+
+			}
+			
+			
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return emails_cont;
+		
 	}
 
 	private static void SwapElement(int[] arr, int left, int right) {

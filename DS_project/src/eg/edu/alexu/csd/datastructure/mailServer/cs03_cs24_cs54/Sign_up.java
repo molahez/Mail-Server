@@ -5,8 +5,11 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -61,6 +64,14 @@ public class Sign_up {
 		frame.setBounds(100, 100, 1000, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		try {
+			frame.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("recources/home.png")))));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		frame.setResizable(false);
+		frame.pack();
 
 		textField = new JTextField();
 		textField.addActionListener(new ActionListener() {
@@ -130,7 +141,7 @@ public class Sign_up {
 				}
 			}
 		});
-		btnNewButton.setBounds(519, 338, 118, 92);
+		btnNewButton.setBounds(247, 338, 390, 40);
 		frame.getContentPane().add(btnNewButton);
 
 		lblEmailAddress = new JLabel("Email Address:-");
@@ -150,6 +161,7 @@ public class Sign_up {
 		lblName.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		lblName.setBounds(247, 259, 86, 30);
 		frame.getContentPane().add(lblName);
+		
 
 		passwordField = new JPasswordField();
 		passwordField.setBounds(468, 159, 169, 30);
@@ -164,7 +176,7 @@ public class Sign_up {
 			    System.out.println(ex);
 			  }
 		 
-		btnNewButton_1.setForeground(new Color(0, 0, 255));
+		btnNewButton_1.setForeground(Color.WHITE);
 		btnNewButton_1.setFont(new Font("Century Gothic", Font.PLAIN, 20));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			@SuppressWarnings("static-access")
@@ -176,17 +188,17 @@ public class Sign_up {
 			}
 
 		});
-		btnNewButton_1.setBounds(250, 338, 94, 92);
+		btnNewButton_1.setBounds(80, 406, 106, 106);
 		frame.getContentPane().add(btnNewButton_1);
 
 		JLabel lblExUsermailservercom = new JLabel("ex:- user@mailserver.com");
-		lblExUsermailservercom.setForeground(new Color(128, 128, 128));
+		lblExUsermailservercom.setForeground(Color.WHITE);
 		lblExUsermailservercom.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		lblExUsermailservercom.setBounds(685, 104, 237, 30);
 		frame.getContentPane().add(lblExUsermailservercom);
 
 		JLabel lblExUsermailservercom_1 = new JLabel("Password must contain at least 8 characters");
-		lblExUsermailservercom_1.setForeground(Color.GRAY);
+		lblExUsermailservercom_1.setForeground(Color.WHITE);
 		lblExUsermailservercom_1.setFont(new Font("Century Gothic", Font.PLAIN, 12));
 		lblExUsermailservercom_1.setBounds(685, 155, 289, 30);
 		frame.getContentPane().add(lblExUsermailservercom_1);

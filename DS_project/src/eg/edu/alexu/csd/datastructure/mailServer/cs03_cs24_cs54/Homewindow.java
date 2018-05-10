@@ -6,7 +6,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -63,8 +67,15 @@ public class Homewindow {
 		frame.setBounds(100, 100, 1000, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-
-		JButton btnNewButton = new JButton("Sign in");
+		try {
+			frame.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("recources/home.png")))));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		frame.setResizable(false);
+		frame.pack();
+		JButton btnNewButton = new JButton("Log in to your account");
 		btnNewButton.addActionListener(new ActionListener() {
 			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent arg0) {
@@ -90,10 +101,10 @@ public class Homewindow {
 			}
 		});
 		btnNewButton.setFont(new Font("Century Gothic", Font.PLAIN, 20));
-		btnNewButton.setBounds(410, 251, 127, 35);
+		btnNewButton.setBounds(224, 251, 313, 58);
 		frame.getContentPane().add(btnNewButton);
 
-		JButton btnSignUp = new JButton("Sign up");
+		JButton btnSignUp = new JButton("New here? Sign up!");
 		btnSignUp.addActionListener(new ActionListener() {
 			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent e) {
@@ -103,17 +114,19 @@ public class Homewindow {
 			}
 		});
 		btnSignUp.setFont(new Font("Century Gothic", Font.PLAIN, 20));
-		btnSignUp.setBounds(214, 251, 127, 35);
+		btnSignUp.setBounds(224, 338, 313, 58);
 		frame.getContentPane().add(btnSignUp);
 
-		JLabel lblEmailAddress = new JLabel("Email address: - ");
-		lblEmailAddress.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		lblEmailAddress.setBounds(214, 156, 141, 28);
+		JLabel lblEmailAddress = new JLabel("Email address");
+		lblEmailAddress.setForeground(Color.WHITE);
+		lblEmailAddress.setFont(new Font("Century Gothic", Font.PLAIN, 20));
+		lblEmailAddress.setBounds(587, 124, 141, 28);
 		frame.getContentPane().add(lblEmailAddress);
 
-		JLabel lblPassword = new JLabel("Password: - ");
-		lblPassword.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		lblPassword.setBounds(214, 200, 95, 14);
+		JLabel lblPassword = new JLabel("Password");
+		lblPassword.setForeground(Color.WHITE);
+		lblPassword.setFont(new Font("Century Gothic", Font.PLAIN, 20));
+		lblPassword.setBounds(587, 200, 141, 28);
 		frame.getContentPane().add(lblPassword);
 
 		textField = new JTextField();
@@ -121,12 +134,18 @@ public class Homewindow {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		textField.setBounds(360, 163, 177, 20);
+		textField.setBounds(224, 124, 313, 28);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 
 		passwordField = new JPasswordField();
-		passwordField.setBounds(360, 200, 177, 20);
+		passwordField.setBounds(224, 200, 313, 28);
 		frame.getContentPane().add(passwordField);
+		
+		JLabel lblLogin = new JLabel("Log in");
+		lblLogin.setForeground(Color.WHITE);
+		lblLogin.setFont(new Font("Century Gothic", Font.PLAIN, 24));
+		lblLogin.setBounds(224, 36, 154, 58);
+		frame.getContentPane().add(lblLogin);
 	}
 }

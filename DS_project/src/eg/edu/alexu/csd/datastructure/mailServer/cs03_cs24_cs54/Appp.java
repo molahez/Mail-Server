@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 
 import org.json.simple.JSONArray;
@@ -186,9 +185,9 @@ public class Appp implements IApp {
 	}
 
 	@Override
-	public void setViewingOptions(final IFolder folder,final  IFilter filter,final  ISort sort) {
+	public void setViewingOptions(final IFolder folder, final IFilter filter, final ISort sort) {
 
-		String folder_chosen, name,cat,email,cont;
+		String folder_chosen, name, cat;
 		Integer x;
 		x = Filter.filter;
 		cat = Filter.category;
@@ -197,32 +196,35 @@ public class Appp implements IApp {
 		switch (x) {
 		case 1:
 			folder_chosen = folderr.folderchosen;
-			
+
 			name = folderr.contname;
-			
+
 			sort.OrderOfAll_1(name, folder_chosen); // sort decending according date
 			break;
 		case 2:
 			folder_chosen = folderr.folderchosen;
-			
+
 			name = folderr.contname;
 			sort.OrderOfAll_2(name, folder_chosen); // sort asending according date
 			break;
 		case 3:
 			folder_chosen = folderr.folderchosen;
-			
+
 			name = folderr.contname;
 			sort.OrderOfAll_3(name, folder_chosen); // alphabet of subjects
 			break;
 		case 4:
 			folder_chosen = folderr.folderchosen;
-			
+
 			name = folderr.contname;
 			sort.OrderOfAll_4(name, folder_chosen); // alphabet of senders
 			break;
 		case 5:
+			folder_chosen = folderr.folderchosen;
+			name = folderr.contname;
+
 			try {
-				filter.read_indexfile(cat, "Users/ahmed/Inbox/Index file.json");
+				filter.read_indexfile(cat, "Users/" + name + "/" + folder_chosen + "/Index file.json");
 			} catch (java.text.ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -233,7 +235,7 @@ public class Appp implements IApp {
 			name = folderr.contname;
 			sort.OrderOfAll_5(name, folder_chosen); // sort by Priority Queue
 			break;
-		default:	
+		default:
 			break;
 		}
 
@@ -241,24 +243,7 @@ public class Appp implements IApp {
 
 	@Override
 	public IMail[] listEmails(int page) {
-		JSONParser parser = new JSONParser();
-		try {
-
-			Object obj = parser.parse(new FileReader("Users/temp.json"));
-
-			JSONObject jsonObject = (JSONObject) obj;
-
-			
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
 		return null;
 	}
 
@@ -292,9 +277,9 @@ public class Appp implements IApp {
 
 	@Override
 	public boolean compose(IMail email) {
-		String from, to = null, subject, email_body,time;
+		String from, to = null, subject, email_body, time;
 		String z, y, path, pq;
-		
+
 		Contact x = new Contact();
 		Filter h = new Filter();
 
@@ -316,8 +301,6 @@ public class Appp implements IApp {
 			if (h.check_filter(z)) {
 				h.put_in_filter(to, subject, z, from, email_body, time, pq);
 			}
-
-
 
 			path = "Users/" + y + "/Sent/Index file.json"; // save for sender
 			email.save_email(to, from, subject, email_body, path, time, pq);
