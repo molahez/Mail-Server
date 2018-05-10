@@ -136,8 +136,10 @@ public class Mail implements IMail {
 		if (orders.size() == 0) {
 			orders.add("1");
 		} else {
-			int or = orders.size() + 1;
-			orders.add(Integer.toString(or));
+			orders.get(orders.size() - 1);
+			int n = Integer.parseInt((String) orders.get(orders.size() - 1)) + 1;
+			String c = "" + n;
+			orders.add(c);
 		}
 		for (int i = 0; i < recieve.size(); i++) {
 			k1.add(recieve.get(i));
@@ -405,6 +407,15 @@ public class Mail implements IMail {
 		}
 		index.delete();
 		index.mkdirs();
+	}
+	public void delete_attachment(String path) {
+		File index = new File(path);
+		String[] entries = index.list();
+		for(String s: entries){
+		    File currentFile = new File(index.getPath(),s);
+		    currentFile.delete();
+		}
+		index.delete();
 	}
 
 

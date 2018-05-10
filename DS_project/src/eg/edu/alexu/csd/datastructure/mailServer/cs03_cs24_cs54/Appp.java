@@ -135,7 +135,7 @@ public class Appp implements IApp {
 			{
 				add("Inbox");
 				add("Sent");
-				add("Received");
+				add("Trash");
 				add("Filterd mails");
 				add("Junk");
 			}
@@ -157,7 +157,7 @@ public class Appp implements IApp {
 					folders = temp + "/" + list.get(counter);
 					dir = new File(folders);
 					dir.mkdirs();
-					if (list.get(counter) == "Inbox" || list.get(counter) == "Sent") {
+					if (list.get(counter) == "Inbox" || list.get(counter) == "Sent" || list.get(counter) == "Trash") {
 						contact.create_file(folders);
 					}
 
@@ -264,13 +264,29 @@ public class Appp implements IApp {
 
 	@Override
 	public void deleteEmails(ILinkedList mails) {
-		// TODO Auto-generated method stub
+		String cont, chosen_folder;
+		cont = DLinkedList.contact;
+		chosen_folder = DLinkedList.chosen_folder;
+		
+		String path = "Users/" + cont + "/" + chosen_folder + "/Index file.json";
+		
+		mails.delete_from_index(path, mails);
+		mails.put_in_trash(mails, cont, chosen_folder);
+		
 
 	}
 
 	@Override
 	public void moveEmails(ILinkedList mails, IFolder des) {
-		// TODO Auto-generated method stub
+		
+		String cont = DLinkedList.contact;
+		String chosen_folder = DLinkedList.chosen_folder;
+		String chosen = folderr.folderchosen;
+		
+		String path = "Users/" + cont + "/" + chosen_folder;
+		
+		mails.delete_from_index(path, mails);
+		mails.put_move(mails, cont, chosen);
 
 	}
 

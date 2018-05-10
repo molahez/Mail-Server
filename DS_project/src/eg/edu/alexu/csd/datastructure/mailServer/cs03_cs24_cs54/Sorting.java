@@ -21,13 +21,13 @@ public class Sorting implements ISort {
 	DLinkedList state = new DLinkedList();
 	DLinkedList state1 = new DLinkedList();
 
-	String pq;
-	String to;
-	String from;
-	String Subject;
-	String body;
-	String time;
-	String order;
+	public String pq;
+	public String to;
+	public String from;
+	public String Subject;
+	public String body;
+	public String time;
+	public String order;
 	
 
 	public Sorting() {
