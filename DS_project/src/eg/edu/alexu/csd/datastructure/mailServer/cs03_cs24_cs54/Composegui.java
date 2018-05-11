@@ -55,6 +55,7 @@ public class Composegui {
 			}
 		});
 	}
+	
 
 	/**
 	 * Create the application.

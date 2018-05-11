@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -17,13 +18,17 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.UIManager;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import eg.edu.alexu.csd.datastructure.linkedList.cs03_cs10.DLinkedList;
 import eg.edu.alexu.csd.datastructure.linkedList.cs03_cs10.SLinkedList;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -55,6 +60,48 @@ public class EmailsView {
 			}
 		});
 	}
+	class DirectoryRestrictedFileSystemView extends FileSystemView
+	{
+	    private final File[] rootDirectories;
+
+	    DirectoryRestrictedFileSystemView(File rootDirectory)
+	    {
+	        this.rootDirectories = new File[] {rootDirectory};
+	    }
+
+	    DirectoryRestrictedFileSystemView(File[] rootDirectories)
+	    {
+	        this.rootDirectories = rootDirectories;
+	    }
+
+	    @Override
+	    public File createNewFolder(File containingDir) throws IOException
+	    {       
+	        throw new UnsupportedOperationException("Unable to create directory");
+	    }
+	    @Override
+	    public File getHomeDirectory()
+	    {
+	      return rootDirectories[0];
+	    }
+
+	    @Override
+	    public File[] getRoots()
+	    {
+	        return rootDirectories;
+	    }
+
+	    @Override
+	    public boolean isRoot(File file)
+	    {
+	        for (File root : rootDirectories) {
+	            if (root.equals(file)) {
+	                return true;
+	            }
+	        }
+	        return false;
+	    }
+	}
 
 	/**
 	 * Create the application.
@@ -79,6 +126,13 @@ public class EmailsView {
 	 */
 	@SuppressWarnings("serial")
 	private void initialize() {
+		try {
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		email = Contact.emal;
 		password = Contact.password;
 		cont = Contact.contact_name;
@@ -285,7 +339,27 @@ public class EmailsView {
 		JButton btnMoveEmails = new JButton("Move emails");
 		btnMoveEmails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//aktb hena ya wakel
+				FileSystemView fsv = new DirectoryRestrictedFileSystemView( new File[] {
+					    new File("C:\\Users\\Ahmed Molahez\\git\\src\\DS_project\\Users\\"+"molahez")
+					   
+					});
+				JFileChooser fs = new JFileChooser(fsv.getHomeDirectory(),fsv);
+				fs.setAcceptAllFileFilterUsed(false);
+				fs.setDialogTitle("move");
+				fs.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				
+				@SuppressWarnings("unused")
+				int result = fs.showSaveDialog(null);
+				File fi = fs.getSelectedFile();
+				if (fi == null) {
+					JOptionPane.showMessageDialog(null, " No folder choosed");
+
+				} else {
+					System.out.println(fi);
+					JOptionPane.showMessageDialog(null, " done");
+
+				}
+
 
 			}
 		});
@@ -390,29 +464,6 @@ public class EmailsView {
 		btnDeleteEmails.setFont(new Font("Century Gothic", Font.PLAIN, 15));
 		btnDeleteEmails.setBounds(789, 143, 161, 35);
 		frame.getContentPane().add(btnDeleteEmails);
-		
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(789, 270, 101, 22);
-		frame.getContentPane().add(menuBar);
-		
-		JMenu mnNewMenu = new JMenu("Destination");
-		menuBar.add(mnNewMenu);
-		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Inbox");
-		mntmNewMenuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				selected="Inbox";
-			}
-		});
-		mnNewMenu.add(mntmNewMenuItem);
-		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("\"Sent\"");
-		mntmNewMenuItem_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				selected="Sent";
-			}
-		});
-		mnNewMenu.add(mntmNewMenuItem_1);
 
 	}
 }
