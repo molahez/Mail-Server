@@ -235,6 +235,25 @@ public class Appp implements IApp {
 			name = folderr.contname;
 			sort.OrderOfAll_5(name, folder_chosen); // sort by Priority Queue
 			break;
+		/*case 7:
+			folder_chosen = folderr.folderchosen;
+
+			name = folderr.contname;
+
+			try {
+				sort.OrderOfAll_6(name, folder_chosen);
+			} catch (java.text.ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} // sort decending according date
+			break;*/
+		/*case 8:
+			folder_chosen = folderr.folderchosen;
+
+			name = folderr.contname;
+
+			sort.OrderOfAll_7(name, folder_chosen); // sort decending according date
+			break;*/
 		default:
 			break;
 		}

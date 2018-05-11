@@ -227,4 +227,28 @@ public class SLinkedList implements ILinkedList {
         }
         return o.equals(temp.data);
     }
+
+	@Override
+	public void var(String chosen_folder, String contact) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete_from_index(String path, ILinkedList details) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void put_in_trash(ILinkedList details, String cont, String chosen) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void put_move(ILinkedList details, String cont, String chosen) {
+		// TODO Auto-generated method stub
+		
+	}
 }

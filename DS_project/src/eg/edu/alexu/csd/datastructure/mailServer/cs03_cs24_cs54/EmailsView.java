@@ -24,6 +24,9 @@ import javax.swing.table.TableModel;
 
 import eg.edu.alexu.csd.datastructure.linkedList.cs03_cs10.DLinkedList;
 import eg.edu.alexu.csd.datastructure.linkedList.cs03_cs10.SLinkedList;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class EmailsView {
 
@@ -34,6 +37,7 @@ public class EmailsView {
 	static DLinkedList required = new DLinkedList();
 	static SLinkedList content = new SLinkedList();
 	boolean flag;
+	String selected;
 
 	/**
 	 * Launch the application.
@@ -281,6 +285,7 @@ public class EmailsView {
 		JButton btnMoveEmails = new JButton("Move emails");
 		btnMoveEmails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//aktb hena ya wakel
 
 			}
 		});
@@ -294,12 +299,12 @@ public class EmailsView {
 			public void mouseClicked(java.awt.event.MouseEvent e)
 
 			{
-				System.out.println("hi");
+				
 				int row = table.rowAtPoint(e.getPoint());
 
 				int col = table.columnAtPoint(e.getPoint());
-				if (col != 6) {
-					System.out.println("hi");
+				if (col != 6 && e.getClickCount() == 2) {
+					
 					content.add(row + (Sorting.get_page() - 1) * 10,
 							new Sorting(((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).pq,
 									((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).to,
@@ -331,7 +336,7 @@ public class EmailsView {
 				int row = e.getFirstRow();
 				int column = e.getColumn();
 				if (column == 6) {
-					System.out.println("hi");
+					
 					TableModel model = (TableModel) e.getSource();
 					String columnName = model.getColumnName(column);
 					Boolean checked = (Boolean) model.getValueAt(row, column);
@@ -352,9 +357,7 @@ public class EmailsView {
 						required.set(row + (Sorting.get_page() - 1) * 10, new Sorting("", "", "", "", "", "", ""));
 						System.out.println(columnName + ": " + false);
 					}
-				} else {
-
-				}
+				} 
 
 			}
 		});
@@ -367,12 +370,49 @@ public class EmailsView {
 				System.out.println(folderchosen);
 				Appp x = new Appp();
 				x.deleteEmails(required);
+				frame.dispose();
+				Sorting xx = new Sorting();
+				folderr fold = new folderr();
+				fold.folderChosen(folderchosen, cont);
+				fold.label(email);
+				Filter switch_index = new Filter();
+				System.out.println(Sorting.get_val());
+				switch_index.var(Sorting.get_val(), null, null);
+				Appp zz = new Appp();
+				zz.setViewingOptions(fold, switch_index, xx);
+				EmailsView kk = new EmailsView();
+				kk.main(new String[5]);
+				Appp.writee(false);
+
 
 			}
 		});
 		btnDeleteEmails.setFont(new Font("Century Gothic", Font.PLAIN, 15));
 		btnDeleteEmails.setBounds(789, 143, 161, 35);
 		frame.getContentPane().add(btnDeleteEmails);
+		
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBounds(789, 270, 101, 22);
+		frame.getContentPane().add(menuBar);
+		
+		JMenu mnNewMenu = new JMenu("Destination");
+		menuBar.add(mnNewMenu);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Inbox");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				selected="Inbox";
+			}
+		});
+		mnNewMenu.add(mntmNewMenuItem);
+		
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("\"Sent\"");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selected="Sent";
+			}
+		});
+		mnNewMenu.add(mntmNewMenuItem_1);
 
 	}
 }

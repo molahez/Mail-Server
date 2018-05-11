@@ -28,6 +28,8 @@ import javax.swing.JMenuItem;
 import java.awt.Insets;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class Composegui {
 	// to get main data in main window
@@ -62,6 +64,7 @@ public class Composegui {
 		frame.addWindowListener(new WindowAdapter() {
 
 			public void windowClosing(WindowEvent e) {
+				
 				Appp.writee(false);
 				System.exit(0);
 
@@ -74,6 +77,13 @@ public class Composegui {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		try {
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		email = Contact.emal;
 		password = Contact.password;
 		cont = Contact.contact_name;
@@ -150,6 +160,8 @@ public class Composegui {
 			@SuppressWarnings("resource")
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fs = new JFileChooser(new File("F:\\"));
+				
+
 				fs.setDialogTitle("upload");
 
 				@SuppressWarnings("unused")
@@ -297,6 +309,7 @@ public class Composegui {
 			}
 		});
 		mnNewMenu.add(menuItem_2);
-
+		
+		
 	}
 }

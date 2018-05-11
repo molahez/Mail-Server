@@ -1,5 +1,6 @@
 package eg.edu.alexu.csd.datastructure.mailServer;
 
+import java.text.ParseException;
 
 public interface ISort {
 	
@@ -8,6 +9,7 @@ public interface ISort {
 	public void OrderOfAll_3(String namee,String folderChosennn);
 	public void OrderOfAll_4(String namee,String folderChosennn);
 	public void OrderOfAll_5(String namee,String folderChosennn);
+	
 	
 	
 }

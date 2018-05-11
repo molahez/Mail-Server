@@ -541,7 +541,8 @@ public class Filter implements IFilter {
 		}
 		return true;
 
-	}//here we read the file that contains results  
+	}// here we read the file that contains results
+
 	static DLinkedList read_sorted() {
 		JSONParser parser = new JSONParser();
 		DLinkedList emails = new DLinkedList();
@@ -566,7 +567,6 @@ public class Filter implements IFilter {
 			Iterator<String> iterator5 = col5.iterator();
 			Iterator<String> iterator6 = col6.iterator();
 			Iterator<String> iterator7 = col7.iterator();
-			
 
 			while (iterator1.hasNext()) {
 				emails.add(new Sorting(iterator1.next(), iterator2.next(), iterator3.next(), iterator4.next(),
@@ -586,21 +586,22 @@ public class Filter implements IFilter {
 		return emails;
 
 	}
+
 	static DLinkedList filter_results(DLinkedList x) {
 		DLinkedList emails = new DLinkedList();
-		for(int i=0;i<x.size();i++) {
-			if((String)((Sorting) x.get(i)).pq!="") {
+		for (int i = 0; i < x.size(); i++) {
+			if ((String) ((Sorting) x.get(i)).pq != "") {
 				emails.add(x.get(i));
 			}
-			
+
 		}
 		return emails;
-		
+
 	}
 
 	@SuppressWarnings({ "static-access", "unchecked" })
 	@Override
-	//here we sort according to category but only in body we search
+	// here we sort according to category but only in body we search
 	public void read_indexfile(String category, String path) throws java.text.ParseException {
 
 		JSONParser parser = new JSONParser();
@@ -678,7 +679,7 @@ public class Filter implements IFilter {
 			DLinkedList pqs_order = new DLinkedList();
 			if (Objects.equals(category, "body")) {
 				for (int i = 0; i < orders.size(); i++) {
-					
+
 					msg_order.add("");
 					tos_order.add("");
 					froms_order.add("");
@@ -687,17 +688,17 @@ public class Filter implements IFilter {
 					orders_order.add("");
 					pqs_order.add("");
 				}
-				
+
 				for (int i = 0; i < bodies.size(); i++) {
 					if (((String) bodies.get(i)).toLowerCase().contains(ser.toLowerCase())) {
-						
-						msg_order.add(i,bodies.get(i));
-						tos_order.add(i,recieve.get(i));
-						froms_order.add(i,send.get(i));
-						subjects_order.add(i,subjects.get(i));
-						time_order.add(i,times.get(i));
-						orders_order.add(i,orders.get(i));
-						pqs_order.add(i,pqs.get(i));
+
+						msg_order.add(i, bodies.get(i));
+						tos_order.add(i, recieve.get(i));
+						froms_order.add(i, send.get(i));
+						subjects_order.add(i, subjects.get(i));
+						time_order.add(i, times.get(i));
+						orders_order.add(i, orders.get(i));
+						pqs_order.add(i, pqs.get(i));
 					}
 
 				}
@@ -835,7 +836,6 @@ public class Filter implements IFilter {
 
 				}
 
-				
 				DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				if (!flag) {
 					for (int i = 0; i < orders.size(); i++) {
@@ -946,8 +946,6 @@ public class Filter implements IFilter {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		
 
 	}
 
