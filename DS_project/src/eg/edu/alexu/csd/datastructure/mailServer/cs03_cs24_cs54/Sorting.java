@@ -162,6 +162,7 @@ public class Sorting implements ISort {
 
 		for (int i = 0; i <= allOrders.size() - 1; i++) {
 			msg_order.add(i, bodies.get(allOrders.size() - 1 - i));
+
 			tos_order.add(i, tos.get(allOrders.size() - 1 - i));
 			froms_order.add(i, froms.get(allOrders.size() - 1 - i));
 			subjects_order.add(i, subjects.get(allOrders.size() - 1 - i));
