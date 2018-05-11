@@ -883,6 +883,44 @@ public class Sorting implements ISort {
 		return emails;
 
 	}
+	@SuppressWarnings("unchecked")
+	public static void save_val(int x) {
+		JSONObject obj = new JSONObject();
+		obj.put("val", Integer.toString(x));
+		 try (FileWriter file = new FileWriter("Users/updates/delete.json")) {
+
+	            file.write(obj.toString());
+	            file.flush();
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	}
+	public static int get_val() {
+		JSONParser parser = new JSONParser();
+		String val = "";
+		try {
+
+			Object obj = parser.parse(new FileReader("Users/updates/delete.json"));
+
+			JSONObject jsonObject = (JSONObject) obj;
+			 val = (String) jsonObject.get("val");
+			
+			
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return Integer.parseInt(val);
+	}
+
 
 	public static int get_page() {
 		JSONParser parser = new JSONParser();

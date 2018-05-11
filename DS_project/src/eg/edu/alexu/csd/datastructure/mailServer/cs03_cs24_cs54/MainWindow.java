@@ -36,7 +36,7 @@ public class MainWindow {
 	Integer val = 0;
 	static DLinkedList fol = new DLinkedList();
 	static boolean state = false;
-	String temp,temp1="", email, password, cont, cate = "", re, co;
+	String temp, temp1 = "", email, password, cont, cate = "", re, co;
 	int count = 5;
 	private JFrame frame;
 	private JTextField textField;
@@ -106,7 +106,7 @@ public class MainWindow {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		try {
-			frame.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("recources/bg.jpg")))));
+			frame.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("recources/bg.png")))));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -155,10 +155,11 @@ public class MainWindow {
 				fold.folderChosen(temp1, cont);
 				x.var(5, cate, textField_1.getText());
 				Appp y = new Appp();
-				if ((Objects.equals(textField_1.getText(), "")) || (cate=="") || (temp1=="")) {
+				if ((Objects.equals(textField_1.getText(), "")) || (cate == "") || (temp1 == "")) {
 
-					JOptionPane.showMessageDialog(null, "Please enter value and it's category to serach and folder to search in/n"
-							+ "for example: value(CSED) and category (Subject) and folder(Inbox) ");
+					JOptionPane.showMessageDialog(null,
+							"Please enter value and it's category to serach and folder to search in/n"
+									+ "for example: value(CSED) and category (Subject) and folder(Inbox) ");
 
 				} else {
 					y.setViewingOptions(null, x, null);
@@ -309,19 +310,27 @@ public class MainWindow {
 		btnEnterFolder.addActionListener(new ActionListener() {
 			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent arg0) {
-				frame.dispose();
-				Sorting x = new Sorting();
-				folderr fold = new folderr();
-				fold.folderChosen(temp, cont);
-				fold.label(email);
-				Filter switch_index = new Filter();
-				switch_index.var(val, null, null);
-				Appp y = new Appp();
-				y.setViewingOptions(fold, switch_index, x);
-				EmailsView kk = new EmailsView();
-				kk.main(new String[5]);
-				Appp.writee(false);
+				if (val == 0 || temp == "") {
+					JOptionPane.showMessageDialog(null,
+							"Please choose folder and the type of sorting /n"
+									+ "for example: folder(Inbox) and type (Default)");
 
+				} else {
+					frame.dispose();
+					Sorting x = new Sorting();
+					folderr fold = new folderr();
+					fold.folderChosen(temp, cont);
+					fold.label(email);
+					Filter switch_index = new Filter();
+					switch_index.var(val, null, null);
+					x.save_val(val);
+					Appp y = new Appp();
+					y.setViewingOptions(fold, switch_index, x);
+					EmailsView kk = new EmailsView();
+					kk.main(new String[5]);
+					Appp.writee(false);
+
+				}
 			}
 		});
 		btnEnterFolder.setFont(new Font("Century Gothic", Font.PLAIN, 16));
@@ -345,7 +354,7 @@ public class MainWindow {
 
 			}
 		});
-		
+
 		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Default");
 		mntmNewMenuItem_8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -542,28 +551,28 @@ public class MainWindow {
 		btnCreateFilter.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		btnCreateFilter.setBounds(800, 416, 127, 36);
 		frame.getContentPane().add(btnCreateFilter);
-		
+
 		JMenuBar menuBar_3 = new JMenuBar();
 		menuBar_3.setMargin(new Insets(0, 0, 0, 6));
 		menuBar_3.setFont(new Font("Century Gothic", Font.PLAIN, 12));
 		menuBar_3.setBounds(722, 132, 101, 35);
 		frame.getContentPane().add(menuBar_3);
-		
+
 		JMenu mnNewMenu_3 = new JMenu("Search in:-");
 		menuBar_3.add(mnNewMenu_3);
-		
+
 		JMenuItem mntmNewMenuItem_10 = new JMenuItem("Inbox");
 		mntmNewMenuItem_10.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				temp1="Inbox";
+				temp1 = "Inbox";
 			}
 		});
 		mnNewMenu_3.add(mntmNewMenuItem_10);
-		
+
 		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Sent");
 		mntmNewMenuItem_9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				temp1="Sent";
+				temp1 = "Sent";
 			}
 		});
 		mnNewMenu_3.add(mntmNewMenuItem_9);
