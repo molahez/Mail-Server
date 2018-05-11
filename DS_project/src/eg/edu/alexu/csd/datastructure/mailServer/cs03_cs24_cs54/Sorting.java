@@ -21,7 +21,6 @@ public class Sorting implements ISort {
 
 	DLinkedList state = new DLinkedList();
 	DLinkedList state1 = new DLinkedList();
-	
 
 	public String pq;
 	public String to;
@@ -30,28 +29,26 @@ public class Sorting implements ISort {
 	public String body;
 	public String time;
 	public String order;
-	
 
 	public Sorting() {
 		pq = null;
-		to =  null;
-		 from = null;
-		 Subject = null;
-		 body =  null;
-		 time =  null;
-		 order = null;
-	    }
+		to = null;
+		from = null;
+		Subject = null;
+		body = null;
+		time = null;
+		order = null;
+	}
 
-
-	    public Sorting(String a,String b,String c,String d,String e,String f,String g) {
-	    	pq = a;
-			to =  b;
-			 from = c;
-			 Subject = d;
-			 body =  e;
-			 time =  f;
-			 order = g;
-	    }
+	public Sorting(String a, String b, String c, String d, String e, String f, String g) {
+		pq = a;
+		to = b;
+		from = c;
+		Subject = d;
+		body = e;
+		time = f;
+		order = g;
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -822,59 +819,22 @@ public class Sorting implements ISort {
 
 	public static void quick_sort(int[] input) {
 		MyStack stack = new MyStack();
-		int pivot;
-		int pivotIndex = 0;
-		int leftIndex = pivotIndex + 1;
-		int rightIndex = input.length - 1;
+		int high = input.length - 1;
+		int low = 0;
+		stack.push(low);
+		stack.push(high);
 
-		stack.push(pivotIndex);// Push always with left and right
-		stack.push(rightIndex);
-
-		int leftIndexOfSubSet, rightIndexOfSubset;
-
-		while (stack.size() > 0) {
-			rightIndexOfSubset = (int) stack.pop();// pop always with right and left
-			leftIndexOfSubSet = (int) stack.pop();
-
-			if (rightIndexOfSubset - leftIndexOfSubSet < 2) {
-				continue;
+		while (!stack.isEmpty()) {
+			int h = (int) stack.pop();
+			int l = (int) stack.pop();
+			int partionIndex = partition(input, l, h, input[h]);
+			if (partionIndex - 1 > l) {
+				stack.push(l);
+				stack.push(partionIndex - 1);
 			}
-
-			leftIndex = leftIndexOfSubSet + 1;
-			pivotIndex = leftIndexOfSubSet;
-			rightIndex = rightIndexOfSubset;
-
-			pivot = input[pivotIndex];
-
-			if (leftIndex > rightIndex)
-				continue;
-
-			while (leftIndex < rightIndex) {
-				while ((leftIndex <= rightIndex) && (input[leftIndex] <= pivot))
-					leftIndex++; // increment right to find the greater
-				// element than the pivot
-
-				while ((leftIndex <= rightIndex) && (input[rightIndex] >= pivot))
-					rightIndex--;// decrement right to find the
-				// smaller element than the pivot
-
-				if (rightIndex >= leftIndex) // if right index is
-					// greater then only swap
-					SwapElement(input, leftIndex, rightIndex);
-			}
-
-			if (pivotIndex <= rightIndex)
-				if (input[pivotIndex] > input[rightIndex])
-					SwapElement(input, pivotIndex, rightIndex);
-
-			if (leftIndexOfSubSet < rightIndex) {
-				stack.push(leftIndexOfSubSet);
-				stack.push(rightIndex - 1);
-			}
-
-			if (rightIndexOfSubset > rightIndex) {
-				stack.push(rightIndex + 1);
-				stack.push(rightIndexOfSubset);
+			if (partionIndex + 1 < h) {
+				stack.push(partionIndex + 1);
+				stack.push(h);
 			}
 		}
 	}
@@ -904,7 +864,6 @@ public class Sorting implements ISort {
 			Iterator<String> iterator5 = col5.iterator();
 			Iterator<String> iterator6 = col6.iterator();
 			Iterator<String> iterator7 = col7.iterator();
-			
 
 			while (iterator1.hasNext()) {
 				emails.add(new Sorting(iterator1.next(), iterator2.next(), iterator3.next(), iterator4.next(),
@@ -924,6 +883,7 @@ public class Sorting implements ISort {
 		return emails;
 
 	}
+
 	public static int get_page() {
 		JSONParser parser = new JSONParser();
 		String pg = "";
@@ -932,9 +892,7 @@ public class Sorting implements ISort {
 			Object obj = parser.parse(new FileReader("Users/page.json"));
 
 			JSONObject jsonObject = (JSONObject) obj;
-			 pg = (String) jsonObject.get("pg");
-			
-			
+			pg = (String) jsonObject.get("pg");
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -945,9 +903,10 @@ public class Sorting implements ISort {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return Integer.parseInt(pg);
 	}
+
 	public static int get_state() {
 		JSONParser parser = new JSONParser();
 		String pg = "";
@@ -956,9 +915,7 @@ public class Sorting implements ISort {
 			Object obj = parser.parse(new FileReader("Users/state.json"));
 
 			JSONObject jsonObject = (JSONObject) obj;
-			 pg = (String) jsonObject.get("state");
-			
-			
+			pg = (String) jsonObject.get("state");
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -969,40 +926,44 @@ public class Sorting implements ISort {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return Integer.parseInt(pg);
 	}
+
 	@SuppressWarnings("unchecked")
 	public static void save_page(int x) {
 		JSONObject obj = new JSONObject();
 		obj.put("pg", Integer.toString(x));
-		 try (FileWriter file = new FileWriter("Users/page.json")) {
+		try (FileWriter file = new FileWriter("Users/page.json")) {
 
-	            file.write(obj.toString());
-	            file.flush();
+			file.write(obj.toString());
+			file.flush();
 
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
+
 	@SuppressWarnings("unchecked")
 	public static void save_state(int x) {
 		JSONObject obj = new JSONObject();
 		obj.put("state", Integer.toString(x));
-		 try (FileWriter file = new FileWriter("Users/state.json")) {
+		try (FileWriter file = new FileWriter("Users/state.json")) {
 
-	            file.write(obj.toString());
-	            file.flush();
+			file.write(obj.toString());
+			file.flush();
 
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-	//here we want to save the email we want to display after we view all emails in any folder such as Inbox
+
+	// here we want to save the email we want to display after we view all emails in
+	// any folder such as Inbox
 	@SuppressWarnings("unchecked")
-	public static void save_email(SLinkedList y,int order) {
+	public static void save_email(SLinkedList y, int order) {
 		SLinkedList emails_cont = new SLinkedList();
-		
+
 		JSONObject obj1 = new JSONObject();
 		JSONArray k1 = new JSONArray();
 		JSONArray k2 = new JSONArray();
@@ -1012,16 +973,13 @@ public class Sorting implements ISort {
 		JSONArray k6 = new JSONArray();
 		JSONArray k7 = new JSONArray();
 
-		 
-			k1.add(((Sorting)y.get(order)).to);
-			k2.add(((Sorting)y.get(order)).from);
-			k3.add(((Sorting)y.get(order)).Subject);
-			k4.add(((Sorting)y.get(order)).body);
-			k5.add(((Sorting)y.get(order)).order);
-			k6.add(((Sorting)y.get(order)).time);
-			k7.add(((Sorting)y.get(order)).pq);
-
-		
+		k1.add(((Sorting) y.get(order)).to);
+		k2.add(((Sorting) y.get(order)).from);
+		k3.add(((Sorting) y.get(order)).Subject);
+		k4.add(((Sorting) y.get(order)).body);
+		k5.add(((Sorting) y.get(order)).order);
+		k6.add(((Sorting) y.get(order)).time);
+		k7.add(((Sorting) y.get(order)).pq);
 
 		obj1.put("tos", k1);
 		obj1.put("froms", k2);
@@ -1038,9 +996,9 @@ public class Sorting implements ISort {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
+
 	}
+
 	public static SLinkedList load_email() {
 		SLinkedList emails_cont = new SLinkedList();
 		JSONParser parser = new JSONParser();
@@ -1064,15 +1022,12 @@ public class Sorting implements ISort {
 			Iterator<String> iterator5 = col5.iterator();
 			Iterator<String> iterator6 = col6.iterator();
 			Iterator<String> iterator7 = col7.iterator();
-			
 
 			while (iterator1.hasNext()) {
 				emails_cont.add(new Sorting(iterator1.next(), iterator2.next(), iterator3.next(), iterator4.next(),
 						iterator5.next(), iterator6.next(), iterator7.next()));
 
 			}
-			
-			
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -1083,15 +1038,32 @@ public class Sorting implements ISort {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return emails_cont;
-		
+
 	}
 
-	private static void SwapElement(int[] arr, int left, int right) {
-		int temp = arr[left];
-		arr[left] = arr[right];
-		arr[right] = temp;
+	private static void SwapElement(int i, int j, int[] arr) {
+		int temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
+	}
+
+	private static int partition(int[] input, int low, int high, int pivot) {
+		int left = low - 1;
+		int right = high;
+		while (true) {
+			while (input[++left] < pivot && left < right)
+				;
+			while (input[--right] > pivot && right > 0)
+				;
+			if (left <= right)
+				SwapElement(left, right, input);
+			else
+				break;
+		}
+		SwapElement(left, high, input);
+		return left;
 	}
 
 }
