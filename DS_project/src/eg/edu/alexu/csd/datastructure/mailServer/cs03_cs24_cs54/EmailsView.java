@@ -340,7 +340,7 @@ public class EmailsView {
 		btnMoveEmails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FileSystemView fsv = new DirectoryRestrictedFileSystemView( new File[] {
-					    new File("C:\\Users\\Ahmed Molahez\\git\\src\\DS_project\\Users\\"+"molahez")
+					    new File("C:\\Users\\Ahmed Molahez\\git\\src\\DS_project\\Users\\"+cont)
 					   
 					});
 				JFileChooser fs = new JFileChooser(fsv.getHomeDirectory(),fsv);
