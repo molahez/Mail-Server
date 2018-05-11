@@ -102,11 +102,11 @@ public class MainWindow {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(255, 255, 255));
 		frame.getContentPane().setFont(new Font("Century Gothic", Font.PLAIN, 20));
-		frame.setBounds(100, 100, 1000, 600);
+		frame.setBounds(100, 100, 1001, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		try {
-			frame.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("recources/bg.png")))));
+			frame.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("recources/home.png")))));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -180,9 +180,16 @@ public class MainWindow {
 		tree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("Folders") {
 			{
 				for (int i = 0; i < fol.size(); i++) {
+					if(i==2) {
+						DefaultMutableTreeNode node_1 = new DefaultMutableTreeNode(fol.get(i));
+						
+						node_1.add(new DefaultMutableTreeNode("Sender"));
+						add(node_1);
+					}
+					else {
 
 					add(new DefaultMutableTreeNode(fol.get(i)));
-				}
+				}}
 			}
 		}));
 
@@ -490,7 +497,7 @@ public class MainWindow {
 		JMenu mnNewMenu_2 = new JMenu("Choosing Filter");
 		menuBar_2.add(mnNewMenu_2);
 
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Reciever");
+		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Subject");
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				textField_2.setEditable(true);
@@ -500,17 +507,7 @@ public class MainWindow {
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_2);
 
-		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Subject");
-		mntmNewMenuItem_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				textField_3.setEditable(true);
-				textField_2.setEditable(false);
-
-			}
-		});
-		mnNewMenu_2.add(mntmNewMenuItem_3);
-
-		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Receiver&Subject");
+		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Sender&Subject");
 		mntmNewMenuItem_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				textField_2.setEditable(true);
@@ -518,13 +515,23 @@ public class MainWindow {
 
 			}
 		});
+		
+				JMenuItem mntmNewMenuItem_3 = new JMenuItem("Sender");
+				mntmNewMenuItem_3.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						textField_3.setEditable(true);
+						textField_2.setEditable(false);
+
+					}
+				});
+				mnNewMenu_2.add(mntmNewMenuItem_3);
 		mnNewMenu_2.add(mntmNewMenuItem_4);
 
-		JLabel lblSender = new JLabel("Reciever");
+		JLabel lblSender = new JLabel("Subject");
 		lblSender.setBounds(800, 256, 58, 15);
 		frame.getContentPane().add(lblSender);
 
-		JLabel lblSubject = new JLabel("Subject");
+		JLabel lblSubject = new JLabel("Sender");
 		lblSubject.setBounds(800, 327, 58, 15);
 		frame.getContentPane().add(lblSubject);
 
@@ -535,7 +542,7 @@ public class MainWindow {
 				re = textField_2.getText();
 				co = textField_3.getText();
 				if (re.isEmpty()) {
-					x.choose_filter("Subject", co, cont);
+					x.choose_filter("Sender", co, cont);
 				} else if (co.isEmpty()) {
 					x.choose_filter("Subject", re, cont);
 				} else {

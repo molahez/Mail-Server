@@ -35,8 +35,8 @@ public class Appp implements IApp {
 
 		try {
 
-			Object obj = parser.parse(new FileReader("recources/test.json"));
-			Object obj1 = parser.parse(new FileReader("recources/t.json"));
+			Object obj = parser.parse(new FileReader("Users/updates/tree.json"));
+			Object obj1 = parser.parse(new FileReader("Users/updates/tree_state.json"));
 
 			JSONObject jsonObject = (JSONObject) obj;
 			JSONObject jsonObject1 = (JSONObject) obj1;
@@ -77,7 +77,7 @@ public class Appp implements IApp {
 		}
 
 		obj.put("Folders", k);
-		try (FileWriter file = new FileWriter("recources/test.json")) {
+		try (FileWriter file = new FileWriter("Users/updates/tree.json")) {
 
 			file.write(obj.toString());
 			file.flush();
@@ -95,7 +95,7 @@ public class Appp implements IApp {
 		JSONObject obj = new JSONObject();
 		obj.put("state", String.valueOf(state));
 
-		try (FileWriter file = new FileWriter("recources/t.json")) {
+		try (FileWriter file = new FileWriter("Users/updates/tree_state.json")) {
 
 			file.write(obj.toString());
 			file.flush();
