@@ -192,7 +192,12 @@ public class EmailsView {
 				frame.dispose();
 				MainWindow kk = new MainWindow();
 				Appp.writee(true);
-				kk.main(new String[5]);
+				try {
+					kk.main(new String[5]);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
 			}
 		});

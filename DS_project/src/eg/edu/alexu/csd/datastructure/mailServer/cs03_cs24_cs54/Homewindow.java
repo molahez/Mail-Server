@@ -90,7 +90,12 @@ public class Homewindow {
 					frame.dispose();
 					MainWindow kk = new MainWindow();
 
-					kk.main(new String[5]);
+					try {
+						kk.main(new String[5]);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				} else {
 					JOptionPane.showMessageDialog(null, " Invalid email address or Password ");
 
