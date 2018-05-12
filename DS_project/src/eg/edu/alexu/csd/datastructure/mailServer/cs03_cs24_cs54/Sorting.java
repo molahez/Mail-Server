@@ -83,11 +83,11 @@ public class Sorting implements ISort {
 		}
 
 		int[] arr = new int[allOrders.size()];
-		for (int i = allOrders.size() - 1; i >= 0; i--) {
-			arr[i] = (Integer.parseInt(allOrders.get(allOrders.size() - 1 - i).toString()));
+		for (int i = 0; i < allOrders.size() - 1; i++) {
+			arr[i] = Integer.parseInt((String) allOrders.get(allOrders.size() - 1 - i));
 		}
 
-		quick_sort(arr);
+
 
 		DLinkedList bodies = new DLinkedList();
 		DLinkedList tos = new DLinkedList();
@@ -161,12 +161,13 @@ public class Sorting implements ISort {
 		DLinkedList pq_order = new DLinkedList();
 
 		for (int i = 0; i <= allOrders.size() - 1; i++) {
-			msg_order.add(i, bodies.get(allOrders.size() - arr[i]));
-			tos_order.add(i, tos.get(allOrders.size() - arr[i]));
-			froms_order.add(i, froms.get(allOrders.size() - arr[i]));
-			subjects_order.add(i, subjects.get(allOrders.size() - arr[i]));
-			time_order.add(i, time.get(allOrders.size() - arr[i]));
-			pq_order.add(i, pq.get(allOrders.size() - arr[i]));
+			msg_order.add(i, bodies.get(allOrders.size() - 1 - i));
+
+			tos_order.add(i, tos.get(allOrders.size() - 1 - i));
+			froms_order.add(i, froms.get(allOrders.size() - 1 - i));
+			subjects_order.add(i, subjects.get(allOrders.size() - 1 - i));
+			time_order.add(i, time.get(allOrders.size() - 1 - i));
+			pq_order.add(i, pq.get(allOrders.size() - 1 - i));
 		}
 		JSONObject obj1 = new JSONObject();
 		JSONArray k1 = new JSONArray();
