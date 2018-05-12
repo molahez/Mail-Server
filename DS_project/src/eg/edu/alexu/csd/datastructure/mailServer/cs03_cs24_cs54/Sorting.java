@@ -83,10 +83,12 @@ public class Sorting implements ISort {
 		}
 
 		int[] arr = new int[allOrders.size()];
-		for (int i = 0; i < allOrders.size() - 1; i++) {
+		for (int i = 0; i < allOrders.size(); i++) {
 			arr[i] = Integer.parseInt((String) allOrders.get(allOrders.size() - 1 - i));
 		}
-
+for (int p = 0; p < arr.length; p++) {
+	System.out.println(arr[p]);
+}
 
 
 		DLinkedList bodies = new DLinkedList();
@@ -183,7 +185,7 @@ public class Sorting implements ISort {
 			k2.add(froms_order.get(i));
 			k3.add(subjects_order.get(i));
 			k4.add(msg_order.get(i));
-			k5.add(Integer.toString(allOrders.size() - arr[i] + 1));
+			k5.add(Integer.toString(arr[i]));
 			k6.add(time_order.get(i));
 			k7.add(pq_order.get(i));
 
@@ -906,8 +908,8 @@ public class Sorting implements ISort {
 
 			JSONObject jsonObject = (JSONObject) obj;
 			 val = (String) jsonObject.get("val");
-			
-			
+
+
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -918,7 +920,7 @@ public class Sorting implements ISort {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return Integer.parseInt(val);
 	}
 

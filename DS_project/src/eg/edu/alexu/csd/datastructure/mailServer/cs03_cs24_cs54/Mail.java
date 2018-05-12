@@ -22,7 +22,7 @@ import eg.edu.alexu.csd.datastructure.mailServer.IMail;
 public class Mail implements IMail {
 
 	public static String from, to, subject, email_body, p,time, order;
-	
+
 
 	public Mail() {
 		from = null;
@@ -285,7 +285,7 @@ public class Mail implements IMail {
 
 			// loop array
 			// here we load content of json file
-			JSONArray col1 = (JSONArray) jsonObject.get("tos");
+			JSONArray col1 = (JSONArray) jsonObject.get("order");
 
 			Iterator<String> iterator1 = col1.iterator();
 
@@ -307,7 +307,9 @@ public class Mail implements IMail {
 		if (orders.size() == 0) {
 			return 1;
 		} else {
-			return orders.size();
+			orders.get(orders.size() - 1);
+			int n = Integer.parseInt((String) orders.get(orders.size() - 1));
+			return n;
 		}
 
 	}
@@ -325,7 +327,7 @@ public class Mail implements IMail {
 
 			// loop array
 			// here we load content of json file
-			JSONArray col1 = (JSONArray) jsonObject.get("froms");
+			JSONArray col1 = (JSONArray) jsonObject.get("order");
 
 			Iterator<String> iterator1 = col1.iterator();
 
@@ -347,7 +349,9 @@ public class Mail implements IMail {
 		if (orders.size() == 0) {
 			return 1;
 		} else {
-			return orders.size();
+			orders.get(orders.size() - 1);
+			int n = Integer.parseInt((String) orders.get(orders.size() - 1));
+			return n;
 		}
 
 	}
@@ -416,7 +420,7 @@ public class Mail implements IMail {
 		}
 		index.delete();
 	}
-	
-	
+
+
 
 }

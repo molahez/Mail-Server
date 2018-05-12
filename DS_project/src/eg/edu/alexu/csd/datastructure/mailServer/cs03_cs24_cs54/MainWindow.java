@@ -46,7 +46,7 @@ public class MainWindow {
 
 	/**
 	 * Launch the application.
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
@@ -101,7 +101,7 @@ public class MainWindow {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		try {
-			frame.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("recources/main.jpg")))));
+			frame.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("recources/bg.jpg")))));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
