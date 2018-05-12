@@ -128,7 +128,12 @@ public class Sign_up {
 
 						frame.dispose();
 						MainWindow kk = new MainWindow();
-						kk.main(new String[5]);
+						try {
+							kk.main(new String[5]);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					} else {
 						JOptionPane.showMessageDialog(null, " Invalid email address please try again");
 
@@ -177,6 +182,9 @@ public class Sign_up {
 			  }
 		 
 		btnNewButton_1.setForeground(Color.WHITE);
+		btnNewButton_1.setBorderPainted(true);
+		btnNewButton_1.setFocusPainted(false);
+		btnNewButton_1.setContentAreaFilled(false);
 		btnNewButton_1.setFont(new Font("Century Gothic", Font.PLAIN, 20));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			@SuppressWarnings("static-access")

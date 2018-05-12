@@ -11,6 +11,7 @@ import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Arrays;
 import java.awt.event.ActionEvent;
 
@@ -88,7 +89,12 @@ public class Settings {
 				frame.dispose();
 				MainWindow kk = new MainWindow();
 				Appp.writee(true);
-				kk.main(new String[5]);
+				try {
+					kk.main(new String[5]);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		button.setForeground(Color.DARK_GRAY);
@@ -128,7 +134,12 @@ public class Settings {
 					frame.dispose();
 					MainWindow kk = new MainWindow();
 					Appp.writee(true);
-					kk.main(new String[5]);
+					try {
+						kk.main(new String[5]);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		});

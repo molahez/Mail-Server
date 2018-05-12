@@ -9,11 +9,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -85,6 +88,8 @@ public class Composegui {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+	
 		email = Contact.emal;
 		password = Contact.password;
 		cont = Contact.contact_name;
@@ -94,6 +99,14 @@ public class Composegui {
 		frame.setBounds(100, 100, 1000, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		/*try {
+			frame.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("recources/home.png")))));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		frame.setResizable(false);
+		frame.pack();*/
 
 		JLabel lblNewLabel = new JLabel("From:");
 		lblNewLabel.setBounds(68, 41, 76, 45);
@@ -116,6 +129,7 @@ public class Composegui {
 		frame.getContentPane().add(lblE);
 
 		textField = new JTextField();
+		
 		textField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -191,7 +205,12 @@ public class Composegui {
 				frame.dispose();
 				MainWindow kk = new MainWindow();
 				Appp.writee(true);
-				kk.main(new String[5]);
+				try {
+					kk.main(new String[5]);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		btnBack.setFont(new Font("Century Gothic", Font.PLAIN, 16));
@@ -249,12 +268,19 @@ public class Composegui {
 								Appp y = new Appp();
 								y.compose(x);
 								x.move_attachment(cont, emails[i]);
-								frame.dispose();
-								MainWindow kk = new MainWindow();
-								Appp.writee(true);
-								kk.main(new String[5]);
+								
+								
 
 							}
+							frame.dispose();
+							MainWindow kk = new MainWindow();
+							try {
+								kk.main(new String[5]);
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							Appp.writee(true);
 							x.delete_temp();
 
 

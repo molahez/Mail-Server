@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -130,7 +131,12 @@ public class Search_content {
 				frame.dispose();
 				MainWindow kk = new MainWindow();
 				Appp.writee(true);
-				kk.main(new String[5]);
+				try {
+					kk.main(new String[5]);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				Sorting.save_page(1);
 
 			}

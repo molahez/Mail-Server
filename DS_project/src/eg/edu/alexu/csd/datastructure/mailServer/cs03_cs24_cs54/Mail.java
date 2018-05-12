@@ -416,9 +416,7 @@ public class Mail implements IMail {
 		}
 		index.delete();
 	}
-
-
-
-
 	
+	
+
 }

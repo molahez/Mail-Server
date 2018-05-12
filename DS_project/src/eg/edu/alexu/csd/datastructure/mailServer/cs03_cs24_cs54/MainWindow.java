@@ -46,16 +46,11 @@ public class MainWindow {
 
 	/**
 	 * Launch the application.
+	 * 
+	 * @throws IOException
 	 */
-	public static void main(String[] args) {
-
-		try {
-			fol = Appp.read();
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public static void main(String[] args) throws IOException {
+		fol = Appp.read();
 		Appp.writee(false);
 
 		EventQueue.invokeLater(new Runnable() {
@@ -106,7 +101,7 @@ public class MainWindow {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		try {
-			frame.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("recources/home.png")))));
+			frame.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("recources/main.jpg")))));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -115,26 +110,32 @@ public class MainWindow {
 		frame.pack();
 
 		JLabel lblEmailAddress = new JLabel("Email Address:-");
+		lblEmailAddress.setForeground(Color.WHITE);
 		lblEmailAddress.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		lblEmailAddress.setBounds(34, 31, 155, 67);
 		frame.getContentPane().add(lblEmailAddress);
 
 		JLabel lblNewLabel = new JLabel("Name:-");
+		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setFont(new Font("Century Gothic", Font.PLAIN, 20));
 		lblNewLabel.setBounds(442, 46, 77, 36);
 		frame.getContentPane().add(lblNewLabel);
 
 		JLabel lblXx = new JLabel(email);
+		lblXx.setForeground(Color.WHITE);
 		lblXx.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		lblXx.setBounds(210, 31, 155, 67);
 		frame.getContentPane().add(lblXx);
 
 		JLabel lblXx_1 = new JLabel(cont);
+		lblXx_1.setForeground(Color.WHITE);
 		lblXx_1.setFont(new Font("Century Gothic", Font.PLAIN, 20));
-		lblXx_1.setBounds(568, 46, 77, 36);
+		lblXx_1.setBounds(568, 46, 155, 36);
 		frame.getContentPane().add(lblXx_1);
 
 		JButton btnCompose = new JButton("Compose");
+		btnCompose.setForeground(Color.black);
+
 		btnCompose.addActionListener(new ActionListener() {
 			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent e) {
@@ -145,13 +146,17 @@ public class MainWindow {
 		});
 		btnCompose.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		btnCompose.setBounds(34, 126, 113, 44);
+
 		frame.getContentPane().add(btnCompose);
 
 		JButton btnSearch = new JButton("Search");
+		btnSearch.setForeground(Color.black);
+
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Filter x = new Filter();
 				folderr fold = new folderr();
+				fold.label(email);
 				fold.folderChosen(temp1, cont);
 				x.var(5, cate, textField_1.getText());
 				Appp y = new Appp();
@@ -162,7 +167,7 @@ public class MainWindow {
 									+ "for example: value(CSED) and category (Subject) and folder(Inbox) ");
 
 				} else {
-					y.setViewingOptions(null, x, null);
+					y.setViewingOptions(fold, x, null);
 					Appp.writee(false);
 					frame.dispose();
 					Search_content kk = new Search_content();
@@ -180,16 +185,16 @@ public class MainWindow {
 		tree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("Folders") {
 			{
 				for (int i = 0; i < fol.size(); i++) {
-					if(i==2) {
+					if (i == 2) {
 						DefaultMutableTreeNode node_1 = new DefaultMutableTreeNode(fol.get(i));
-						
+
 						node_1.add(new DefaultMutableTreeNode("Sender"));
 						add(node_1);
-					}
-					else {
+					} else {
 
-					add(new DefaultMutableTreeNode(fol.get(i)));
-				}}
+						add(new DefaultMutableTreeNode(fol.get(i)));
+					}
+				}
 			}
 		}));
 
@@ -198,6 +203,8 @@ public class MainWindow {
 		frame.getContentPane().add(tree);
 
 		JButton btnAddFolder = new JButton("Add Folder");
+		btnAddFolder.setForeground(Color.black);
+
 		btnAddFolder.setEnabled(false);
 		btnAddFolder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -221,6 +228,8 @@ public class MainWindow {
 		frame.getContentPane().add(btnAddFolder);
 
 		JButton btnEditFolder = new JButton("Edit Folder");
+		btnEditFolder.setForeground(Color.black);
+
 		btnEditFolder.setEnabled(false);
 		btnEditFolder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -248,6 +257,8 @@ public class MainWindow {
 		frame.getContentPane().add(btnEditFolder);
 
 		JButton btnDeleteFolder = new JButton("Delete Folder");
+		btnDeleteFolder.setForeground(Color.black);
+
 		btnDeleteFolder.setEnabled(false);
 		btnDeleteFolder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -283,6 +294,8 @@ public class MainWindow {
 		textField.setColumns(10);
 
 		JButton btnSignOut = new JButton("Sign Out");
+		btnSignOut.setForeground(Color.black);
+
 		btnSignOut.addActionListener(new ActionListener() {
 			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent e) {
@@ -298,6 +311,7 @@ public class MainWindow {
 		frame.getContentPane().add(btnSignOut);
 
 		JButton btnAccountSettings = new JButton("Account Settings");
+		btnAccountSettings.setForeground(Color.black);
 		btnAccountSettings.addActionListener(new ActionListener() {
 			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent e) {
@@ -311,16 +325,17 @@ public class MainWindow {
 		});
 		btnAccountSettings.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		btnAccountSettings.setBounds(741, 35, 204, 61);
+
 		frame.getContentPane().add(btnAccountSettings);
 
 		JButton btnEnterFolder = new JButton("Display");
+		btnEnterFolder.setForeground(Color.black);
 		btnEnterFolder.addActionListener(new ActionListener() {
 			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent arg0) {
 				if (val == 0 || temp == "") {
-					JOptionPane.showMessageDialog(null,
-							"Please choose folder and the type of sorting /n"
-									+ "for example: folder(Inbox) and type (Default)");
+					JOptionPane.showMessageDialog(null, "Please choose folder and the type of sorting /n"
+							+ "for example: folder(Inbox) and type (Default)");
 
 				} else {
 					frame.dispose();
@@ -342,6 +357,7 @@ public class MainWindow {
 		});
 		btnEnterFolder.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		btnEnterFolder.setEnabled(false);
+
 		btnEnterFolder.setBounds(247, 261, 147, 36);
 		frame.getContentPane().add(btnEnterFolder);
 
@@ -515,27 +531,33 @@ public class MainWindow {
 
 			}
 		});
-		
-				JMenuItem mntmNewMenuItem_3 = new JMenuItem("Sender");
-				mntmNewMenuItem_3.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						textField_3.setEditable(true);
-						textField_2.setEditable(false);
 
-					}
-				});
-				mnNewMenu_2.add(mntmNewMenuItem_3);
+		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Sender");
+		mntmNewMenuItem_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textField_3.setEditable(true);
+				textField_2.setEditable(false);
+
+			}
+		});
+		mnNewMenu_2.add(mntmNewMenuItem_3);
 		mnNewMenu_2.add(mntmNewMenuItem_4);
 
 		JLabel lblSender = new JLabel("Subject");
+		lblSender.setForeground(Color.WHITE);
 		lblSender.setBounds(800, 256, 58, 15);
+		lblSender.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		frame.getContentPane().add(lblSender);
 
 		JLabel lblSubject = new JLabel("Sender");
+		lblSubject.setForeground(Color.WHITE);
 		lblSubject.setBounds(800, 327, 58, 15);
+		lblSubject.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		frame.getContentPane().add(lblSubject);
 
 		JButton btnCreateFilter = new JButton("Create Filter");
+		btnCreateFilter.setForeground(Color.black);
+
 		btnCreateFilter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Filter x = new Filter();
