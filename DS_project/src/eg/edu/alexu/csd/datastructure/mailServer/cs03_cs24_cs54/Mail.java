@@ -48,7 +48,7 @@ public class Mail implements IMail {
 		time = tt;
 		p = pq;
 	}
-	
+
 
 	@SuppressWarnings({ "unchecked", "unused" })
 	@Override
