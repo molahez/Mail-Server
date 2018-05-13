@@ -363,7 +363,7 @@ public class DLinkedList implements ILinkedList {
 		JSONArray k5 = new JSONArray();
 		JSONArray k6 = new JSONArray();
 		JSONArray k7 = new JSONArray();
-		
+
 		for (int i = 0; i < details.size(); i++) {
 			if (!((Sorting)details.get(i)).to.isEmpty()) {
 				for (int k = 0; k < orders.size(); k++) {
@@ -420,7 +420,7 @@ public class DLinkedList implements ILinkedList {
 		Mail x = new Mail();
 		String path = "Users/" + cont + "/Trash/Index file.json";
 		System.out.println(path);
-		
+
 		for (int i = 0; i < details.size(); i++) {
 			if (!((Sorting) details.get(i)).to.isEmpty()) {
 				System.out.println(((Sorting) details.get(i)).to);
@@ -430,11 +430,11 @@ public class DLinkedList implements ILinkedList {
 				details.set(i, new Sorting("","","","","","",((Sorting) details.get(i)).order));
 				int n = x.order(path);
 				String y = "" + n;
-				
+
 				String path1 = "Users/" + cont + "/" + chosen;
 				File z = new File(path1);
 				File[] files = z.listFiles();
-				
+
 				for (File file : files) {
 					if (Objects.equals(file.getName(), ((Sorting) details.get(i)).order)) {
 						h.copyFolder(file, new File("Users/" + cont + "/Trash/" + y));
@@ -447,29 +447,31 @@ public class DLinkedList implements ILinkedList {
 		}
 
 	}
-	public void put_move(ILinkedList details, String cont, String chosen) {
+	public void put_move(ILinkedList details, String path, String chosen, String cont) {
         Filter h = new Filter();
 
 		Mail x = new Mail();
-		String path = "Users/" + cont + "/" + chosen + "/Index file.json";
+		String temp = path + "\\Index file.json";
 		System.out.println(path);
 		for (int i = 0; i < details.size(); i++) {
 			if (!((Sorting) details.get(i)).to.isEmpty()) {
 				System.out.println(((Sorting) details.get(i)).to);
 				x.save_email(((Sorting) details.get(i)).to, ((Sorting) details.get(i)).from,
-						((Sorting) details.get(i)).Subject, ((Sorting) details.get(i)).body, path,
+						((Sorting) details.get(i)).Subject, ((Sorting) details.get(i)).body, temp,
 						((Sorting) details.get(i)).time, ((Sorting) details.get(i)).pq);
 				details.set(i, new Sorting("","","","","","",((Sorting) details.get(i)).order));
-				int n = x.order(path);
+				int n = x.order(temp);
 				String y = "" + n;
-				
+
 				String path1 = "Users/" + cont + "/" + chosen;
 				File z = new File(path1);
 				File[] files = z.listFiles();
-				
+
+				System.out.println(path1);
+
 				for (File file : files) {
 					if (Objects.equals(file.getName(), ((Sorting) details.get(i)).order)) {
-						h.copyFolder(file, new File("Users/" + cont + "/Trash/" + y));
+						h.copyFolder(file, new File(path + "\\" + y));
 						x.delete_attachment(file.getAbsolutePath());
 
 					}

@@ -262,7 +262,7 @@ public class Appp implements IApp {
 
 	@Override
 	public IMail[] listEmails(int page) {
-		
+
 		return null;
 	}
 
@@ -272,26 +272,28 @@ public class Appp implements IApp {
 		cont = DLinkedList.contact;
 		chosen_folder = DLinkedList.chosen_folder;
 		System.out.println(DLinkedList.contact);
-		
+
 		String path = "Users/" + cont + "/" + chosen_folder + "/Index file.json";
-		
+
 		mails.delete_from_index(path, mails);
 		mails.put_in_trash(mails, cont, chosen_folder);
-		
+
 
 	}
 
 	@Override
 	public void moveEmails(ILinkedList mails, IFolder des) {
-		
+
 		String cont = DLinkedList.contact;
 		String chosen_folder = DLinkedList.chosen_folder;
 		String chosen = folderr.folderchosen;
-		
-		String path = "Users/" + cont + "/" + chosen_folder;
-		
+
+
+		String path = "Users/" + cont + "/" + chosen_folder + "/Index file.json";
+		String path1 = folderr.path;
+
 		mails.delete_from_index(path, mails);
-		mails.put_move(mails, cont, chosen);
+		mails.put_move(mails, path1, chosen_folder, cont);
 
 	}
 
