@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Objects;
@@ -631,6 +632,37 @@ public class Mail implements IMail {
 
 		}
 		return true;
+
+	}
+	@SuppressWarnings("null")
+	public ArrayList<String> details_attachment (String order, String folder_chosen, String contact) {
+		ArrayList<String> list = new ArrayList<String>();
+		String path;
+		int i = 0;
+
+		path = "Users/" + contact + "/" + folder_chosen;
+		File y = new File(path);
+
+		File[] u = y.listFiles();
+
+		for (File file : u) {
+			if (Objects.equals(order, file.getName())) {
+				path = path + "/" + order;
+				File t = new File(path);
+				File[] p = t.listFiles();
+				for (File fil : p) {
+					list.add(fil.getAbsolutePath());
+					i++;
+				}
+			}
+		}
+		return list;
+	}
+	public void delete_attachment_inst (String file_name) { //Removing mails before sending
+ 		String path = "Users/temp/" + file_name;
+ 		File x = new File (path);
+
+ 		x.delete();
 
 	}
 
