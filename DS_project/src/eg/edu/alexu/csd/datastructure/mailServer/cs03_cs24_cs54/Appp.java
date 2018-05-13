@@ -295,6 +295,7 @@ public class Appp implements IApp {
 		mails.delete_from_index(path, mails);
 		mails.put_move(mails, path1, chosen_folder, cont);
 
+
 	}
 
 	@Override
@@ -311,12 +312,12 @@ public class Appp implements IApp {
 		email_body = Mail.email_body;
 		time = Mail.time;
 		pq = Mail.p;
-		
+
 		Integer w;
 		w=Mail.send_draft;
-	
+
 		     if (w==1)	{
-		    	 
+
 		  		x.var2(to);
 		    	if (x.check(to)) {
 				z = ((Mail) email).return_contact(to);
@@ -335,21 +336,21 @@ public class Appp implements IApp {
 			   } else {
 					 return false;
 				}
-		    	
+
 		     }else if (w==2) {
-		    	 
+
 			    y = ((Mail) email).return_contact(from);
 			    path = "Users/" + y + "/Drafts/Index file.json"; // save for sender
 			    email.save_email(to, from, subject, email_body, path, time, pq);
 			    x.var(from, null, y);
-			    
+
 			    return true;
-			    
+
 		     }else {
 		    	 return false;
 		     }
-		
-				
+
+
 
 	}
 
