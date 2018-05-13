@@ -22,7 +22,7 @@ import eg.edu.alexu.csd.datastructure.mailServer.IMail;
 public class Mail implements IMail {
 
 	public static String from, to, subject, email_body, p,time, order;
-
+	public static Integer send_draft;
 
 	public Mail() {
 		from = null;
@@ -32,8 +32,13 @@ public class Mail implements IMail {
 		time = null;
 		p = null;
 		order = null;
+		send_draft = null;
 	}
 
+	@Override
+	public void saveOrdraft(Integer sd) {
+		send_draft = sd;
+	}
 	@Override
 	public void var2(String fro, String t, String sub, String email_body, String tt, String pq) {
 		from = fro;
@@ -43,6 +48,7 @@ public class Mail implements IMail {
 		time = tt;
 		p = pq;
 	}
+	
 
 	@SuppressWarnings({ "unchecked", "unused" })
 	@Override
