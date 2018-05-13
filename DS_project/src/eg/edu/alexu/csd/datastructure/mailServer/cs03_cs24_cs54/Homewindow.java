@@ -67,19 +67,19 @@ public class Homewindow {
 		frame.setBounds(100, 100, 1000, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		try {
+		/*try {
 			frame.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("recources/home.png")))));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		frame.setResizable(false);
-		frame.pack();
+		frame.pack();*/
 		JButton btnNewButton = new JButton("Log in to your account");
 		btnNewButton.addActionListener(new ActionListener() {
 			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent arg0) {
-
+				
 				Appp y = new Appp();
 				if (passwordField.getPassword().length == 0 || textField.getText() == "") {
 					JOptionPane.showMessageDialog(null, " Please fill all fields");
@@ -88,6 +88,7 @@ public class Homewindow {
 					
 				} else if (y.signin(textField.getText(), new String(passwordField.getPassword()))) {
 					frame.dispose();
+					
 					MainWindow kk = new MainWindow();
 
 					try {

@@ -246,8 +246,10 @@ public class SLinkedList implements ILinkedList {
 		
 	}
 
+	
+
 	@Override
-	public void put_move(ILinkedList details, String cont, String chosen) {
+	public void put_move(ILinkedList details, String path, String chosen, String cont) {
 		// TODO Auto-generated method stub
 		
 	}

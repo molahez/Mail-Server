@@ -443,6 +443,7 @@ public class EmailsView {
 		JButton btnDeleteEmails = new JButton("Delete emails");
 		btnDeleteEmails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				DLinkedList y = new DLinkedList();
 				DLinkedList.contact = cont;
 				DLinkedList.chosen_folder = folderchosen;
