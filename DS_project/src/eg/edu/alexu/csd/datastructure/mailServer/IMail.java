@@ -4,7 +4,7 @@ import java.io.File;
 
 public interface IMail {
 	
-	
+	public void saveOrdraft(Integer sd);
 	public void save_email(String to, String from,String subject, String body, String path,String tt, String pq);
 	public String return_contact(String email);
 	public void save_attachement(File x, File y);

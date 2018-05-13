@@ -311,27 +311,45 @@ public class Appp implements IApp {
 		email_body = Mail.email_body;
 		time = Mail.time;
 		pq = Mail.p;
+		
+		Integer w;
+		w=Mail.send_draft;
+	
+		     if (w==1)	{
+		    	 
+		  		x.var2(to);
+		    	if (x.check(to)) {
+				z = ((Mail) email).return_contact(to);
+				y = ((Mail) email).return_contact(from);
 
-		x.var2(to);
+				path = "Users/" + z + "/Inbox/Index file.json"; // save for receiver
+				email.save_email(to, from, subject, email_body, path, time, pq);
+				if (h.check_filter(z)) {
+					h.put_in_filter(to, subject, z, from, email_body, time, pq);
+				}
 
-		if (x.check(to)) {
-			z = ((Mail) email).return_contact(to);
-			y = ((Mail) email).return_contact(from);
-
-			path = "Users/" + z + "/Inbox/Index file.json"; // save for receiver
-			email.save_email(to, from, subject, email_body, path, time, pq);
-			if (h.check_filter(z)) {
-				h.put_in_filter(to, subject, z, from, email_body, time, pq);
-			}
-
-			path = "Users/" + y + "/Sent/Index file.json"; // save for sender
-			email.save_email(to, from, subject, email_body, path, time, pq);
-			x.var(from, null, y);
-
-			return true;
-		} else {
-			return false;
-		}
+				path = "Users/" + y + "/Sent/Index file.json"; // save for sender
+				email.save_email(to, from, subject, email_body, path, time, pq);
+				x.var(from, null, y);
+				return true;
+			   } else {
+					 return false;
+				}
+		    	
+		     }else if (w==2) {
+		    	 
+			    y = ((Mail) email).return_contact(from);
+			    path = "Users/" + y + "/Drafts/Index file.json"; // save for sender
+			    email.save_email(to, from, subject, email_body, path, time, pq);
+			    x.var(from, null, y);
+			    
+			    return true;
+			    
+		     }else {
+		    	 return false;
+		     }
+		
+				
 
 	}
 
