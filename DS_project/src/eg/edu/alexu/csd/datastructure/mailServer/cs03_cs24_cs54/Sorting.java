@@ -1003,8 +1003,6 @@ for (int p = 0; p < arr.length; p++) {
 	// any folder such as Inbox
 	@SuppressWarnings("unchecked")
 	public static void save_email(SLinkedList y, int order) {
-		SLinkedList emails_cont = new SLinkedList();
-
 		JSONObject obj1 = new JSONObject();
 		JSONArray k1 = new JSONArray();
 		JSONArray k2 = new JSONArray();
@@ -1040,10 +1038,10 @@ for (int p = 0; p < arr.length; p++) {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public static SLinkedList load_email() {
 		SLinkedList emails_cont = new SLinkedList();
 		JSONParser parser = new JSONParser();
-		String pg = "";
 		try {
 
 			Object obj = parser.parse(new FileReader("Users/cont.json"));

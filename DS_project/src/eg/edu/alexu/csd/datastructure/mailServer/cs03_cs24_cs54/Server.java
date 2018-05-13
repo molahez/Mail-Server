@@ -90,13 +90,6 @@ public class Server {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		try {
-			fol = Appp.read();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		Appp.writee(false);
 
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -147,6 +140,7 @@ public class Server {
 		}
 	}
 
+	@SuppressWarnings("serial")
 	class ImagePanel extends JPanel {
 
 		private Image img;
@@ -180,7 +174,7 @@ public class Server {
 		frame.addWindowListener(new WindowAdapter() {
 
 			public void windowClosing(WindowEvent e) {
-				Appp.writee(false);
+
 				System.exit(0);
 				Sorting.save_page(1);
 
@@ -192,6 +186,7 @@ public class Server {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings("serial")
 	private void initialize() {
 		try {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -205,33 +200,32 @@ public class Server {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new CardLayout(0, 0));
 
-		//JPanel Home = new JPanel();
-		ImagePanel Home = new ImagePanel(new
-		ImageIcon("recources/home.png").getImage());
+		// JPanel Home = new JPanel();
+		ImagePanel Home = new ImagePanel(new ImageIcon("recources/home.png").getImage());
 		frame.getContentPane().add(Home);
 		/*
 		 * frame.pack(); frame.setVisible(true);
 		 */
 
-		JPanel Signup = new JPanel();
-		//ImagePanel Signup = new ImagePanel(new
-		//ImageIcon("recources/home.png").getImage());
+		// JPanel Signup = new JPanel();
+		ImagePanel Signup = new ImagePanel(new ImageIcon("recources/home.png").getImage());
 		frame.getContentPane().add(Signup, "name_737580920323");
 		Signup.setVisible(false);
 
-		//JPanel Main = new JPanel();
-		ImagePanel Main = new ImagePanel(new
-		ImageIcon("recources/main.png").getImage());
+		// JPanel Main = new JPanel();
+		ImagePanel Main = new ImagePanel(new ImageIcon("recources/main.jpg").getImage());
 		frame.getContentPane().add(Main, "name_4931018976449");
 		Main.setLayout(null);
 		Main.setVisible(false);
 
-		JPanel Settings = new JPanel();
+		ImagePanel Settings = new ImagePanel(new ImageIcon("recources/home.png").getImage());
 		frame.getContentPane().add(Settings, "name_9586204940422");
 		Settings.setLayout(null);
 		Settings.setVisible(false);
 
-		JPanel Compose = new JPanel();
+		
+		ImagePanel Compose = new ImagePanel(new ImageIcon("recources/home.png").getImage());
+		frame.getContentPane().add(Settings, "name_9586204940422");
 		frame.getContentPane().add(Compose, "name_10636674609855");
 		Compose.setVisible(false);
 
@@ -772,7 +766,6 @@ public class Server {
 					temp1 = "";
 					cate = "";
 					y.setViewingOptions(fold, x, null);
-					Appp.writee(false);
 					Search_Content.setVisible(true);
 					Main.setVisible(false);
 					Sorting.save_state(2);
@@ -897,16 +890,14 @@ public class Server {
 
 				selectedNode.setUserObject(textField11.getText());
 				DefaultMutableTreeNode y = (DefaultMutableTreeNode) selectedNode.getParent();
-				
+
 				// reload tree model
 				DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
 				model.reload();
-				
-				
-				File x = new File("Users/" + cont + "/" + temp);
-				x.renameTo(new File("Users/" + cont + "/" + "Filterd mails/" + y.getUserObject().toString() + "/" + textField11.getText()));
-				
 
+				File x = new File("Users/" + cont + "/" + temp);
+				x.renameTo(new File("Users/" + cont + "/" + "Filterd mails/" + y.getUserObject().toString() + "/"
+						+ textField11.getText()));
 
 			}
 		});
@@ -923,18 +914,15 @@ public class Server {
 				DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getSelectionPath()
 						.getLastPathComponent();
 
-				
-				
 				DefaultMutableTreeNode x = (DefaultMutableTreeNode) selectedNode.getParent();
 				if (Objects.equals(x.getUserObject().toString(), "Sender")
 						|| Objects.equals(x.getUserObject().toString(), "Sender & Subject")
 						|| Objects.equals(x.getUserObject().toString(), "Subject")) {
-					
 
-					temp ="Filterd mails/" +x.getUserObject().toString() + "/" + textField11.getText();
+					temp = "Filterd mails/" + x.getUserObject().toString() + "/" + textField11.getText();
 					Mail xx = new Mail();
 					xx.delete_attachment("Users/" + cont + "/" + temp);
-					
+
 				} else {
 					temp = textField11.getText();
 					Mail xx = new Mail();
@@ -963,7 +951,6 @@ public class Server {
 				Signup.setVisible(false);
 				Home.setVisible(true);
 				Main.setVisible(false);
-				Appp.writee(true);
 
 			}
 		});
@@ -1420,7 +1407,7 @@ public class Server {
 		tree.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				
+
 				btnEditFolder.setEnabled(true);
 				btnDeleteFolder.setEnabled(true);
 				btnEnterFolder.setEnabled(true);
@@ -1434,8 +1421,8 @@ public class Server {
 							|| Objects.equals(x.getUserObject().toString(), "Sender & Subject")
 							|| Objects.equals(x.getUserObject().toString(), "Subject")) {
 
-						temp ="Filterd mails/" +x.getUserObject().toString() + "/" + textField11.getText();
-						
+						temp = "Filterd mails/" + x.getUserObject().toString() + "/" + textField11.getText();
+
 					} else {
 						temp = textField11.getText();
 					}
@@ -2865,7 +2852,7 @@ public class Server {
 					textArea1.append((String) ((Sorting) content1.get(0)).body);
 					Search_Content.setVisible(false);
 					Email_content.setVisible(true);
-					Appp.writee(true);
+
 				}
 
 				/*

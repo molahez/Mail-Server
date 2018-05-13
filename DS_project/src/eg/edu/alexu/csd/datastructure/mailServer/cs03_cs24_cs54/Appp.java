@@ -1,18 +1,8 @@
 package eg.edu.alexu.csd.datastructure.mailServer.cs03_cs24_cs54;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Objects;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import eg.edu.alexu.csd.datastructure.linkedList.ILinkedList;
 import eg.edu.alexu.csd.datastructure.linkedList.cs03_cs10.DLinkedList;
@@ -28,84 +18,6 @@ public class Appp implements IApp {
 	 * @serialField
 	 */
 	static DLinkedList fol = new DLinkedList();
-
-	// Function used to read the data of jtree in gui which displays the content of
-	// folders
-	static DLinkedList read() throws IOException {
-		JSONParser parser = new JSONParser();
-
-		try {
-
-			Object obj = parser.parse(new FileReader("Users/updates/tree.json"));
-			Object obj1 = parser.parse(new FileReader("Users/updates/tree_state.json"));
-
-			JSONObject jsonObject = (JSONObject) obj;
-			JSONObject jsonObject1 = (JSONObject) obj1;
-			String name = (String) jsonObject1.get("state");
-
-			// loop array
-			JSONArray msg = (JSONArray) jsonObject.get("Folders");
-			@SuppressWarnings("unchecked")
-			Iterator<String> iterator = msg.iterator();
-			if (!Boolean.parseBoolean(name)) {
-				while (iterator.hasNext()) {
-
-					fol.add(iterator.next());
-
-				}
-			}
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return fol;
-	}
-
-	// function used to write data of jtree which displays folders
-	@SuppressWarnings("unchecked")
-	static void write(DLinkedList x) {
-		JSONObject obj = new JSONObject();
-
-		JSONArray k = new JSONArray();
-		for (int i = 0; i < x.size(); i++) {
-			k.add(x.get(i));
-		}
-
-		obj.put("Folders", k);
-		try (FileWriter file = new FileWriter("Users/updates/tree.json")) {
-
-			file.write(obj.toString());
-			file.flush();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	// function used to write data of jtree which displays folders
-	@SuppressWarnings("unchecked")
-	static void writee(boolean state) {
-
-		JSONObject obj = new JSONObject();
-		obj.put("state", String.valueOf(state));
-
-		try (FileWriter file = new FileWriter("Users/updates/tree_state.json")) {
-
-			file.write(obj.toString());
-			file.flush();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
 
 	@Override
 	public boolean signin(String email, String password) {
@@ -156,11 +68,11 @@ public class Appp implements IApp {
 						contact.write_contact(email, password, cont);
 						flag = true;
 						break;
-						
+
 					}
-					
+
 				}
-				if(flag == true) {
+				if (flag == true) {
 					return true;
 				}
 
@@ -198,7 +110,8 @@ public class Appp implements IApp {
 				folders = temp + "/" + list.get(counter);
 				dir = new File(folders);
 				dir.mkdirs();
-				if (list.get(counter) == "Inbox" || list.get(counter) == "Sent") {
+				if (list.get(counter) == "Inbox" || list.get(counter) == "Sent" || list.get(counter) == "Trash"
+						|| list.get(counter) == "Drafts") {
 					contact.create_file(folders);
 				}
 				counter++;
@@ -307,7 +220,6 @@ public class Appp implements IApp {
 
 		String cont = DLinkedList.contact;
 		String chosen_folder = DLinkedList.chosen_folder;
-		String chosen = folderr.folderchosen;
 
 		String path = "Users/" + cont + "/" + chosen_folder + "/Index file.json";
 		String path1 = folderr.path;

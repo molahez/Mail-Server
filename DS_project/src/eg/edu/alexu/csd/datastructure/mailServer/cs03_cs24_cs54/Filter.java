@@ -543,6 +543,7 @@ public class Filter implements IFilter {
 
 	}// here we read the file that contains results
 
+	@SuppressWarnings("unchecked")
 	static DLinkedList read_sorted() {
 		JSONParser parser = new JSONParser();
 		DLinkedList emails = new DLinkedList();

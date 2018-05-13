@@ -638,8 +638,6 @@ public class Mail implements IMail {
 	public ArrayList<String> details_attachment (String order, String folder_chosen, String contact) {
 		ArrayList<String> list = new ArrayList<String>();
 		String path;
-		int i = 0;
-
 		path = "Users/" + contact + "/" + folder_chosen;
 		File y = new File(path);
 
@@ -652,7 +650,6 @@ public class Mail implements IMail {
 				File[] p = t.listFiles();
 				for (File fil : p) {
 					list.add(fil.getAbsolutePath());
-					i++;
 				}
 			}
 		}
