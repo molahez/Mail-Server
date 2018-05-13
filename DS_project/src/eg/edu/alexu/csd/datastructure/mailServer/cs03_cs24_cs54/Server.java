@@ -78,14 +78,13 @@ public class Server {
 	static SLinkedList content1 = new SLinkedList();
 
 	private JFrame frame;
-	//Search_view
+	// Search_view
 
 	static DLinkedList emails1 = new DLinkedList();
 	static DLinkedList tempo = new DLinkedList();
 	static DLinkedList required1 = new DLinkedList();
 	static SLinkedList content11 = new SLinkedList();
 	private JTextField textField11;
-
 
 	/**
 	 * Launch the application.
@@ -206,23 +205,23 @@ public class Server {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new CardLayout(0, 0));
 
-		JPanel Home = new JPanel();
-		// ImagePanel Home = new ImagePanel(new
-		// ImageIcon("recources/home.png").getImage());
+		//JPanel Home = new JPanel();
+		ImagePanel Home = new ImagePanel(new
+		ImageIcon("recources/home.png").getImage());
 		frame.getContentPane().add(Home);
 		/*
 		 * frame.pack(); frame.setVisible(true);
 		 */
 
 		JPanel Signup = new JPanel();
-		// ImagePanel Signup = new ImagePanel(new
-		// ImageIcon("recources/home.png").getImage());
+		//ImagePanel Signup = new ImagePanel(new
+		//ImageIcon("recources/home.png").getImage());
 		frame.getContentPane().add(Signup, "name_737580920323");
 		Signup.setVisible(false);
 
-		JPanel Main = new JPanel();
-		// ImagePanel Main = new ImagePanel(new
-		// ImageIcon("recources/home.png").getImage());
+		//JPanel Main = new JPanel();
+		ImagePanel Main = new ImagePanel(new
+		ImageIcon("recources/main.png").getImage());
 		frame.getContentPane().add(Main, "name_4931018976449");
 		Main.setLayout(null);
 		Main.setVisible(false);
@@ -266,9 +265,8 @@ public class Server {
 		JLabel label1111 = new JLabel(cont);
 		JTextArea textArea1 = new JTextArea();
 
-
-
-
+		JTree tree = new JTree();
+		tree.setBounds(36, 181, 224, 211);
 
 		// Loading Table
 		table = new JTable() {
@@ -312,7 +310,6 @@ public class Server {
 		xx.addColumn("content");
 		xx.addColumn("Check");
 
-
 		JTable tablex = new JTable() {
 			public boolean isCellEditable(int row, int column) {
 				return column == 1;
@@ -320,7 +317,6 @@ public class Server {
 		};
 
 		tablex.setFont(new Font("Century Gothic", Font.PLAIN, 15));
-
 
 		DefaultTableModel tb = new DefaultTableModel() {
 			public Class<?> getColumnClass(int column) {
@@ -339,9 +335,7 @@ public class Server {
 		tb.addColumn("Attachement");
 		tb.addColumn("Delete");
 
-
-
-		//loading search table
+		// loading search table
 
 		JTable table11 = new JTable() {
 			public boolean isCellEditable(int row, int column) {
@@ -350,7 +344,6 @@ public class Server {
 		};
 
 		table11.setFont(new Font("Century Gothic", Font.PLAIN, 20));
-
 
 		DefaultTableModel xx1 = new DefaultTableModel() {
 			public Class<?> getColumnClass(int column) {
@@ -380,13 +373,6 @@ public class Server {
 		xx1.addColumn("Receiver");
 		xx1.addColumn("Time");
 		xx1.addColumn("Content");
-
-
-
-
-
-
-
 
 		// Home
 
@@ -450,6 +436,52 @@ public class Server {
 					Home.setVisible(false);
 					Signup.setVisible(false);
 					Main.setVisible(true);
+					tree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("Folders") {
+						{
+							String path = "Users/" + cont;
+							File x = new File(path);
+							File[] y = x.listFiles();
+
+							for (File file : y) {
+								if (file.isDirectory() && !Objects.equals(file.getName(), "Filterd mails")) {
+									add(new DefaultMutableTreeNode(file.getName()));
+
+								} else if (Objects.equals(file.getName(), "Filterd mails")) {
+
+									DefaultMutableTreeNode node_1 = new DefaultMutableTreeNode("Filterd mails");
+
+									File z = new File(file.getAbsolutePath());
+									File[] u = z.listFiles();
+									if (u.length > 0) {
+										for (File file1 : u) {
+											if (file1.isDirectory()) {
+												DefaultMutableTreeNode node_2 = new DefaultMutableTreeNode(
+														file1.getName());
+												File k = new File(file1.getAbsolutePath());
+												File[] p = k.listFiles();
+
+												if (p.length > 0) {
+													for (File file3 : p) {
+														if (file3.isDirectory()) {
+															node_2.add(new DefaultMutableTreeNode(file3.getName()));
+														}
+													}
+													node_1.add(node_2);
+												}
+
+												add(node_1);
+											}
+
+										}
+									} else {
+										add(node_1);
+									}
+
+								}
+							}
+
+						}
+					}));
 
 					Mail z = new Mail();
 
@@ -555,10 +587,57 @@ public class Server {
 						lblFoldername.setText(cont);
 						lblE.setText(email);
 						label1111.setText(cont);
+						textField1.setText("");
+						passwordField1.setText("");
+						passwordField_1.setText("");
+						textField_2.setText("");
 
-						// Mail z = new Mail();
+						tree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("Folders") {
+							{
+								String path = "Users/" + cont;
+								File x = new File(path);
+								File[] y = x.listFiles();
 
-						// z.auto_delete("Users/" + cont + "/Trash");
+								for (File file : y) {
+									if (file.isDirectory() && !Objects.equals(file.getName(), "Filterd mails")) {
+										add(new DefaultMutableTreeNode(file.getName()));
+
+									} else if (Objects.equals(file.getName(), "Filterd mails")) {
+
+										DefaultMutableTreeNode node_1 = new DefaultMutableTreeNode("Filterd mails");
+
+										File z = new File(file.getAbsolutePath());
+										File[] u = z.listFiles();
+										if (u.length > 0) {
+											for (File file1 : u) {
+												if (file1.isDirectory()) {
+													DefaultMutableTreeNode node_2 = new DefaultMutableTreeNode(
+															file1.getName());
+													File k = new File(file1.getAbsolutePath());
+													File[] p = k.listFiles();
+
+													if (p.length > 0) {
+														for (File file3 : p) {
+															if (file3.isDirectory()) {
+																node_2.add(new DefaultMutableTreeNode(file3.getName()));
+															}
+														}
+														node_1.add(node_2);
+													}
+
+													add(node_1);
+												}
+
+											}
+										} else {
+											add(node_1);
+										}
+
+									}
+								}
+
+							}
+						}));
 					} else {
 						JOptionPane.showMessageDialog(null, " Invalid email address please try again");
 
@@ -711,85 +790,85 @@ public class Server {
 					case 1:
 						if (emails1.size() < 10) {
 							for (int i = 0; i < emails1.size(); i++) {
-								xx1.addRow(
-										new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-												((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-												((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
 							}
 						} else {
 							for (int i = 0; i < 10; i++) {
-								xx1.addRow(
-										new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-												((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-												((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
 							}
 						}
 						break;
 					case 2:
 						if (emails1.size() < 20) {
 							for (int i = 10; i < emails1.size(); i++) {
-								xx1.addRow(
-										new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-												((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-												((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
 							}
 						} else {
 							for (int i = 10; i < 20; i++) {
-								xx1.addRow(
-										new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-												((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-												((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
 							}
 						}
 						break;
 					case 3:
 						if (emails1.size() < 30) {
 							for (int i = 20; i < emails1.size(); i++) {
-								xx1.addRow(
-										new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-												((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-												((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
 							}
 						} else {
 							for (int i = 20; i < 30; i++) {
-								xx1.addRow(
-										new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-												((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-												((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
 							}
 						}
 						break;
 					case 4:
 						if (emails1.size() < 40) {
 							for (int i = 30; i < emails1.size(); i++) {
-								xx1.addRow(
-										new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-												((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-												((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
 							}
 						} else {
 							for (int i = 30; i < 40; i++) {
-								xx1.addRow(
-										new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-												((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-												((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
 							}
 						}
 						break;
 					case 5:
 						if (emails1.size() < 50) {
 							for (int i = 40; i < emails1.size(); i++) {
-								xx1.addRow(
-										new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-												((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-												((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
 							}
 						} else {
 							for (int i = 40; i < 50; i++) {
-								xx1.addRow(
-										new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-												((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-												((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
 							}
 						}
 						break;
@@ -803,54 +882,11 @@ public class Server {
 		btnSearch.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		Main.add(btnSearch);
 
-		JTree tree = new JTree();
-		tree.setBounds(49, 197, 160, 163);
-		tree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("Folders") {
-			{
-				for (int i = 0; i < fol.size(); i++) {
-					if (i == 2) {
-						DefaultMutableTreeNode node_1 = new DefaultMutableTreeNode(fol.get(i));
-
-						node_1.add(new DefaultMutableTreeNode("Sender"));
-						add(node_1);
-					} else {
-
-						add(new DefaultMutableTreeNode(fol.get(i)));
-					}
-				}
-			}
-		}));
-
 		tree.setFont(new Font("Century Gothic", Font.PLAIN, 20));
 		Main.add(tree);
 
-		JButton btnAddFolder = new JButton("Add Folder");
-		btnAddFolder.setBounds(49, 403, 131, 29);
-		btnAddFolder.setForeground(Color.black);
-
-		btnAddFolder.setEnabled(false);
-		btnAddFolder.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-				DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getSelectionPath()
-						.getLastPathComponent();
-				DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(textField.getText());
-				selectedNode.add(newNode);
-				// reload tree model
-				DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
-				model.reload();
-				fol.add(textField.getText());
-
-				Appp.write(fol);
-
-			}
-
-		});
-		btnAddFolder.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		Main.add(btnAddFolder);
-
 		JButton btnEditFolder = new JButton("Edit Folder");
-		btnEditFolder.setBounds(210, 403, 146, 29);
+		btnEditFolder.setBounds(46, 403, 146, 35);
 		btnEditFolder.setForeground(Color.black);
 
 		btnEditFolder.setEnabled(false);
@@ -859,19 +895,18 @@ public class Server {
 				DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getSelectionPath()
 						.getLastPathComponent();
 
-				selectedNode.setUserObject(textField.getText());
+				selectedNode.setUserObject(textField11.getText());
+				DefaultMutableTreeNode y = (DefaultMutableTreeNode) selectedNode.getParent();
+				
 				// reload tree model
 				DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
 				model.reload();
+				
+				
+				File x = new File("Users/" + cont + "/" + temp);
+				x.renameTo(new File("Users/" + cont + "/" + "Filterd mails/" + y.getUserObject().toString() + "/" + textField11.getText()));
+				
 
-				for (int i = 0; i < fol.size(); i++) {
-
-					if (Objects.equals(temp, fol.get(i))) {
-
-						fol.set(i, textField.getText());
-					}
-				}
-				Appp.write(fol);
 
 			}
 		});
@@ -888,6 +923,24 @@ public class Server {
 				DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getSelectionPath()
 						.getLastPathComponent();
 
+				
+				
+				DefaultMutableTreeNode x = (DefaultMutableTreeNode) selectedNode.getParent();
+				if (Objects.equals(x.getUserObject().toString(), "Sender")
+						|| Objects.equals(x.getUserObject().toString(), "Sender & Subject")
+						|| Objects.equals(x.getUserObject().toString(), "Subject")) {
+					
+
+					temp ="Filterd mails/" +x.getUserObject().toString() + "/" + textField11.getText();
+					Mail xx = new Mail();
+					xx.delete_attachment("Users/" + cont + "/" + temp);
+					
+				} else {
+					temp = textField11.getText();
+					Mail xx = new Mail();
+					xx.delete_attachment("Users/" + cont + "/" + temp);
+				}
+
 				if (selectedNode != tree.getModel().getRoot()) {
 					DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
 
@@ -895,22 +948,13 @@ public class Server {
 
 					model.reload();
 				}
-				for (int i = 0; i < fol.size(); i++) {
-
-					if (Objects.equals(temp, fol.get(i))) {
-
-						fol.remove(i);
-					}
-				}
-				Appp.write(fol);
-
 			}
 		});
 		btnDeleteFolder.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		Main.add(btnDeleteFolder);
 
 		JButton btnSignOut = new JButton("Sign Out");
-		btnSignOut.setBounds(49, 473, 131, 35);
+		btnSignOut.setBounds(213, 466, 144, 35);
 		btnSignOut.setForeground(Color.black);
 
 		btnSignOut.addActionListener(new ActionListener() {
@@ -1267,6 +1311,7 @@ public class Server {
 
 		btnCreateFilter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				Main.setVisible(false);
 				Filter x = new Filter();
 				re = textField_21.getText();
 				co = textField_3.getText();
@@ -1282,6 +1327,52 @@ public class Server {
 				textField_21.setEditable(false);
 				textField_21.setText("");
 				textField_3.setText("");
+				tree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("Folders") {
+					{
+						String path = "Users/" + cont;
+						File x = new File(path);
+						File[] y = x.listFiles();
+
+						for (File file : y) {
+							if (file.isDirectory() && !Objects.equals(file.getName(), "Filterd mails")) {
+								add(new DefaultMutableTreeNode(file.getName()));
+
+							} else if (Objects.equals(file.getName(), "Filterd mails")) {
+
+								DefaultMutableTreeNode node_1 = new DefaultMutableTreeNode("Filterd mails");
+
+								File z = new File(file.getAbsolutePath());
+								File[] u = z.listFiles();
+								if (u.length > 0) {
+									for (File file1 : u) {
+										if (file1.isDirectory()) {
+											DefaultMutableTreeNode node_2 = new DefaultMutableTreeNode(file1.getName());
+											File k = new File(file1.getAbsolutePath());
+											File[] p = k.listFiles();
+
+											if (p.length > 0) {
+												for (File file3 : p) {
+													if (file3.isDirectory()) {
+														node_2.add(new DefaultMutableTreeNode(file3.getName()));
+													}
+												}
+												node_1.add(node_2);
+											}
+
+											add(node_1);
+										}
+
+									}
+								} else {
+									add(node_1);
+								}
+
+							}
+						}
+
+					}
+				}));
+				Main.setVisible(true);
 			}
 		});
 		btnCreateFilter.setFont(new Font("Century Gothic", Font.PLAIN, 14));
@@ -1323,13 +1414,13 @@ public class Server {
 		Main.add(label_1);
 
 		textField11 = new JTextField();
-		textField11.setBounds(210, 473, 146, 35);
+		textField11.setBounds(213, 403, 146, 35);
 		Main.add(textField11);
 		textField11.setColumns(10);
 		tree.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				btnAddFolder.setEnabled(true);
+				
 				btnEditFolder.setEnabled(true);
 				btnDeleteFolder.setEnabled(true);
 				btnEnterFolder.setEnabled(true);
@@ -1338,7 +1429,16 @@ public class Server {
 					DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getSelectionPath()
 							.getLastPathComponent();
 					textField11.setText(selectedNode.getUserObject().toString());
-					temp = textField11.getText();
+					DefaultMutableTreeNode x = (DefaultMutableTreeNode) selectedNode.getParent();
+					if (Objects.equals(x.getUserObject().toString(), "Sender")
+							|| Objects.equals(x.getUserObject().toString(), "Sender & Subject")
+							|| Objects.equals(x.getUserObject().toString(), "Subject")) {
+
+						temp ="Filterd mails/" +x.getUserObject().toString() + "/" + textField11.getText();
+						
+					} else {
+						temp = textField11.getText();
+					}
 
 				}
 
@@ -1489,6 +1589,7 @@ public class Server {
 		Compose.add(x);
 
 		JTextArea textArea = new JTextArea();
+		textArea.setFont(new Font("Century Gothic", Font.PLAIN, 17));
 		textArea.setBackground(new Color(255, 255, 255));
 		x.setViewportView(textArea);
 
@@ -1511,16 +1612,13 @@ public class Server {
 					File Dir = new File("Users/temp" + "/" + fi.getName());
 					Mail x = new Mail();
 					x.save_attachement(fi, Dir);
-					tb.addRow(new Object[] {fi.getName()});
-
-
+					tb.addRow(new Object[] { fi.getName() });
 
 				}
 
 			}
 		});
 		tablex.setModel(tb);
-
 
 		btnNewButton1.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		Compose.add(btnNewButton1);
@@ -1530,11 +1628,62 @@ public class Server {
 		btnBack.addActionListener(new ActionListener() {
 			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent arg0) {
-				Main.setVisible(true);
-				Home.setVisible(false);
-				Compose.setVisible(false);
-				Settings.setVisible(false);
-				Signup.setVisible(false);
+				int input = JOptionPane.showOptionDialog(null, "Save to Draft", "The title",
+						JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+				if (input == JOptionPane.OK_OPTION) {
+					String[] emailss;
+					Calendar cal = Calendar.getInstance();
+					DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+					Mail x = new Mail();
+
+					emailss = textFielddd.getText().split(";");
+					int i = 0;
+					boolean flag = false;
+
+					if (textFielddd.getText() == "" || textField_211.getText() == "" || textArea.getText() == ""
+							|| p == "") {
+						JOptionPane.showMessageDialog(null, " Please fill all fields");
+					} else {
+						for (i = 0; i < emailss.length; i++) {
+							if (Objects.equals(email, emailss[i])) {
+								flag = true;
+							}
+						}
+						if (flag == true) {
+							JOptionPane.showMessageDialog(null, "You can't send email to yourself");
+							textField.setText("");
+						} else {
+
+							for (i = 0; i < emailss.length; i++) {
+								x.var2(email, emailss[i], textField_211.getText(), textArea.getText(),
+										sdf.format(cal.getTime()), p);
+
+								x.saveOrdraft(2);
+								Appp y = new Appp();
+								y.compose(x);
+								x.move_attachment1(cont);
+								x.delete_temp();
+
+							}
+							Main.setVisible(true);
+							Home.setVisible(false);
+							Compose.setVisible(false);
+							Settings.setVisible(false);
+							Signup.setVisible(false);
+
+						}
+
+					}
+				} else {
+					Mail x = new Mail();
+					x.delete_temp();
+					Main.setVisible(true);
+					Home.setVisible(false);
+					Compose.setVisible(false);
+					Settings.setVisible(false);
+					Signup.setVisible(false);
+				}
+
 			}
 		});
 		btnBack.setFont(new Font("Century Gothic", Font.PLAIN, 16));
@@ -1608,16 +1757,11 @@ public class Server {
 							Settings.setVisible(false);
 							Signup.setVisible(false);
 
-
 						}
 					}
 				}
 			}
 		});
-
-
-
-
 
 		btnSend.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		Compose.add(btnSend);
@@ -1669,7 +1813,6 @@ public class Server {
 		JButton btnDraft = new JButton("Draft");
 		btnDraft.setBounds(630, 555, 131, 45);
 
-
 		btnDraft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String[] emailss;
@@ -1680,7 +1823,6 @@ public class Server {
 				emailss = textFielddd.getText().split(";");
 				int i = 0;
 				boolean flag = false;
-
 
 				if (textFielddd.getText() == "" || textField_211.getText() == "" || textArea.getText() == ""
 						|| p == "") {
@@ -1696,31 +1838,26 @@ public class Server {
 						textField.setText("");
 					} else {
 
-							for (i = 0; i < emailss.length; i++) {
-								x.var2(email, emailss[i], textField_211.getText(), textArea.getText(),
-										sdf.format(cal.getTime()), p);
+						for (i = 0; i < emailss.length; i++) {
+							x.var2(email, emailss[i], textField_211.getText(), textArea.getText(),
+									sdf.format(cal.getTime()), p);
 
-								x.saveOrdraft(2);
-								Appp y = new Appp();
-								y.compose(x);
-								x.move_attachment1(cont);
-								x.delete_temp();
+							x.saveOrdraft(2);
+							Appp y = new Appp();
+							y.compose(x);
+							x.move_attachment1(cont);
+							x.delete_temp();
 
-							}
-							Main.setVisible(true);
-							Home.setVisible(false);
-							Compose.setVisible(false);
-							Settings.setVisible(false);
-							Signup.setVisible(false);
-
+						}
+						Main.setVisible(true);
+						Home.setVisible(false);
+						Compose.setVisible(false);
+						Settings.setVisible(false);
+						Signup.setVisible(false);
 
 					}
 
-
-
 				}
-
-
 
 			}
 		});
@@ -1736,7 +1873,6 @@ public class Server {
 			@Override
 			public void tableChanged(TableModelEvent e) {
 
-
 				int row = e.getFirstRow();
 				int column = e.getColumn();
 				if (column == 1) {
@@ -1751,11 +1887,7 @@ public class Server {
 						z.delete_attachment_inst(folder);
 						tb.removeRow(row);
 
-
-
-
 					} else {
-
 
 					}
 				}
@@ -1764,13 +1896,6 @@ public class Server {
 		});
 
 		scrollPane_1.setViewportView(tablex);
-
-
-
-
-
-
-
 
 		// Emails_View
 
@@ -2037,11 +2162,11 @@ public class Server {
 		btnMoveEmails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				FileSystemView fsv = new DirectoryRestrictedFileSystemView( new File[] {
-					    new File("C:\\Users\\Ahmed Molahez\\git\\src\\DS_project\\Users\\"+cont)
+				FileSystemView fsv = new DirectoryRestrictedFileSystemView(
+						new File[] { new File("C:\\Users\\Ahmed Molahez\\git\\src\\DS_project\\Users\\" + cont)
 
-					});
-				JFileChooser fs = new JFileChooser(fsv.getHomeDirectory(),fsv);
+						});
+				JFileChooser fs = new JFileChooser(fsv.getHomeDirectory(), fsv);
 				fs.setAcceptAllFileFilterUsed(false);
 				fs.setDialogTitle("move");
 				fs.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -2053,17 +2178,125 @@ public class Server {
 					JOptionPane.showMessageDialog(null, " No folder choosed");
 
 				} else {
+					xx.setRowCount(0);
 					folderr y = new folderr();
 					Appp x = new Appp();
 					folderr.path = fi.getAbsolutePath();
 					DLinkedList.contact = cont;
 					DLinkedList.chosen_folder = folderchosen;
 					x.moveEmails(required, y);
-					System.out.println(fi);
 					JOptionPane.showMessageDialog(null, " done");
+					Sorting xxx = new Sorting();
+					folderr fold = new folderr();
+
+					fold.folderChosen(folderchosen, cont);
+					fold.label(email);
+					Filter switch_index = new Filter();
+					System.out.println(Sorting.get_val());
+					switch_index.var(Sorting.get_val(), null, null);
+					x.setViewingOptions(fold, switch_index, xxx);
+
+					pg = Sorting.get_page();
+					emails = Sorting.read_sorted();
+					System.out.println(emails.size());
+					Emails_view.setVisible(false);
+
+					for (int i = 0; i < emails.size(); i++) {
+						required.add(new Sorting("", "", "", "", "", "", ""));
+						content.add(new Sorting("", "", "", "", "", "", ""));
+					}
+					switch (pg) {
+					case 1:
+						if (emails.size() < 10) {
+							for (int i = 0; i < emails.size(); i++) {
+								xx.addRow(
+										new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
+												((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
+												((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
+							}
+						} else {
+							for (int i = 0; i < 10; i++) {
+								xx.addRow(
+										new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
+												((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
+												((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
+							}
+						}
+						break;
+					case 2:
+						if (emails.size() < 20) {
+							for (int i = 10; i < emails.size(); i++) {
+								xx.addRow(
+										new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
+												((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
+												((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
+							}
+						} else {
+							for (int i = 10; i < 20; i++) {
+								xx.addRow(
+										new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
+												((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
+												((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
+							}
+						}
+						break;
+					case 3:
+						if (emails.size() < 30) {
+							for (int i = 10; i < emails.size(); i++) {
+								xx.addRow(
+										new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
+												((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
+												((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
+							}
+						} else {
+							for (int i = 20; i < 30; i++) {
+								xx.addRow(
+										new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
+												((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
+												((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
+							}
+						}
+						break;
+					case 4:
+						if (emails.size() < 40) {
+							for (int i = 10; i < emails.size(); i++) {
+								xx.addRow(
+										new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
+												((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
+												((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
+							}
+						} else {
+							for (int i = 30; i < 40; i++) {
+								xx.addRow(
+										new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
+												((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
+												((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
+							}
+						}
+						break;
+					case 5:
+						if (emails.size() < 50) {
+							for (int i = 10; i < emails.size(); i++) {
+								xx.addRow(
+										new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
+												((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
+												((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
+							}
+						} else {
+							for (int i = 40; i < 50; i++) {
+								xx.addRow(
+										new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
+												((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
+												((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
+							}
+						}
+						break;
+					default:
+						break;
+					}
+					Emails_view.setVisible(true);
 
 				}
-
 
 			}
 		});
@@ -2104,11 +2337,11 @@ public class Server {
 					Emails_view.setVisible(false);
 					Email_content.setVisible(true);
 					try {
-					java.awt.Desktop.getDesktop().open(new File("recources/home.png"));
+						java.awt.Desktop.getDesktop().open(new File("recources/home.png"));
 					} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 
 				}
 
@@ -2139,8 +2372,6 @@ public class Server {
 										((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).body,
 										((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).time,
 										((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).order));
-
-
 
 					} else {
 						required.set(row + (Sorting.get_page() - 1) * 10, new Sorting("", "", "", "", "", "", ""));
@@ -2174,7 +2405,6 @@ public class Server {
 				pg = Sorting.get_page();
 				emails = Sorting.read_sorted();
 
-
 				for (int i = 0; i < emails.size(); i++) {
 					required.add(new Sorting("", "", "", "", "", "", ""));
 					content.add(new Sorting("", "", "", "", "", "", ""));
@@ -2183,85 +2413,75 @@ public class Server {
 				case 1:
 					if (emails.size() < 10) {
 						for (int i = 0; i < emails.size(); i++) {
-							xx.addRow(
-									new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
-											((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
-											((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
+							xx.addRow(new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
+									((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
+									((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
 						}
 					} else {
 						for (int i = 0; i < 10; i++) {
-							xx.addRow(
-									new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
-											((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
-											((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
+							xx.addRow(new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
+									((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
+									((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
 						}
 					}
 					break;
 				case 2:
 					if (emails.size() < 20) {
 						for (int i = 10; i < emails.size(); i++) {
-							xx.addRow(
-									new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
-											((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
-											((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
+							xx.addRow(new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
+									((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
+									((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
 						}
 					} else {
 						for (int i = 10; i < 20; i++) {
-							xx.addRow(
-									new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
-											((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
-											((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
+							xx.addRow(new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
+									((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
+									((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
 						}
 					}
 					break;
 				case 3:
 					if (emails.size() < 30) {
 						for (int i = 10; i < emails.size(); i++) {
-							xx.addRow(
-									new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
-											((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
-											((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
+							xx.addRow(new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
+									((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
+									((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
 						}
 					} else {
 						for (int i = 20; i < 30; i++) {
-							xx.addRow(
-									new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
-											((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
-											((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
+							xx.addRow(new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
+									((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
+									((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
 						}
 					}
 					break;
 				case 4:
 					if (emails.size() < 40) {
 						for (int i = 10; i < emails.size(); i++) {
-							xx.addRow(
-									new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
-											((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
-											((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
+							xx.addRow(new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
+									((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
+									((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
 						}
 					} else {
 						for (int i = 30; i < 40; i++) {
-							xx.addRow(
-									new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
-											((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
-											((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
+							xx.addRow(new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
+									((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
+									((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
 						}
 					}
 					break;
 				case 5:
 					if (emails.size() < 50) {
 						for (int i = 10; i < emails.size(); i++) {
-							xx.addRow(
-									new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
-											((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
-											((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
+							xx.addRow(new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
+									((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
+									((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
 						}
 					} else {
 						for (int i = 40; i < 50; i++) {
-							xx.addRow(
-									new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
-											((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
-											((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
+							xx.addRow(new Object[] { ((Sorting) emails.get(i)).pq, ((Sorting) emails.get(i)).Subject,
+									((Sorting) emails.get(i)).from, ((Sorting) emails.get(i)).to,
+									((Sorting) emails.get(i)).time, ((Sorting) emails.get(i)).body });
 						}
 					}
 					break;
@@ -2269,8 +2489,6 @@ public class Server {
 					break;
 				}
 				Emails_view.setVisible(true);
-
-
 
 			}
 		});
@@ -2314,26 +2532,21 @@ public class Server {
 		label_111.setBounds(175, 37, 241, 45);
 		Email_content.add(label_111);
 
-
 		label_21.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		label_21.setBounds(175, 93, 248, 45);
 		Email_content.add(label_21);
-
 
 		label_3.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		label_3.setBounds(175, 149, 201, 45);
 		Email_content.add(label_3);
 
-
 		label_4.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		label_4.setBounds(174, 205, 58, 45);
 		Email_content.add(label_4);
 
-
 		label_5.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		label_5.setBounds(168, 485, 179, 45);
 		Email_content.add(label_5);
-
 
 		textArea1.setBackground(Color.WHITE);
 		textArea1.setBounds(174, 275, 688, 175);
@@ -2361,322 +2574,313 @@ public class Server {
 		button11.setBounds(731, 486, 131, 45);
 		Email_content.add(button11);
 
+		// Search view
 
+		JButton button111 = new JButton("Previous_Page");
+		button111.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		button.setFont(new Font("Century Gothic", Font.PLAIN, 20));
+		button.addActionListener(new ActionListener() {
+			@SuppressWarnings("static-access")
+			public void actionPerformed(ActionEvent e) {
+				if (Sorting.get_page() > 1) {
+					Sorting.save_page(Sorting.get_page() - 1);
 
+					xx1.setRowCount(0);
+					Sorting.save_state(2);
+					Search_Content.setVisible(false);
+					tempo = Filter.read_sorted();
+					emails1 = Filter.filter_results(tempo);
 
-	//Search view
+					pg = Sorting.get_page();
 
-	JButton button111 = new JButton("Previous_Page");
-	button111.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-	button.setFont(new Font("Century Gothic", Font.PLAIN, 20));
-	button.addActionListener(new ActionListener() {
-		@SuppressWarnings("static-access")
-		public void actionPerformed(ActionEvent e) {
-			if (Sorting.get_page() > 1) {
-				Sorting.save_page(Sorting.get_page() - 1);
+					for (int i = 0; i < emails1.size(); i++) {
+						required1.add(new Sorting("", "", "", "", "", "", ""));
 
-				xx1.setRowCount(0);
-				Sorting.save_state(2);
-				Search_Content.setVisible(false);
-				tempo = Filter.read_sorted();
-				emails1 = Filter.filter_results(tempo);
-
-				pg = Sorting.get_page();
-
-				for (int i = 0; i < emails1.size(); i++) {
-					required1.add(new Sorting("", "", "", "", "", "", ""));
-
+					}
+					switch (pg) {
+					case 1:
+						if (emails1.size() < 10) {
+							for (int i = 0; i < emails1.size(); i++) {
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
+							}
+						} else {
+							for (int i = 0; i < 10; i++) {
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
+							}
+						}
+						break;
+					case 2:
+						if (emails1.size() < 20) {
+							for (int i = 10; i < emails1.size(); i++) {
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
+							}
+						} else {
+							for (int i = 10; i < 20; i++) {
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
+							}
+						}
+						break;
+					case 3:
+						if (emails1.size() < 30) {
+							for (int i = 20; i < emails1.size(); i++) {
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
+							}
+						} else {
+							for (int i = 20; i < 30; i++) {
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
+							}
+						}
+						break;
+					case 4:
+						if (emails1.size() < 40) {
+							for (int i = 30; i < emails1.size(); i++) {
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
+							}
+						} else {
+							for (int i = 30; i < 40; i++) {
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
+							}
+						}
+						break;
+					case 5:
+						if (emails1.size() < 50) {
+							for (int i = 40; i < emails1.size(); i++) {
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
+							}
+						} else {
+							for (int i = 40; i < 50; i++) {
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
+							}
+						}
+						break;
+					default:
+						break;
+					}
+					Search_Content.setVisible(true);
 				}
-				switch (pg) {
-				case 1:
-					if (emails1.size() < 10) {
-						for (int i = 0; i < emails1.size(); i++) {
-							xx1.addRow(
-									new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-											((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-											((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
-						}
-					} else {
-						for (int i = 0; i < 10; i++) {
-							xx1.addRow(
-									new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-											((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-											((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
-						}
-					}
-					break;
-				case 2:
-					if (emails1.size() < 20) {
-						for (int i = 10; i < emails1.size(); i++) {
-							xx1.addRow(
-									new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-											((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-											((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
-						}
-					} else {
-						for (int i = 10; i < 20; i++) {
-							xx1.addRow(
-									new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-											((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-											((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
-						}
-					}
-					break;
-				case 3:
-					if (emails1.size() < 30) {
-						for (int i = 20; i < emails1.size(); i++) {
-							xx1.addRow(
-									new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-											((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-											((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
-						}
-					} else {
-						for (int i = 20; i < 30; i++) {
-							xx1.addRow(
-									new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-											((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-											((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
-						}
-					}
-					break;
-				case 4:
-					if (emails1.size() < 40) {
-						for (int i = 30; i < emails1.size(); i++) {
-							xx1.addRow(
-									new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-											((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-											((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
-						}
-					} else {
-						for (int i = 30; i < 40; i++) {
-							xx1.addRow(
-									new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-											((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-											((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
-						}
-					}
-					break;
-				case 5:
-					if (emails1.size() < 50) {
-						for (int i = 40; i < emails1.size(); i++) {
-							xx1.addRow(
-									new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-											((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-											((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
-						}
-					} else {
-						for (int i = 40; i < 50; i++) {
-							xx1.addRow(
-									new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-											((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-											((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
-						}
-					}
-					break;
-				default:
-					break;
-				}
-				Search_Content.setVisible(true);
 			}
-		}
-	});
-	button111.setBounds(266, 31, 181, 35);
-	Search_Content.add(button111);
+		});
+		button111.setBounds(266, 31, 181, 35);
+		Search_Content.add(button111);
 
+		label1111.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		label1111.setBounds(27, 35, 107, 28);
+		Search_Content.add(label1111);
 
-	label1111.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-	label1111.setBounds(27, 35, 107, 28);
-	Search_Content.add(label1111);
+		JButton button_1 = new JButton("Next_Page");
+		button_1.addActionListener(new ActionListener() {
+			@SuppressWarnings("static-access")
+			public void actionPerformed(ActionEvent arg0) {
+				if (emails.size() > Sorting.get_page() * 10) {
+					Sorting.save_page(Sorting.get_page() + 1);
 
-	JButton button_1 = new JButton("Next_Page");
-	button_1.addActionListener(new ActionListener() {
-		@SuppressWarnings("static-access")
-		public void actionPerformed(ActionEvent arg0) {
-			if (emails.size() > Sorting.get_page() * 10) {
-				Sorting.save_page(Sorting.get_page() + 1);
+					Search_Content.setVisible(false);
+					tempo = Filter.read_sorted();
+					emails1 = Filter.filter_results(tempo);
 
-				Search_Content.setVisible(false);
-				tempo = Filter.read_sorted();
-				emails1 = Filter.filter_results(tempo);
+					pg = Sorting.get_page();
 
-				pg = Sorting.get_page();
+					for (int i = 0; i < emails1.size(); i++) {
+						required1.add(new Sorting("", "", "", "", "", "", ""));
 
-				for (int i = 0; i < emails1.size(); i++) {
-					required1.add(new Sorting("", "", "", "", "", "", ""));
+					}
+					xx1.setRowCount(0);
+					switch (pg) {
+					case 1:
+						if (emails1.size() < 10) {
+							for (int i = 0; i < emails1.size(); i++) {
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
+							}
+						} else {
+							for (int i = 0; i < 10; i++) {
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
+							}
+						}
+						break;
+					case 2:
+						if (emails1.size() < 20) {
+							for (int i = 10; i < emails1.size(); i++) {
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
+							}
+						} else {
+							for (int i = 10; i < 20; i++) {
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
+							}
+						}
+						break;
+					case 3:
+						if (emails1.size() < 30) {
+							for (int i = 20; i < emails1.size(); i++) {
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
+							}
+						} else {
+							for (int i = 20; i < 30; i++) {
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
+							}
+						}
+						break;
+					case 4:
+						if (emails1.size() < 40) {
+							for (int i = 30; i < emails1.size(); i++) {
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
+							}
+						} else {
+							for (int i = 30; i < 40; i++) {
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
+							}
+						}
+						break;
+					case 5:
+						if (emails1.size() < 50) {
+							for (int i = 40; i < emails1.size(); i++) {
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
+							}
+						} else {
+							for (int i = 40; i < 50; i++) {
+								xx1.addRow(new Object[] { ((Sorting) emails1.get(i)).pq,
+										((Sorting) emails1.get(i)).Subject, ((Sorting) emails1.get(i)).from,
+										((Sorting) emails1.get(i)).to, ((Sorting) emails1.get(i)).time,
+										((Sorting) emails1.get(i)).body });
+							}
+						}
+						break;
+					default:
+						break;
+					}
+					Search_Content.setVisible(true);
 
 				}
+			}
+		});
+		button_1.setFont(new Font("Century Gothic", Font.PLAIN, 20));
+		button_1.setBounds(527, 31, 181, 35);
+		Search_Content.add(button_1);
+
+		JButton button_2 = new JButton("Back");
+		button_2.addActionListener(new ActionListener() {
+			@SuppressWarnings("static-access")
+			public void actionPerformed(ActionEvent e) {
 				xx1.setRowCount(0);
-				switch (pg) {
-				case 1:
-					if (emails1.size() < 10) {
-						for (int i = 0; i < emails1.size(); i++) {
-							xx1.addRow(
-									new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-											((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-											((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
-						}
-					} else {
-						for (int i = 0; i < 10; i++) {
-							xx1.addRow(
-									new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-											((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-											((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
-						}
-					}
-					break;
-				case 2:
-					if (emails1.size() < 20) {
-						for (int i = 10; i < emails1.size(); i++) {
-							xx1.addRow(
-									new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-											((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-											((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
-						}
-					} else {
-						for (int i = 10; i < 20; i++) {
-							xx1.addRow(
-									new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-											((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-											((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
-						}
-					}
-					break;
-				case 3:
-					if (emails1.size() < 30) {
-						for (int i = 20; i < emails1.size(); i++) {
-							xx1.addRow(
-									new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-											((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-											((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
-						}
-					} else {
-						for (int i = 20; i < 30; i++) {
-							xx1.addRow(
-									new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-											((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-											((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
-						}
-					}
-					break;
-				case 4:
-					if (emails1.size() < 40) {
-						for (int i = 30; i < emails1.size(); i++) {
-							xx1.addRow(
-									new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-											((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-											((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
-						}
-					} else {
-						for (int i = 30; i < 40; i++) {
-							xx1.addRow(
-									new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-											((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-											((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
-						}
-					}
-					break;
-				case 5:
-					if (emails1.size() < 50) {
-						for (int i = 40; i < emails1.size(); i++) {
-							xx1.addRow(
-									new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-											((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-											((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
-						}
-					} else {
-						for (int i = 40; i < 50; i++) {
-							xx1.addRow(
-									new Object[] { ((Sorting) emails1.get(i)).pq, ((Sorting) emails1.get(i)).Subject,
-											((Sorting) emails1.get(i)).from, ((Sorting) emails1.get(i)).to,
-											((Sorting) emails1.get(i)).time, ((Sorting) emails1.get(i)).body });
-						}
-					}
-					break;
-				default:
-					break;
-				}
-				Search_Content.setVisible(true);
+				Search_Content.setVisible(false);
+				Main.setVisible(true);
+				Sorting.save_page(1);
 
 			}
-		}
-	});
-	button_1.setFont(new Font("Century Gothic", Font.PLAIN, 20));
-	button_1.setBounds(527, 31, 181, 35);
-	Search_Content.add(button_1);
+		});
+		button_2.setFont(new Font("Century Gothic", Font.PLAIN, 20));
+		button_2.setBounds(765, 31, 161, 35);
+		Search_Content.add(button_2);
 
-	JButton button_2 = new JButton("Back");
-	button_2.addActionListener(new ActionListener() {
-		@SuppressWarnings("static-access")
-		public void actionPerformed(ActionEvent e) {
-			xx1.setRowCount(0);
-			Search_Content.setVisible(false);
-			Main.setVisible(true);
-			Sorting.save_page(1);
+		JScrollPane scrollPane11 = new JScrollPane();
+		scrollPane11.setBounds(27, 102, 915, 393);
+		Search_Content.add(scrollPane11);
+		scrollPane11.setViewportView(table11);
 
-		}
-	});
-	button_2.setFont(new Font("Century Gothic", Font.PLAIN, 20));
-	button_2.setBounds(765, 31, 161, 35);
-	Search_Content.add(button_2);
-
-	JScrollPane scrollPane11 = new JScrollPane();
-	scrollPane11.setBounds(27, 102, 915, 393);
-	Search_Content.add(scrollPane11);
-	scrollPane11.setViewportView(table11);
-
-
-
-	table11.setModel(xx1);
-	table11.addMouseListener(new java.awt.event.MouseAdapter()
-
-	{
-
-		public void mouseClicked(java.awt.event.MouseEvent e)
+		table11.setModel(xx1);
+		table11.addMouseListener(new java.awt.event.MouseAdapter()
 
 		{
 
-			int row = table11.rowAtPoint(e.getPoint());
+			public void mouseClicked(java.awt.event.MouseEvent e)
 
+			{
 
-			if( e.getClickCount() == 2) {
-			content11.add(row + (Sorting.get_page() - 1) * 10,
-					new Sorting(((Sorting) emails1.get(row + (Sorting.get_page() - 1) * 10)).pq,
-							((Sorting) emails1.get(row + (Sorting.get_page() - 1) * 10)).to,
-							((Sorting) emails1.get(row + (Sorting.get_page() - 1) * 10)).from,
-							((Sorting) emails1.get(row + (Sorting.get_page() - 1) * 10)).Subject,
-							((Sorting) emails1.get(row + (Sorting.get_page() - 1) * 10)).body,
-							((Sorting) emails1.get(row + (Sorting.get_page() - 1) * 10)).time,
-							((Sorting) emails1.get(row + (Sorting.get_page() - 1) * 10)).order));
+				int row = table11.rowAtPoint(e.getPoint());
 
-			Sorting.save_email(content11, row + (Sorting.get_page() - 1) * 10);
+				if (e.getClickCount() == 2) {
+					content11.add(row + (Sorting.get_page() - 1) * 10,
+							new Sorting(((Sorting) emails1.get(row + (Sorting.get_page() - 1) * 10)).pq,
+									((Sorting) emails1.get(row + (Sorting.get_page() - 1) * 10)).to,
+									((Sorting) emails1.get(row + (Sorting.get_page() - 1) * 10)).from,
+									((Sorting) emails1.get(row + (Sorting.get_page() - 1) * 10)).Subject,
+									((Sorting) emails1.get(row + (Sorting.get_page() - 1) * 10)).body,
+									((Sorting) emails1.get(row + (Sorting.get_page() - 1) * 10)).time,
+									((Sorting) emails1.get(row + (Sorting.get_page() - 1) * 10)).order));
 
-			content1 = Sorting.load_email();
-			label_111.setText((String) ((Sorting) content1.get(0)).from);
-			label_21.setText((String) ((Sorting) content1.get(0)).to);
-			label_3.setText((String) ((Sorting) content1.get(0)).Subject);
-			label_4.setText((String) ((Sorting) content1.get(0)).pq);
-			label_5.setText((String) ((Sorting) content1.get(0)).time);
-			textArea1.append((String) ((Sorting) content1.get(0)).body);
-			Search_Content.setVisible(false);
-			Email_content.setVisible(true);
-			Appp.writee(true);}
+					Sorting.save_email(content11, row + (Sorting.get_page() - 1) * 10);
 
+					content1 = Sorting.load_email();
+					label_111.setText((String) ((Sorting) content1.get(0)).from);
+					label_21.setText((String) ((Sorting) content1.get(0)).to);
+					label_3.setText((String) ((Sorting) content1.get(0)).Subject);
+					label_4.setText((String) ((Sorting) content1.get(0)).pq);
+					label_5.setText((String) ((Sorting) content1.get(0)).time);
+					textArea1.append((String) ((Sorting) content1.get(0)).body);
+					Search_Content.setVisible(false);
+					Email_content.setVisible(true);
+					Appp.writee(true);
+				}
 
+				/*
+				 * JOptionPane.showMessageDialog(null, " Value in the cell clicked :" + "" +
+				 * table.getValueAt(row, col).toString());
+				 *
+				 * System.out.println(" Value in the cell clicked :" + "" +
+				 * table.getValueAt(row, col).toString());
+				 */
 
-
-			/*
-			 * JOptionPane.showMessageDialog(null, " Value in the cell clicked :" + "" +
-			 * table.getValueAt(row, col).toString());
-			 *
-			 * System.out.println(" Value in the cell clicked :" + "" +
-			 * table.getValueAt(row, col).toString());
-			 */
+			}
 
 		}
 
+		);
+
 	}
-
-	);
-
-}
 }

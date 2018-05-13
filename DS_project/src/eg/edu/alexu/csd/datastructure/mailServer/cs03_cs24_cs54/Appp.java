@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Objects;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -129,6 +130,7 @@ public class Appp implements IApp {
 		email = Contact.emal;
 		password = Contact.password;
 		cont = Contact.contact_name;
+		boolean flag = false;
 
 		ArrayList<String> list = new ArrayList<String>() {
 			{
@@ -145,24 +147,45 @@ public class Appp implements IApp {
 				// mail is existed
 				return false;
 			} else {
-				path = path + "/" + cont;
-				temp = path;
-				dir = new File(path);
-				dir.mkdirs();
+				String path1 = "Users";
+				File x = new File(path1);
+				File[] y = x.listFiles();
 
-				contact.write_contact(email, password, cont);
-
-				while (counter != list.size()) {
-					folders = temp + "/" + list.get(counter);
-					dir = new File(folders);
-					dir.mkdirs();
-					if (list.get(counter) == "Inbox" || list.get(counter) == "Sent" || list.get(counter) == "Trash" || list.get(counter) == "Drafts") {
-						contact.create_file(folders);
+				for (File file : y) {
+					if (Objects.equals(cont, file.getName())) {
+						contact.write_contact(email, password, cont);
+						flag = true;
+						break;
+						
 					}
-
-					counter++;
+					
 				}
-				return true;
+				if(flag == true) {
+					return true;
+				}
+
+				else {
+					path = path + "/" + cont;
+					temp = path;
+					dir = new File(path);
+					dir.mkdirs();
+
+					contact.write_contact(email, password, cont);
+
+					while (counter != list.size()) {
+						folders = temp + "/" + list.get(counter);
+						dir = new File(folders);
+						dir.mkdirs();
+						if (list.get(counter) == "Inbox" || list.get(counter) == "Sent" || list.get(counter) == "Trash"
+								|| list.get(counter) == "Drafts") {
+							contact.create_file(folders);
+						}
+
+						counter++;
+					}
+					return true;
+				}
+
 			}
 		} else {
 			dir.mkdirs();
@@ -182,6 +205,7 @@ public class Appp implements IApp {
 			}
 			return true;
 		}
+
 	}
 
 	@Override
@@ -235,25 +259,23 @@ public class Appp implements IApp {
 			name = folderr.contname;
 			sort.OrderOfAll_5(name, folder_chosen); // sort by Priority Queue
 			break;
-		/*case 7:
-			folder_chosen = folderr.folderchosen;
-
-			name = folderr.contname;
-
-			try {
-				sort.OrderOfAll_6(name, folder_chosen);
-			} catch (java.text.ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} // sort decending according date
-			break;*/
-		/*case 8:
-			folder_chosen = folderr.folderchosen;
-
-			name = folderr.contname;
-
-			sort.OrderOfAll_7(name, folder_chosen); // sort decending according date
-			break;*/
+		/*
+		 * case 7: folder_chosen = folderr.folderchosen;
+		 * 
+		 * name = folderr.contname;
+		 * 
+		 * try { sort.OrderOfAll_6(name, folder_chosen); } catch
+		 * (java.text.ParseException e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); } // sort decending according date break;
+		 */
+		/*
+		 * case 8: folder_chosen = folderr.folderchosen;
+		 * 
+		 * name = folderr.contname;
+		 * 
+		 * sort.OrderOfAll_7(name, folder_chosen); // sort decending according date
+		 * break;
+		 */
 		default:
 			break;
 		}
@@ -278,7 +300,6 @@ public class Appp implements IApp {
 		mails.delete_from_index(path, mails);
 		mails.put_in_trash(mails, cont, chosen_folder);
 
-
 	}
 
 	@Override
@@ -288,13 +309,11 @@ public class Appp implements IApp {
 		String chosen_folder = DLinkedList.chosen_folder;
 		String chosen = folderr.folderchosen;
 
-
 		String path = "Users/" + cont + "/" + chosen_folder + "/Index file.json";
 		String path1 = folderr.path;
 
 		mails.delete_from_index(path, mails);
 		mails.put_move(mails, path1, chosen_folder, cont);
-
 
 	}
 
@@ -314,12 +333,12 @@ public class Appp implements IApp {
 		pq = Mail.p;
 
 		Integer w;
-		w=Mail.send_draft;
+		w = Mail.send_draft;
 
-		     if (w==1)	{
+		if (w == 1) {
 
-		  		x.var2(to);
-		    	if (x.check(to)) {
+			x.var2(to);
+			if (x.check(to)) {
 				z = ((Mail) email).return_contact(to);
 				y = ((Mail) email).return_contact(from);
 
@@ -333,24 +352,22 @@ public class Appp implements IApp {
 				email.save_email(to, from, subject, email_body, path, time, pq);
 				x.var(from, null, y);
 				return true;
-			   } else {
-					 return false;
-				}
+			} else {
+				return false;
+			}
 
-		     }else if (w==2) {
+		} else if (w == 2) {
 
-			    y = ((Mail) email).return_contact(from);
-			    path = "Users/" + y + "/Drafts/Index file.json"; // save for sender
-			    email.save_email(to, from, subject, email_body, path, time, pq);
-			    x.var(from, null, y);
+			y = ((Mail) email).return_contact(from);
+			path = "Users/" + y + "/Drafts/Index file.json"; // save for sender
+			email.save_email(to, from, subject, email_body, path, time, pq);
+			x.var(from, null, y);
 
-			    return true;
+			return true;
 
-		     }else {
-		    	 return false;
-		     }
-
-
+		} else {
+			return false;
+		}
 
 	}
 
