@@ -79,13 +79,13 @@ public class Server {
 
 	private JFrame frame;
 	//Search_view
-	
+
 	static DLinkedList emails1 = new DLinkedList();
 	static DLinkedList tempo = new DLinkedList();
 	static DLinkedList required1 = new DLinkedList();
 	static SLinkedList content11 = new SLinkedList();
 	private JTextField textField11;
-	
+
 
 	/**
 	 * Launch the application.
@@ -245,7 +245,7 @@ public class Server {
 		frame.getContentPane().add(Email_content, "name_17188247972653");
 		Email_content.setLayout(null);
 		Email_content.setVisible(false);
-		
+
 		JPanel Search_Content = new JPanel();
 		frame.getContentPane().add(Search_Content, "name_5632355689381");
 		Search_Content.setLayout(null);
@@ -265,10 +265,10 @@ public class Server {
 		JLabel label_5 = new JLabel();
 		JLabel label1111 = new JLabel(cont);
 		JTextArea textArea1 = new JTextArea();
-		 
-		
 
-		
+
+
+
 
 		// Loading Table
 		table = new JTable() {
@@ -311,8 +311,8 @@ public class Server {
 		xx.addColumn("Time");
 		xx.addColumn("content");
 		xx.addColumn("Check");
-		
-		
+
+
 		JTable tablex = new JTable() {
 			public boolean isCellEditable(int row, int column) {
 				return column == 1;
@@ -320,14 +320,14 @@ public class Server {
 		};
 
 		tablex.setFont(new Font("Century Gothic", Font.PLAIN, 15));
-		
+
 
 		DefaultTableModel tb = new DefaultTableModel() {
 			public Class<?> getColumnClass(int column) {
 				switch (column) {
 				case 0:
 					return String.class;
-			
+
 				case 1:
 					return Boolean.class;
 				default:
@@ -338,11 +338,11 @@ public class Server {
 		tablex.setRowHeight(20);
 		tb.addColumn("Attachement");
 		tb.addColumn("Delete");
-		
-		
-		
+
+
+
 		//loading search table
-		
+
 		JTable table11 = new JTable() {
 			public boolean isCellEditable(int row, int column) {
 				return column == 6;
@@ -351,7 +351,7 @@ public class Server {
 
 		table11.setFont(new Font("Century Gothic", Font.PLAIN, 20));
 
-		
+
 		DefaultTableModel xx1 = new DefaultTableModel() {
 			public Class<?> getColumnClass(int column) {
 				switch (column) {
@@ -365,7 +365,7 @@ public class Server {
 					return String.class;
 				case 4:
 					return String.class;
-				
+
 				default:
 					return String.class;
 				}
@@ -381,12 +381,12 @@ public class Server {
 		xx1.addColumn("Time");
 		xx1.addColumn("Content");
 
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
 
 		// Home
 
@@ -673,7 +673,7 @@ public class Server {
 		textField_4.setBounds(442, 129, 127, 44);
 		Main.add(textField_4);
 		textField_4.setColumns(10);
-		
+
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Filter x = new Filter();
@@ -697,10 +697,10 @@ public class Server {
 					Search_Content.setVisible(true);
 					Main.setVisible(false);
 					Sorting.save_state(2);
-					
+
 					tempo = Filter.read_sorted();
 					emails1 = Filter.filter_results(tempo);
-					
+
 					pg = Sorting.get_page();
 
 					for (int i = 0; i < emails1.size(); i++) {
@@ -1321,7 +1321,7 @@ public class Server {
 		label_1.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		label_1.setBounds(548, 42, 160, 23);
 		Main.add(label_1);
-		
+
 		textField11 = new JTextField();
 		textField11.setBounds(210, 473, 146, 35);
 		Main.add(textField11);
@@ -1512,15 +1512,15 @@ public class Server {
 					Mail x = new Mail();
 					x.save_attachement(fi, Dir);
 					tb.addRow(new Object[] {fi.getName()});
-					
-					
-					
+
+
+
 				}
 
 			}
 		});
 		tablex.setModel(tb);
-		
+
 
 		btnNewButton1.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		Compose.add(btnNewButton1);
@@ -1590,7 +1590,7 @@ public class Server {
 							for (i = 0; i < emailss.length; i++) {
 								x.var2(email, emailss[i], textField_211.getText(), textArea.getText(),
 										sdf.format(cal.getTime()), p);
-								
+
 								x.saveOrdraft(1);
 								Appp y = new Appp();
 								y.compose(x);
@@ -1601,24 +1601,24 @@ public class Server {
 							textField_211.setText("");
 							textArea.setText("");
 							p = "";
-							
+
 							Main.setVisible(true);
 							Home.setVisible(false);
 							Compose.setVisible(false);
 							Settings.setVisible(false);
 							Signup.setVisible(false);
-							
+
 
 						}
 					}
 				}
 			}
 		});
-		
-		
-		
-		
-		
+
+
+
+
+
 		btnSend.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		Compose.add(btnSend);
 
@@ -1665,11 +1665,11 @@ public class Server {
 			}
 		});
 		mnNewMenu1.add(menuItem_2);
-		
+
 		JButton btnDraft = new JButton("Draft");
 		btnDraft.setBounds(630, 555, 131, 45);
-		
-		
+
+
 		btnDraft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String[] emailss;
@@ -1695,16 +1695,16 @@ public class Server {
 						JOptionPane.showMessageDialog(null, "You can't send email to yourself");
 						textField.setText("");
 					} else {
-					
+
 							for (i = 0; i < emailss.length; i++) {
 								x.var2(email, emailss[i], textField_211.getText(), textArea.getText(),
 										sdf.format(cal.getTime()), p);
-								
+
 								x.saveOrdraft(2);
 								Appp y = new Appp();
 								y.compose(x);
-								//x.move_attachment(cont, emailss[i]);
-								//wakel stuff
+								x.move_attachment1(cont);
+								x.delete_temp();
 
 							}
 							Main.setVisible(true);
@@ -1713,20 +1713,20 @@ public class Server {
 							Settings.setVisible(false);
 							Signup.setVisible(false);
 
-						
+
 					}
-			
-				
-					
+
+
+
 				}
-				
-				
-				
+
+
+
 			}
 		});
 		btnDraft.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		Compose.add(btnDraft);
-		
+
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(154, 416, 506, 98);
 		Compose.add(scrollPane_1);
@@ -1735,42 +1735,42 @@ public class Server {
 
 			@Override
 			public void tableChanged(TableModelEvent e) {
-				
-				
+
+
 				int row = e.getFirstRow();
 				int column = e.getColumn();
 				if (column == 1) {
 
 					TableModel model = (TableModel) e.getSource();
 					Boolean checked = (Boolean) model.getValueAt(row, column);
-					
+
 					if (checked) {
-						
+
 						String folder = (String) tablex.getModel().getValueAt(row, 0);
 						Mail z = new Mail();
 						z.delete_attachment_inst(folder);
 						tb.removeRow(row);
-						
 
 
-						
+
+
 					} else {
-						
-						
+
+
 					}
 				}
 
 			}
 		});
-		
+
 		scrollPane_1.setViewportView(tablex);
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
 
 		// Emails_View
 
@@ -2036,16 +2036,16 @@ public class Server {
 		JButton btnMoveEmails = new JButton("Move emails");
 		btnMoveEmails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				FileSystemView fsv = new DirectoryRestrictedFileSystemView( new File[] {
 					    new File("C:\\Users\\Ahmed Molahez\\git\\src\\DS_project\\Users\\"+cont)
-					   
+
 					});
 				JFileChooser fs = new JFileChooser(fsv.getHomeDirectory(),fsv);
 				fs.setAcceptAllFileFilterUsed(false);
 				fs.setDialogTitle("move");
 				fs.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-				
+
 				@SuppressWarnings("unused")
 				int result = fs.showSaveDialog(null);
 				File fi = fs.getSelectedFile();
@@ -2063,7 +2063,7 @@ public class Server {
 					JOptionPane.showMessageDialog(null, " done");
 
 				}
-				
+
 
 			}
 		});
@@ -2141,10 +2141,10 @@ public class Server {
 										((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).order));
 
 
-						
+
 					} else {
 						required.set(row + (Sorting.get_page() - 1) * 10, new Sorting("", "", "", "", "", "", ""));
-						
+
 					}
 				}
 
@@ -2153,7 +2153,7 @@ public class Server {
 		JButton btnDeleteEmails = new JButton("Delete emails");
 		btnDeleteEmails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				Emails_view.setVisible(false);
 				xx.setRowCount(0);
 				DLinkedList.contact = cont;
@@ -2161,10 +2161,10 @@ public class Server {
 				System.out.println(folderchosen);
 				Appp x = new Appp();
 				x.deleteEmails(required);
-				
+
 				Sorting xxx = new Sorting();
 				folderr fold = new folderr();
-				
+
 				fold.folderChosen(folderchosen, cont);
 				fold.label(email);
 				Filter switch_index = new Filter();
@@ -2269,8 +2269,8 @@ public class Server {
 					break;
 				}
 				Emails_view.setVisible(true);
-				
-				
+
+
 
 			}
 		});
@@ -2314,27 +2314,27 @@ public class Server {
 		label_111.setBounds(175, 37, 241, 45);
 		Email_content.add(label_111);
 
-		
+
 		label_21.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		label_21.setBounds(175, 93, 248, 45);
 		Email_content.add(label_21);
 
-		
+
 		label_3.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		label_3.setBounds(175, 149, 201, 45);
 		Email_content.add(label_3);
 
-		
+
 		label_4.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		label_4.setBounds(174, 205, 58, 45);
 		Email_content.add(label_4);
 
-		
+
 		label_5.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		label_5.setBounds(168, 485, 179, 45);
 		Email_content.add(label_5);
 
-		
+
 		textArea1.setBackground(Color.WHITE);
 		textArea1.setBounds(174, 275, 688, 175);
 		Email_content.add(textArea1);
@@ -2347,25 +2347,25 @@ public class Server {
 					Emails_view.setVisible(true);
 					Email_content.setVisible(false);
 					textArea1.setText("");
-					
+
 				} else {
-					
+
 					Search_Content.setVisible(true);
 					Email_content.setVisible(false);
 					textArea1.setText("");
-					
+
 				}
 			}
 		});
 		button11.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		button11.setBounds(731, 486, 131, 45);
 		Email_content.add(button11);
-		
-		
-		
-	
+
+
+
+
 	//Search view
-	
+
 	JButton button111 = new JButton("Previous_Page");
 	button111.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 	button.setFont(new Font("Century Gothic", Font.PLAIN, 20));
@@ -2374,18 +2374,18 @@ public class Server {
 		public void actionPerformed(ActionEvent e) {
 			if (Sorting.get_page() > 1) {
 				Sorting.save_page(Sorting.get_page() - 1);
-				
+
 				xx1.setRowCount(0);
 				Sorting.save_state(2);
 				Search_Content.setVisible(false);
 				tempo = Filter.read_sorted();
 				emails1 = Filter.filter_results(tempo);
-				
+
 				pg = Sorting.get_page();
 
 				for (int i = 0; i < emails1.size(); i++) {
 					required1.add(new Sorting("", "", "", "", "", "", ""));
-					
+
 				}
 				switch (pg) {
 				case 1:
@@ -2482,28 +2482,28 @@ public class Server {
 	});
 	button111.setBounds(266, 31, 181, 35);
 	Search_Content.add(button111);
-	
-	
+
+
 	label1111.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 	label1111.setBounds(27, 35, 107, 28);
 	Search_Content.add(label1111);
-	
+
 	JButton button_1 = new JButton("Next_Page");
 	button_1.addActionListener(new ActionListener() {
 		@SuppressWarnings("static-access")
 		public void actionPerformed(ActionEvent arg0) {
 			if (emails.size() > Sorting.get_page() * 10) {
 				Sorting.save_page(Sorting.get_page() + 1);
-				
+
 				Search_Content.setVisible(false);
 				tempo = Filter.read_sorted();
 				emails1 = Filter.filter_results(tempo);
-				
+
 				pg = Sorting.get_page();
 
 				for (int i = 0; i < emails1.size(); i++) {
 					required1.add(new Sorting("", "", "", "", "", "", ""));
-					
+
 				}
 				xx1.setRowCount(0);
 				switch (pg) {
@@ -2603,7 +2603,7 @@ public class Server {
 	button_1.setFont(new Font("Century Gothic", Font.PLAIN, 20));
 	button_1.setBounds(527, 31, 181, 35);
 	Search_Content.add(button_1);
-	
+
 	JButton button_2 = new JButton("Back");
 	button_2.addActionListener(new ActionListener() {
 		@SuppressWarnings("static-access")
@@ -2618,13 +2618,13 @@ public class Server {
 	button_2.setFont(new Font("Century Gothic", Font.PLAIN, 20));
 	button_2.setBounds(765, 31, 161, 35);
 	Search_Content.add(button_2);
-	
+
 	JScrollPane scrollPane11 = new JScrollPane();
 	scrollPane11.setBounds(27, 102, 915, 393);
 	Search_Content.add(scrollPane11);
 	scrollPane11.setViewportView(table11);
-	
-	
+
+
 
 	table11.setModel(xx1);
 	table11.addMouseListener(new java.awt.event.MouseAdapter()
@@ -2636,8 +2636,8 @@ public class Server {
 		{
 
 			int row = table11.rowAtPoint(e.getPoint());
-			
-			
+
+
 			if( e.getClickCount() == 2) {
 			content11.add(row + (Sorting.get_page() - 1) * 10,
 					new Sorting(((Sorting) emails1.get(row + (Sorting.get_page() - 1) * 10)).pq,
@@ -2647,9 +2647,9 @@ public class Server {
 							((Sorting) emails1.get(row + (Sorting.get_page() - 1) * 10)).body,
 							((Sorting) emails1.get(row + (Sorting.get_page() - 1) * 10)).time,
 							((Sorting) emails1.get(row + (Sorting.get_page() - 1) * 10)).order));
-			
+
 			Sorting.save_email(content11, row + (Sorting.get_page() - 1) * 10);
-			
+
 			content1 = Sorting.load_email();
 			label_111.setText((String) ((Sorting) content1.get(0)).from);
 			label_21.setText((String) ((Sorting) content1.get(0)).to);
@@ -2660,14 +2660,14 @@ public class Server {
 			Search_Content.setVisible(false);
 			Email_content.setVisible(true);
 			Appp.writee(true);}
-			
-		
+
+
 
 
 			/*
 			 * JOptionPane.showMessageDialog(null, " Value in the cell clicked :" + "" +
 			 * table.getValueAt(row, col).toString());
-			 * 
+			 *
 			 * System.out.println(" Value in the cell clicked :" + "" +
 			 * table.getValueAt(row, col).toString());
 			 */
@@ -2677,6 +2677,6 @@ public class Server {
 	}
 
 	);
-	
+
 }
 }

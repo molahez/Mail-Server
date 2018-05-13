@@ -156,7 +156,7 @@ public class Appp implements IApp {
 					folders = temp + "/" + list.get(counter);
 					dir = new File(folders);
 					dir.mkdirs();
-					if (list.get(counter) == "Inbox" || list.get(counter) == "Sent" || list.get(counter) == "Trash") {
+					if (list.get(counter) == "Inbox" || list.get(counter) == "Sent" || list.get(counter) == "Trash" || list.get(counter) == "Drafts") {
 						contact.create_file(folders);
 					}
 

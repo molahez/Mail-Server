@@ -665,5 +665,42 @@ public class Mail implements IMail {
  		x.delete();
 
 	}
+	public void move_attachment1(String contact) {
+		String path = "Users/temp";
+		File x = new File(path);
+		Mail y = new Mail();
+
+		if (x.isDirectory()) {
+			if (x.list().length > 0) {
+				y.directory_contents1(contact);
+			} else {
+
+			}
+
+		} else {
+
+		}
+	}
+
+	public void directory_contents1(String contact) {
+		String path = "Users/temp";
+		File x = new File(path);
+		File[] files = x.listFiles();
+		Mail z = new Mail();
+
+		for (File file : files) {
+			String path1;
+			int t;
+			String c;
+			path1 = "Users/" + contact + "/Drafts/Index file.json";
+			t = z.order1(path1);
+			c = "" + t;
+			String dest2 = "Users/" + contact + "/Drafts/" + c;
+			File send = new File(dest2);
+			send.mkdirs();
+			send = new File(dest2 + "/" + file.getName());
+			z.save_attachement(file, send);
+		}
+	}
 
 }
