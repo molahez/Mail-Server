@@ -88,7 +88,7 @@ public class Server {
 	static SLinkedList content11 = new SLinkedList();
 	private JTextField textField11;
 	//
-	
+
 
 	/**
 	 * Launch the application.
@@ -204,31 +204,31 @@ public class Server {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new CardLayout(0, 0));
 
-		JPanel Home = new JPanel();
-		//ImagePanel Home = new ImagePanel(new ImageIcon("recources/home.png").getImage());
+		//JPanel Home = new JPanel();
+		ImagePanel Home = new ImagePanel(new ImageIcon("recources/home.png").getImage());
 		frame.getContentPane().add(Home);
 		/*
 		 * frame.pack(); frame.setVisible(true);
 		 */
 
-		 JPanel Signup = new JPanel();
-		//ImagePanel Signup = new ImagePanel(new ImageIcon("recources/home.png").getImage());
+		 //JPanel Signup = new JPanel();
+		ImagePanel Signup = new ImagePanel(new ImageIcon("recources/home.png").getImage());
 		frame.getContentPane().add(Signup, "name_737580920323");
 		Signup.setVisible(false);
 
-		JPanel Main = new JPanel();
-		//ImagePanel Main = new ImagePanel(new ImageIcon("recources/main.jpg").getImage());
+		//JPanel Main = new JPanel();
+		ImagePanel Main = new ImagePanel(new ImageIcon("recources/main.jpg").getImage());
 		frame.getContentPane().add(Main, "name_4931018976449");
 		Main.setLayout(null);
 		Main.setVisible(false);
 
-		//ImagePanel Settings = new ImagePanel(new ImageIcon("recources/home.png").getImage());
-		JPanel Settings = new JPanel();
+		ImagePanel Settings = new ImagePanel(new ImageIcon("recources/home.png").getImage());
+		//JPanel Settings = new JPanel();
 		frame.getContentPane().add(Settings, "name_9586204940422");
 		Settings.setLayout(null);
 		Settings.setVisible(false);
 
-		
+
 		JPanel Compose = new JPanel();
 		frame.getContentPane().add(Settings, "name_9586204940422");
 		frame.getContentPane().add(Compose, "name_10636674609855");
@@ -2323,18 +2323,13 @@ public class Server {
 					label_4.setText((String) ((Sorting) content1.get(0)).pq);
 					label_5.setText((String) ((Sorting) content1.get(0)).time);
 					textArea1.append((String) ((Sorting) content1.get(0)).body);
-					String order = Integer.toString((Sorting.get_page() - 1) * 10);
+					String order = ((Sorting) emails.get(row + (Sorting.get_page() - 1) * 10)).order;
 					String z = temp;
 					String contact = cont;
 					Emails_view.setVisible(false);
 					Email_content.setVisible(true);
 					Mail x = new Mail();
-					 beka= x.details_attachment(order, z, contact);
-					
-				
-					
-					
-
+					 beka = x.details_attachment(order, folderchosen, cont);
 				}
 
 			}
@@ -2566,11 +2561,10 @@ public class Server {
 		button11.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		button11.setBounds(731, 486, 131, 45);
 		Email_content.add(button11);
-		
+
 		JButton btnViewAttachements = new JButton("View Attachements");
 		btnViewAttachements.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println(beka.size());
 				for(int i=0; i< beka.size();i++) {
 					try {
 						java.awt.Desktop.getDesktop().open(new File(beka.get(i)));
@@ -2584,7 +2578,7 @@ public class Server {
 		btnViewAttachements.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		btnViewAttachements.setBounds(380, 485, 191, 45);
 		Email_content.add(btnViewAttachements);
-		
+
 		// Search view
 
 		JButton button111 = new JButton("Previous_Page");
